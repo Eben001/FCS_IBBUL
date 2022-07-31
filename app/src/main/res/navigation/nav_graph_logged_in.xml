@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_logged_in"
+    app:startDestination="@id/navigation_announcement">
+
+    <fragment
+
+        android:id="@+id/navigation_announcement"
+        android:name="com.ebenezer.gana.fcsibbul.ui.announcement.announcementList.AnnouncementListFragment"
+        android:label="@string/title_announcement"
+        tools:layout="@layout/announcementlist_fragment">
+        <action
+            android:id="@+id/action_navigation_announcement_to_announcementDetailsFragment"
+            app:destination="@id/navigation_announcement_details" />
+        <action
+            android:id="@+id/action_navigation_announcement_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_excos"
+        android:name="com.ebenezer.gana.fcsibbul.ui.excos.excosList.ExcosListFragment"
+        android:label="Excos"
+        tools:layout="@layout/excoslist_fragment">
+        <action
+            android:id="@+id/action_navigation_excos_to_navigation_excos_details"
+            app:destination="@id/navigation_excos_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_announcement_details"
+        tools:layout="@layout/announcement_details_fragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails.AnnouncementDetailsFragment"
+        android:label="Details" >
+        <argument
+            android:name="announcement"
+            app:argType="com.ebenezer.gana.fcsibbul.data.models.Announcement" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_hostActivityLoggedOut"
+            app:destination="@id/hostActivityLoggedOut"
+           />
+    </fragment>
+    <activity
+        tools:layout="@layout/activity_host_logged_out"
+        android:id="@+id/hostActivityLoggedOut"
+        android:name="com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedOut"
+        android:label="HostActivityLoggedOut" />
+    <fragment
+        android:id="@+id/navigation_excos_details"
+        android:name="com.ebenezer.gana.fcsibbul.ui.excos.excosDetails.ExcosDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_excos_details">
+        <argument
+            android:name="exco"
+            app:argType="com.ebenezer.gana.fcsibbul.data.models.Exco" />
+    </fragment>
+    <include app:graph="@navigation/nav_graph_admin" />
+    <fragment
+        android:id="@+id/navigation_daily_guide"
+        android:name="com.ebenezer.gana.fcsibbul.ui.dailyGuide.DailyGuideFragment"
+        android:label="@string/daily_guide"
+        tools:layout="@layout/fragment_daily_guide" />
+    <fragment
+        android:id="@+id/navigation_fcs_song"
+        android:name="com.ebenezer.gana.fcsibbul.ui.FcsSongFragment"
+        android:label="FCS Song"
+        tools:layout="@layout/fragment_fcs_song" />
+</navigation>

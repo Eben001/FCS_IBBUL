@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.admin.dashboard.AdminDashboardFragment">
+
+
+        <LinearLayout
+            android:id="@+id/ll_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/content_description"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_lovely_people" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post_announcement"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/post_announcement" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_exco"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_an_exco" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_exco"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/edit_exco_details" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete_exco"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/delete_exco" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_not_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/image_admin"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:contentDescription="@string/content_description"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_admin_auth" />
+
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/not_an_admin"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadline5" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>

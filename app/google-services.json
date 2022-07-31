@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "490313481243",
+    "project_id": "fcs-ibbul",
+    "storage_bucket": "fcs-ibbul.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490313481243:android:b8b272f45e7b88203e8cbe",
+        "android_client_info": {
+          "package_name": "com.ebenezer.gana.fcsibbul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490313481243-4bu3lituca1jm3nmuug0q7cabtr6su6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ebenezer.gana.fcsibbul",
+            "certificate_hash": "9b2b664fc76439a6e86b50337aaa3208404b0072"
+          }
+        },
+        {
+          "client_id": "490313481243-b28ofl470e6p70ig9qbp2032skbvjmph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8g498IzsK13GvcoQuoxg4861Izfm32JE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490313481243-b28ofl470e6p70ig9qbp2032skbvjmph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

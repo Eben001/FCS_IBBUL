@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_admin"
+    app:startDestination="@id/adminDashboardFragment">
+
+    <fragment
+        android:id="@+id/adminDashboardFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.dashboard.AdminDashboardFragment"
+        tools:layout="@layout/fragment_admin_dashboard">
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_postAnnouncementFragment"
+            app:destination="@id/postAnnouncementFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_addExcoFragment"
+            app:destination="@id/addExcoFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_editExcoFragment"
+            app:destination="@id/editExcoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addExcoFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.addExco.AddExcoFragment"
+        android:label="Add Exco"
+        tools:layout="@layout/fragment_add_exco" >
+        <action
+            android:id="@+id/action_addExcoFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment"
+            app:popUpTo="@id/adminDashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editExcoFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.editExco.EditExcoFragment"
+        android:label="Edit Exco"
+        tools:layout="@layout/fragment_edit_exco" >
+        <action
+            android:id="@+id/action_editExcoFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment"
+            app:popUpTo="@id/adminDashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/postAnnouncementFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragment"
+        android:label="@string/post_announcement"
+        tools:layout="@layout/fragment_post_announcement">
+        <action
+
+            android:id="@+id/action_postAnnouncementFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment"
+            app:popUpTo="@id/adminDashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

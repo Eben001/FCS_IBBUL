@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1645" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable-v24/ic_white_color_back_24dp.xml" value="0.1875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/app_gradient_color_background.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_admin.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_admin_auth.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_announcement.xml" value="0.18" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_announcement_white.xml" value="0.18" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_appreciation.xml" value="0.1875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_bible_quotes.xml" value="0.143" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_contact_us.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_daily_guide.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1645" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_donate.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_excos.xml" value="0.1645" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_filled_like.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1645" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_lovely_people.xml" value="0.122" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1645" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_rate_me.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_setting.xml" value="0.1875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_settings.xml" value="0.1875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_share.xml" value="0.1875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_song.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_toggle.xml" value="0.138" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_unfilled_like.xml" value="0.187" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable/ic_vector_settings.xml" value="0.109" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_host_logged_in.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_host_logged_out.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_settings.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_test.xml" value="0.22" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/announcementList_fragment.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/announcement_details_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/announcement_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/announcementlist_fragment.xml" value="0.17083333333333334" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/excosList_fragment.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/excos_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/excoslist_fragment.xml" value="0.2703488372093023" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_add_exco.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_admin_dashboard.xml" value="0.2" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_admin_login.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_daily_guide.xml" value="0.17864583333333334" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_dashboard.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_edit_exco.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_excos_details.xml" value="0.33" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_fcs_song.xml" value="0.17864583333333334" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_host.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_host_logged_in.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_host_logged_out.xml" value="0.17083333333333334" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_post_announcement.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/fragment_settings.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/list_item_announcement.xml" value="0.33" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/list_item_excos.xml" value="0.5" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/login_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/nav_header.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/nav_logged_in.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/settings_activity.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/settings_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/sign_up_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/menu/announcement_menu.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/menu/drawer_menu.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/menu/logout_menu.xml" value="0.2" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/menu/settings_menu.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/xml/root_preferences.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

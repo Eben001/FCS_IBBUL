@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">FCS IBBUL</string>
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="login_account">LOGIN</string>
+    <string name="hint_first_name_req">First Name <font color='#FF0000'>*</font></string>
+    <string name="hint_last_name_req">Last Name <font color='#FF0000'>*</font></string>
+    <string name="hint_email_req">Email ID <font color='#FF0000'>*</font></string>
+    <string name="hint_not_email_req">Email ID</string>
+    <string name="hint_password_req">Password<font color='#FF0000'>*</font></string>
+    <string name="hint_confirm_password_req">Confirm<font color='#FF0000'>*</font></string>
+
+
+    <string name="err_msg_enter_first_name">Please enter first name.</string>
+    <string name="err_msg_enter_last_name">Please enter last name.</string>
+    <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="err_msg_enter_password">Please enter password.</string>
+    <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
+    <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
+
+
+    <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Conditions </u></string>
+    <string name="btn_lbl_register">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="title_announcement">Announcement</string>
+    <string name="title_excos">Excos</string>
+    <string name="lbl_forgot_password">Forgot Password ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="content_description">Background image</string>
+    <string name="fake_announcement">FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, \npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.\npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.\npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice. FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice</string>
+    <string name="excos_image">Excos Excecutive Image</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="err_unable_to_load_announcement">Unable to refresh. Please check your internet connection</string>
+    <string name="err_try_again">Something went wrong. Please try again</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="click_to_like_the_announcement">click to like the announcement</string>
+    <string name="settings">Settings</string>
+    <string name="title_support_us">Suppot us</string>
+    <string name="title_donate">Donate</string>
+    <string name="title_rate_me">Rate me</string>
+    <string name="title_contact_us">Contact us</string>
+    <string name="daily_guide">Daily Guide</string>
+    <string name="bible_quotes">Bible Quotes</string>
+    <string name="fcs_song">FCS Song</string>
+    <string name="exam_song">Exam Song</string>
+    <string name="admin">Admin</string>
+    <string name="admin_login">Admin</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="hint_title_req">Title</string>
+    <string name="hint_details_req">Details</string>
+    <string name="post">Post</string>
+    <string name="hint_phone_req">Phone number</string>
+    <string name="hint_office_req">Office <font color='#FF0000'>*</font></string>
+    <string name="post_announcement">Post Announcement</string>
+    <string name="add_an_exco">Add an Exco</string>
+    <string name="edit_exco_details">Edit Exco Details</string>
+    <string name="delete_exco">Delete Exco</string>
+    <string name="announcement">Announcement</string>
+    <string name="excos">Excos</string>
+    <string name="log_out">Log out</string>
+    <string name="success">Posted Successfully!=</string>
+    <string name="err_msg_title">Please enter a title</string>
+    <string name="err_msg_details">Please enter announcement details</string>
+    <string name="not_an_admin">You are not an admin. Please contact your administrator</string>
+    <string name="success_registration">Registration Successful </string>
+    <string name="admin_success">Login Success</string>
+    <string name="error">Error</string>
+    <string name="dashboard">Dashboard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mock_data_fcs_song">I Don\'t care what Church you belongs to.But as far as in Jesus you stand.If by Grace through faith you\'ve been Saved.Your my Brother/Sister so give me your hands x2</string>
+
+
+    <string name="dialog_title">Contact us</string>
+    <string name="dialog_message">You can contact us on fcsibbul@gmail.com</string>
+
+    <string name="dialog_donate_title">Donate</string>
+    <string name="ok_dialog_message">Okay</string>
+    <string name="dialog_donate_message">Thank You for choosing to support this Project. \nYou can send your donations to :\n2122024186 UBA FCSIBBUL</string>
+
+
+</resources>

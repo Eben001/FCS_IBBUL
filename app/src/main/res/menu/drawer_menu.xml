@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/announcement"
+            android:icon="@drawable/ic_announcement"
+            android:title="@string/announcement" />
+
+        <item
+            android:id="@+id/daily_guide"
+            android:icon="@drawable/ic_daily_guide"
+            android:title="@string/daily_guide" />
+
+        <item
+            android:id="@+id/bible_quotes"
+            android:icon="@drawable/ic_bible_quotes"
+            android:title="@string/bible_quotes" />
+        <item
+            android:id="@+id/fcs_song"
+            android:icon="@drawable/ic_song"
+            android:title="@string/fcs_song" />
+
+    </group>
+
+
+
+    <item android:title="@string/title_support_us">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/donate"
+                    android:icon="@drawable/ic_donate"
+                    android:title="@string/title_donate" />
+
+
+                <item
+                    android:id="@+id/rate_me"
+                    android:icon="@drawable/ic_rate_me"
+                    android:title="@string/title_rate_me" />
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="@string/admin">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/admin_login"
+                    android:icon="@drawable/ic_admin"
+                    android:title="@string/admin_login" />
+                <item
+                    android:id="@+id/contact_us"
+                    android:icon="@drawable/ic_contact_us"
+                    android:title="@string/title_contact_us" />
+
+
+            </group>
+        </menu>
+
+
+    </item>
+
+</menu>
