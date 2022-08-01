@@ -14,7 +14,6 @@ import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 
 class AnnouncementDetailsFragment : BaseFragment() {
 
-
     private val viewModel: AnnouncementDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
@@ -34,30 +33,21 @@ class AnnouncementDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val announcement = navigationArgs.announcement
-        bind(announcement)
-
-        observeViewModels()
-
         viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
         viewModel.getUpdatedLikes(announcement.announcementId!!)
 
-        binding.likeImage.setOnClickListener {
-            viewModel.likeAnnouncement(
-                viewModel.updatedLikeCount.value!!,
-                viewModel.updatedLikedUsers.value!!,
-                announcement.announcementId!!
-            )
+        bind(announcement)
+        observeViewModels()
+        setOnClickListeners(announcement)
+    }
 
+    private fun bind(announcement: Announcement) {
+        binding.apply {
+            title.text = announcement.title
+            announcementDetails.text = announcement.details
+            announcementDateTime.text = announcement.date
+            likes.text = announcement.likeCount.toString()
         }
-        binding.share.setOnClickListener{
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT,
-                "${announcement.title} \n\n ${announcement.details} \n${announcement.date}")
-                type = "text/plain"
-            }.run { startActivity(Intent.createChooser(this, null)) }
-        }
-
     }
 
     private fun observeViewModels() {
@@ -79,16 +69,26 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     }
 
+    private fun setOnClickListeners(announcement: Announcement) {
+        binding.likeImage.setOnClickListener {
+            viewModel.likeAnnouncement(
+                viewModel.updatedLikeCount.value!!,
+                viewModel.updatedLikedUsers.value!!,
+                announcement.announcementId!!
+            )
 
-    private fun bind(announcement: Announcement) {
-        binding.apply {
-            title.text = announcement.title
-            announcementDetails.text = announcement.details
-            announcementDateTime.text = announcement.date
-            likes.text = announcement.likeCount.toString()
+        }
+        binding.share.setOnClickListener {
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "${announcement.title} \n\n ${announcement.details} \n${announcement.date}"
+                )
+                type = "text/plain"
+            }.run { startActivity(Intent.createChooser(this, null)) }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
