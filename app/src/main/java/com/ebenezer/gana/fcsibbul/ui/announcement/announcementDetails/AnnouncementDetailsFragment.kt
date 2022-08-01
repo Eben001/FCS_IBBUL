@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,14 @@ class AnnouncementDetailsFragment : BaseFragment() {
                 announcement.announcementId!!
             )
 
+        }
+        binding.share.setOnClickListener{
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT,
+                "${announcement.title} \n\n ${announcement.details} \n${announcement.date}")
+                type = "text/plain"
+            }.run { startActivity(Intent.createChooser(this, null)) }
         }
 
     }
