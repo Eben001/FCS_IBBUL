@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
@@ -81,13 +80,13 @@ class PostAnnouncementFragment : BaseFragment() {
     private fun isValidDetails(): Boolean {
         return when {
             binding.etTitle.text.toString().trim().isEmpty() -> {
-                showErrorSnackBar(
+                showSnackBar(
                     resources.getString(R.string.err_msg_title),
                     isError = true)
                 false
             }
             binding.etDetails.text.toString().trim().isEmpty() -> {
-                showErrorSnackBar(
+                showSnackBar(
                     resources.getString(R.string.err_msg_details),
                     isError = true)
 

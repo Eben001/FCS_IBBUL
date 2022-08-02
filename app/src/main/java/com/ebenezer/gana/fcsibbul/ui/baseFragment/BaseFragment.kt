@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
      * @param message the message to display on the snack bar
      * @param isError changes the color of the snackBar if true or false
      */
-    fun showErrorSnackBar(message: String, isError: Boolean) {
+    fun showSnackBar(message: String, isError: Boolean) {
         val snackBar = Snackbar.make(
             requireActivity().findViewById(android.R.id.content),
             message, Snackbar.LENGTH_LONG
