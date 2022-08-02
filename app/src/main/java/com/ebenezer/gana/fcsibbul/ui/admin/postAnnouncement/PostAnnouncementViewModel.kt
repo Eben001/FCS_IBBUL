@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText

@@ -63,7 +63,7 @@
     <string name="announcement">Announcement</string>
     <string name="excos">Excos</string>
     <string name="log_out">Log out</string>
-    <string name="success">Posted Successfully!=</string>
+    <string name="success">Posted Successfully!</string>
     <string name="err_msg_title">Please enter a title</string>
     <string name="err_msg_details">Please enter announcement details</string>
     <string name="not_an_admin">You are not an admin. Please contact your administrator</string>

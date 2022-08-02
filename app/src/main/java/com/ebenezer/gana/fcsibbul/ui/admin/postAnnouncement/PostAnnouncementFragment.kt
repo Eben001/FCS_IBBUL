@@ -81,19 +81,16 @@ class PostAnnouncementFragment : BaseFragment() {
     private fun isValidDetails(): Boolean {
         return when {
             binding.etTitle.text.toString().trim().isEmpty() -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_title),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
             binding.etDetails.text.toString().trim().isEmpty() -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_details),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
+
                 false
             }
             else -> true
