@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.SignUpFragmentBinding
+import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : BaseFragment() {
 
     private var _binding: SignUpFragmentBinding? = null
     private val binding get() = _binding!!
@@ -78,72 +79,57 @@ class SignUpFragment : Fragment() {
             TextUtils.isEmpty(
                 binding.etFirstName.text.toString()
                     .trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
-                    resources.getString(R.string.err_msg_enter_first_name),
-                    Toast.LENGTH_SHORT
-                ).show()
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name),
+                isError = true)
                 false
             }
             TextUtils.isEmpty(
                 binding.etLastName.text.toString()
                     .trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_last_name),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
 
             TextUtils.isEmpty(
                 binding.etEmail.text.toString()
                     .trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_email),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
 
             TextUtils.isEmpty(
                 binding.etPassword.text.toString()
                     .trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_password),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
 
             TextUtils.isEmpty(
                 binding.etConfirmPassword.text.toString()
                     .trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_confirm_password),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
             binding.etPassword.text.toString()
                 .trim { it <= ' ' } != binding.etConfirmPassword.text.toString()
                 .trim { it <= ' ' } -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_password_and_confirm_password_mismatch),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
             !binding.cbTermsAndCondition.isChecked -> {
-                Toast.makeText(
-                    requireContext(),
+                showErrorSnackBar(
                     resources.getString(R.string.err_msg_agree_terms_and_condition),
-                    Toast.LENGTH_SHORT
-                ).show()
+                    isError = true)
                 false
             }
             else -> {
