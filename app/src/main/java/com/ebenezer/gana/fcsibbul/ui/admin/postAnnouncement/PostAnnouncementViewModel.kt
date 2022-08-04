@@ -46,7 +46,7 @@ class PostAnnouncementViewModel : ViewModel() {
 
     /**
      * Function to be called from PostAnnouncementFragment to prepare the announcement details to be posted
-     * @param id the id of the current logged in user
+     * @param userId the id of the current logged in user
      * @param title the title of the announcement
      * @param details announcement details
      * @param date date and time the announcement was made.

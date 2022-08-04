@@ -55,6 +55,12 @@ class PostAnnouncementFragment : BaseFragment() {
     private fun setOnclickListeners() {
         binding.postAnnouncement.setOnClickListener {
             if (isValidDetails()) {
+
+                /**
+                 * Performs a network check
+                 * @param action the action to perform when there is internet connection
+                 * @param onNoInternet shows a no internet dialog
+                 */
                 networkStatusChecker.performIfConnectedToInternetOrNot(
                     action = {
                         viewModel.verifyIfAdmin()
