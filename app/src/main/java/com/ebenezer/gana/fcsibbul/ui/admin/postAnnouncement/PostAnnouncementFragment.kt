@@ -41,13 +41,19 @@ class PostAnnouncementFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeViewModels()
+        setOnclickListeners()
 
+    }
+
+    private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+    private fun setOnclickListeners() {
         binding.postAnnouncement.setOnClickListener {
-
             if (isValidDetails()) {
                 networkStatusChecker.performIfConnectedToInternetOrNot(
                     action = {
@@ -74,9 +80,8 @@ class PostAnnouncementFragment : BaseFragment() {
 
 
         }
+
     }
-
-
     private fun postNewAnnouncement() {
         val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy") // e.g  9:43AM, 1 Oct 2022
         val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
@@ -90,7 +95,6 @@ class PostAnnouncementFragment : BaseFragment() {
 
         )
     }
-
     private fun isValidDetails(): Boolean {
         return when {
             binding.etTitle.text.toString().trim().isEmpty() -> {
