@@ -40,6 +40,7 @@ class PostAnnouncementFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.verifyIfAdmin()
 
         observeViewModels()
         setOnclickListeners()
@@ -63,7 +64,6 @@ class PostAnnouncementFragment : BaseFragment() {
                  */
                 networkStatusChecker.performIfConnectedToInternetOrNot(
                     action = {
-                        viewModel.verifyIfAdmin()
                         // is the user is an admin
                         if (viewModel.isAdmin.value == true) {
                             postNewAnnouncement()
