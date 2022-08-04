@@ -1,6 +1,7 @@
 package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostAnnouncementBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import java.text.SimpleDateFormat
@@ -23,6 +25,10 @@ class PostAnnouncementFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: PostAnnouncementViewModel by viewModels()
 
+    private val networkStatusChecker by lazy {
+        NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,29 +41,34 @@ class PostAnnouncementFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.verifyIfAdmin()
-        viewModel.result.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT).show()
+
+        viewModel.result.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT)
+                .show()
         }
         binding.postAnnouncement.setOnClickListener {
 
-            //Is the announcement details valid?
-            /**
-             * We need to also check if the user has internet connection.
-             * This will enable us fetch the users role.
-             */
             if (isValidDetails()) {
-
-                // is the user is an admin
-                if (viewModel.isAdmin.value == true) {
-                    postNewAnnouncement()
-                    clearTextEntries()
-                    hideKeyboard()
-                } else {
-                    val action =
-                        PostAnnouncementFragmentDirections.actionPostAnnouncementFragmentToAdminDashboardFragment()
-                    this.findNavController().navigate(action)
-                }
+                networkStatusChecker.performIfConnectedToInternetOrNot(
+                    action = {
+                        viewModel.verifyIfAdmin()
+                        // is the user is an admin
+                        if (viewModel.isAdmin.value == true) {
+                            postNewAnnouncement()
+                            clearTextEntries()
+                            hideKeyboard()
+                        } else {
+                            val action =
+                                PostAnnouncementFragmentDirections.actionPostAnnouncementFragmentToAdminDashboardFragment()
+                            this.findNavController().navigate(action)
+                        }
+                    },
+                    onNoInternet = {
+                        showSnackBar(
+                            resources.getString(R.string.msg_connect_to_the_internet),
+                            isError = true
+                        )
+                    })
 
             }
 
@@ -67,8 +78,8 @@ class PostAnnouncementFragment : BaseFragment() {
 
 
     private fun postNewAnnouncement() {
-         val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy") // e.g  9:43AM, 1 Oct 2022
-         val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
+        val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy") // e.g  9:43AM, 1 Oct 2022
+        val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
         viewModel.postAnnouncement(
             userId = "",
             announcementId = "",
@@ -85,13 +96,15 @@ class PostAnnouncementFragment : BaseFragment() {
             binding.etTitle.text.toString().trim().isEmpty() -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_title),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
             binding.etDetails.text.toString().trim().isEmpty() -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_details),
-                    isError = true)
+                    isError = true
+                )
 
                 false
             }
@@ -100,11 +113,12 @@ class PostAnnouncementFragment : BaseFragment() {
 
     }
 
-    private fun clearTextEntries(){
+    private fun clearTextEntries() {
         binding.etTitle.text?.clear()
         binding.etDetails.text?.clear()
     }
-    private fun hideKeyboard(){
+
+    private fun hideKeyboard() {
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
                 InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
