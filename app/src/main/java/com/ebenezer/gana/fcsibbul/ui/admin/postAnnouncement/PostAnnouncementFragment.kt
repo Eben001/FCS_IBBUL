@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
@@ -35,6 +36,9 @@ class PostAnnouncementFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.verifyIfAdmin()
+        viewModel.result.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT).show()
+        }
         binding.postAnnouncement.setOnClickListener {
 
             //Is the announcement details valid?
@@ -47,9 +51,8 @@ class PostAnnouncementFragment : BaseFragment() {
                 // is the user is an admin
                 if (viewModel.isAdmin.value == true) {
                     postNewAnnouncement()
-                    val action =
-                        PostAnnouncementFragmentDirections.actionPostAnnouncementFragmentToAdminDashboardFragment()
-                    this.findNavController().navigate(action)
+                    clearTextEntries()
+                    hideKeyboard()
                 } else {
                     val action =
                         PostAnnouncementFragmentDirections.actionPostAnnouncementFragmentToAdminDashboardFragment()
@@ -97,13 +100,21 @@ class PostAnnouncementFragment : BaseFragment() {
 
     }
 
+    private fun clearTextEntries(){
+        binding.etTitle.text?.clear()
+        binding.etDetails.text?.clear()
+    }
+    private fun hideKeyboard(){
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         // Hide keyboard.
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
-                InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+        hideKeyboard()
         _binding = null
     }
 

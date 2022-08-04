@@ -1,9 +1,11 @@
 package com.ebenezer.gana.fcsibbul.data.repository.announcement
 
 import android.util.Log
+import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -46,7 +48,7 @@ class AnnouncementRepository {
     /**
      * Posts new announcement
      */
-    fun postAnnouncement(newAnnouncement: Announcement) {
+    fun postAnnouncement(newAnnouncement: Announcement, onResult:(UiText) -> Unit) {
 
         //Gets the id of the user who posted the announcement and go ahead with posting
         val announcement = Announcement(
@@ -60,8 +62,11 @@ class AnnouncementRepository {
         mFireStore.collection(Constants.ANNOUNCEMENTS)
             .document()
             .set(announcement, SetOptions.merge())
+            .addOnSuccessListener {
+                onResult(UiText.StringResource(R.string.success))
+            }
             .addOnFailureListener {
-                Log.e(TAG, "postAnnouncement: Error while posting announcement")
+               onResult(UiText.DynamicString(it.message!!))
             }
     }
 

@@ -39,7 +39,9 @@ class PostAnnouncementViewModel : ViewModel() {
     }
 
     private fun postNewAnnouncement(newAnnouncement: Announcement) {
-        repository.postAnnouncement(newAnnouncement)
+        repository.postAnnouncement(newAnnouncement, onResult = {
+            _result.value = it
+        })
     }
 
     /**
