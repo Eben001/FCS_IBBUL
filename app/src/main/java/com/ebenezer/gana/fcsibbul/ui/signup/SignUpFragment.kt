@@ -39,7 +39,11 @@ class SignUpFragment : BaseFragment() {
         }
 
         viewModel.result.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT).show()
+            if(viewModel.isSignupSuccess.value == true){
+                showSnackBar(it.asString(requireContext()), false)
+            }else{
+                showSnackBar(it.asString(requireContext()), true)
+            }
 
         }
 
@@ -61,17 +65,6 @@ class SignUpFragment : BaseFragment() {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
     private fun validateRegistrationDetails(): Boolean {
         return when {

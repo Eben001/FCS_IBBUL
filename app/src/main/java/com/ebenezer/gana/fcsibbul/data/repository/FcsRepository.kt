@@ -19,7 +19,7 @@ class FcsRepository {
     private var mFireStore = FirebaseFirestore.getInstance()
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun registerUser(user: User) {
+    private fun registerUser(user: User) {
         mFireStore.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
@@ -66,11 +66,11 @@ class FcsRepository {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
-                if(error!=null){
+                if (error != null) {
                     Log.d(TAG, "loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
-                if(value !=null){
+                if (value != null) {
                     val document = value.toObject(User::class.java)
                     user(document!!)
 
@@ -94,6 +94,32 @@ class FcsRepository {
     fun logoutUser() {
         firebaseAuth.signOut()
         loggedOut.value = true
+    }
+
+    fun createUserWithEmailAndPassword(
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess()
+                    // use the registered user to create a collection called users
+                    val firebaseUser = task.result!!.user!!
+                    val user = User(
+                        firebaseUser.uid,
+                        firstName, lastName, email,
+                        role = 0 // 0 for non admin role, 1 for admin
+                    )
+                    registerUser(user)
+                }
+            }.addOnFailureListener {
+               onFailure(it)
+            }
     }
 
 }
