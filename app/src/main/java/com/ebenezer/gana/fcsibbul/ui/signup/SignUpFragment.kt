@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
@@ -19,7 +18,6 @@ class SignUpFragment : BaseFragment() {
 
     private val viewModel: SignUpViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +29,11 @@ class SignUpFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeViewModels()
+        setOnClickListeners()
+    }
+
+    private fun observeViewModels() {
         viewModel.isSignupSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
                 val action = SignUpFragmentDirections.actionNavigationSignupToLoginFragment()
@@ -38,20 +41,21 @@ class SignUpFragment : BaseFragment() {
             }
         }
 
-        viewModel.result.observe(viewLifecycleOwner){
-            if(viewModel.isSignupSuccess.value == true){
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (viewModel.isSignupSuccess.value == true) {
                 showSnackBar(it.asString(requireContext()), false)
-            }else{
+            } else {
                 showSnackBar(it.asString(requireContext()), true)
             }
 
         }
 
+    }
+
+    private fun setOnClickListeners() {
         binding.tvLogin.setOnClickListener {
             findNavController().navigateUp()
         }
-
-
         binding.btnRegister.setOnClickListener {
             val email: String = binding.etEmail.text.toString().trim() { it <= ' ' }
             val password: String = binding.etPassword.text.toString().trim() { it <= ' ' }
@@ -71,8 +75,10 @@ class SignUpFragment : BaseFragment() {
             TextUtils.isEmpty(
                 binding.etFirstName.text.toString()
                     .trim { it <= ' ' }) -> {
-                showSnackBar(resources.getString(R.string.err_msg_enter_first_name),
-                isError = true)
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_first_name),
+                    isError = true
+                )
                 false
             }
             TextUtils.isEmpty(
@@ -80,7 +86,8 @@ class SignUpFragment : BaseFragment() {
                     .trim { it <= ' ' }) -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_last_name),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
 
@@ -89,7 +96,8 @@ class SignUpFragment : BaseFragment() {
                     .trim { it <= ' ' }) -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_email),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
 
@@ -98,7 +106,8 @@ class SignUpFragment : BaseFragment() {
                     .trim { it <= ' ' }) -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_password),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
 
@@ -107,7 +116,8 @@ class SignUpFragment : BaseFragment() {
                     .trim { it <= ' ' }) -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_confirm_password),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
             binding.etPassword.text.toString()
@@ -115,13 +125,15 @@ class SignUpFragment : BaseFragment() {
                 .trim { it <= ' ' } -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_password_and_confirm_password_mismatch),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
             !binding.cbTermsAndCondition.isChecked -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_agree_terms_and_condition),
-                    isError = true)
+                    isError = true
+                )
                 false
             }
             else -> {
