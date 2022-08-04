@@ -49,8 +49,11 @@ class PostAnnouncementFragment : BaseFragment() {
 
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT)
-                .show()
+            if(viewModel.isPostSuccess.value == true){
+                showSnackBar(it.asString(requireContext()), isError = false)
+            }else{
+                showSnackBar(it.asString(requireContext()), isError = true)
+            }
         }
     }
     private fun setOnclickListeners() {

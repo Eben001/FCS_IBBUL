@@ -48,7 +48,7 @@ class AnnouncementRepository {
     /**
      * Posts new announcement
      */
-    fun postAnnouncement(newAnnouncement: Announcement, onResult:(UiText) -> Unit) {
+    fun postAnnouncement(newAnnouncement: Announcement, onSuccess:(UiText) -> Unit, onFailure:(UiText) -> Unit) {
 
         //Gets the id of the user who posted the announcement and go ahead with posting
         val announcement = Announcement(
@@ -63,10 +63,10 @@ class AnnouncementRepository {
             .document()
             .set(announcement, SetOptions.merge())
             .addOnSuccessListener {
-                onResult(UiText.StringResource(R.string.success))
+                onSuccess(UiText.StringResource(R.string.success))
             }
             .addOnFailureListener {
-               onResult(UiText.DynamicString(it.message!!))
+               onFailure(UiText.DynamicString(it.message!!))
             }
     }
 

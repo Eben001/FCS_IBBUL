@@ -3,13 +3,15 @@ package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 
 class PostAnnouncementViewModel : ViewModel() {
     private val repository = AnnouncementRepository()
+
+    private var _isPostSuccess = MutableLiveData<Boolean>()
+    val isPostSuccess:LiveData<Boolean> = _isPostSuccess
 
     private var _result = MutableLiveData<UiText>()
     val result: LiveData<UiText> = _result
@@ -39,7 +41,12 @@ class PostAnnouncementViewModel : ViewModel() {
     }
 
     private fun postNewAnnouncement(newAnnouncement: Announcement) {
-        repository.postAnnouncement(newAnnouncement, onResult = {
+        repository.postAnnouncement(newAnnouncement, onSuccess = {
+            _isPostSuccess.value = true
+            _result.value = it
+        },
+        onFailure = {
+            _isPostSuccess.value = false
             _result.value = it
         })
     }
