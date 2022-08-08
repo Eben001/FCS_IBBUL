@@ -19,10 +19,12 @@ import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragmentDirections
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.M)
+@AndroidEntryPoint
 class AnnouncementDetailsFragment : BaseFragment() {
 
     private val viewModel: AnnouncementDetailsViewModel by viewModels()

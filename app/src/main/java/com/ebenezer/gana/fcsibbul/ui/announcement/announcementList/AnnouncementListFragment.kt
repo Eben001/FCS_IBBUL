@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 private const val TAG = "AnnouncementListFragment"
-
+@AndroidEntryPoint
 class AnnouncementListFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
 

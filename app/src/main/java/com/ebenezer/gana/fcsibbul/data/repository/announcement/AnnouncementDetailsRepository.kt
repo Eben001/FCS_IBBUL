@@ -9,17 +9,17 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
 private const val TAG = "AnnouncementDetailsRepo"
 
-class AnnouncementDetailsRepository {
-    private var mFireStore = FirebaseFirestore.getInstance()
+class AnnouncementDetailsRepository @Inject constructor(private val firestore: FirebaseFirestore) {
 
     fun getUpdatedLikedUsers(
         announcementId: String,
         likedUsers: (ArrayList<String>) -> Unit
     ) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -43,7 +43,7 @@ class AnnouncementDetailsRepository {
 
 
     fun addLike(likedUser: String, documentId: String) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(documentId)
             .update("likedBy", FieldValue.arrayUnion(likedUser))
             .addOnSuccessListener {
@@ -55,7 +55,7 @@ class AnnouncementDetailsRepository {
     }
 
     fun updateLikeHasMap(updateHashMap: HashMap<String, Any>, documentId: String) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(documentId)
             .update(updateHashMap)
             .addOnSuccessListener {
@@ -67,7 +67,7 @@ class AnnouncementDetailsRepository {
     }
 
     fun removeLike(likedBy: String, documentId: String) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(documentId)
             .update("likedBy", FieldValue.arrayRemove(likedBy))
             .addOnSuccessListener {
@@ -80,7 +80,7 @@ class AnnouncementDetailsRepository {
 
 
     fun getUpdatedLikes(announcementId: String, announcement: (likes: Long) -> Unit) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -103,7 +103,7 @@ class AnnouncementDetailsRepository {
     }
 
     fun deleteAnnouncement(announcementId: String, onSuccess: (UiText) -> Unit, onFailure:(UiText) -> Unit) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document(announcementId)
             .delete()
             .addOnSuccessListener {
@@ -120,7 +120,7 @@ class AnnouncementDetailsRepository {
      * This information will be used to check if the user is an admin or not
      */
     fun verifyIfAdmin(user: (User) -> Unit) {
-        mFireStore.collection(Constants.USERS)
+        firestore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {

@@ -3,14 +3,15 @@ package com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AnnouncementDetailsViewModel : ViewModel() {
-
-    private val repository = AnnouncementDetailsRepository()
+@HiltViewModel
+class AnnouncementDetailsViewModel @Inject constructor(private val repository: AnnouncementDetailsRepository) :
+    ViewModel() {
 
     private val _likesCount = MutableLiveData<Long>()
     val likesCount: LiveData<Long> = _likesCount
@@ -62,7 +63,7 @@ class AnnouncementDetailsViewModel : ViewModel() {
         _alreadyLiked.value = likedBy.contains(getCurrentUserId())
     }
 
-    fun deleteAnnouncement(announcementId:String) {
+    fun deleteAnnouncement(announcementId: String) {
         repository.deleteAnnouncement(announcementId,
             onSuccess = {
                 _isDeleteSuccess.value = true

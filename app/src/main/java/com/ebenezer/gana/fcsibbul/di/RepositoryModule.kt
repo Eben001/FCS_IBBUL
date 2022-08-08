@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.di
 
+import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -15,5 +16,7 @@ object RepositoryModule {
     @Singleton
     fun provideAnnouncementRepo(firestore: FirebaseFirestore) =
         AnnouncementRepository(firestore)
+
+    fun provideAnnouncementDetailsRepo(firestore: FirebaseFirestore) = AnnouncementDetailsRepository(firestore)
 
 }
