@@ -9,19 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
-import com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragmentDirections
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
@@ -82,18 +78,21 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
                     if (viewModel.isAdmin.value == true) {
                         showConfirmDeleteDialog(announcement)
-                        viewModel.result.observe(viewLifecycleOwner){
-                            if(viewModel.isDeleteSuccess.value == true){
+                        viewModel.result.observe(viewLifecycleOwner) {
+                            if (viewModel.isDeleteSuccess.value == true) {
                                 showSnackBar(it.asString(requireContext()), isError = false)
                                 findNavController().navigateUp()
-                            }else{
+                            } else {
                                 showSnackBar(it.asString(requireContext()), isError = true)
                                 findNavController().navigateUp()
                             }
                         }
 
                     } else {
-                       showSnackBar(resources.getString(R.string.text_unauthorized_action), isError = true)
+                        showSnackBar(
+                            resources.getString(R.string.text_unauthorized_action),
+                            isError = true
+                        )
                     }
                 },
                 onNoInternet = {
@@ -124,12 +123,12 @@ class AnnouncementDetailsFragment : BaseFragment() {
     }
 
     private fun observeViewModels() {
-        viewModel.isAdmin.observe(viewLifecycleOwner){isAdmin->
-           if(isAdmin){
-               binding.deleteImage.visibility = View.VISIBLE
-           }else{
-               binding.deleteImage.visibility = View.GONE
-           }
+        viewModel.isAdmin.observe(viewLifecycleOwner) { isAdmin ->
+            if (isAdmin) {
+                binding.deleteImage.visibility = View.VISIBLE
+            } else {
+                binding.deleteImage.visibility = View.GONE
+            }
         }
 
 

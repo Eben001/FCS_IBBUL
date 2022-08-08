@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -54,13 +53,14 @@ class PostAnnouncementFragment : BaseFragment() {
 
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
-            if(viewModel.isPostSuccess.value == true){
+            if (viewModel.isPostSuccess.value == true) {
                 showSnackBar(it.asString(requireContext()), isError = false)
-            }else{
+            } else {
                 showSnackBar(it.asString(requireContext()), isError = true)
             }
         }
     }
+
     private fun setOnclickListeners() {
         binding.postAnnouncement.setOnClickListener {
             if (isValidDetails()) {
@@ -96,6 +96,7 @@ class PostAnnouncementFragment : BaseFragment() {
         }
 
     }
+
     private fun postNewAnnouncement() {
         val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy") // e.g  9:43AM, 1 Oct 2022
         val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
@@ -109,6 +110,7 @@ class PostAnnouncementFragment : BaseFragment() {
 
         )
     }
+
     private fun isValidDetails(): Boolean {
         return when {
             binding.etTitle.text.toString().trim().isEmpty() -> {
