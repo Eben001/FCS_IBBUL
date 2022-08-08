@@ -10,17 +10,18 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedOutBinding
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HostActivityLoggedOut : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityHostLoggedOutBinding
     private lateinit var navController: NavController
-
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = firebaseAuth.currentUser
         user?.let {
             val intent = Intent(this@HostActivityLoggedOut, HostActivityLoggedIn::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
