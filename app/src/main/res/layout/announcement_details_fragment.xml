@@ -94,8 +94,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        tools:text="0"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        tools:text="0" />
 
 
                     <ImageView
@@ -106,6 +106,13 @@
                         android:contentDescription="@string/click_to_like_the_announcement"
                         android:src="@drawable/ic_share" />
 
+                    <ImageView
+                        android:id="@+id/deleteImage"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="16dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_vector_delete" />
 
 
                 </LinearLayout>
