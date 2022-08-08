@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ebenezer.gana.fcsibbul.R
@@ -17,6 +18,8 @@ import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragmentDirections
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.M)
 class AnnouncementDetailsFragment : BaseFragment() {
@@ -76,7 +79,16 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
                     if (viewModel.isAdmin.value == true) {
                         announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
-                        findNavController().navigateUp()
+
+                        viewModel.result.observe(viewLifecycleOwner){
+                            if(viewModel.isDeleteSuccess.value == true){
+                                showSnackBar(it.asString(requireContext()), isError = false)
+                                findNavController().navigateUp()
+                            }else{
+                                showSnackBar(it.asString(requireContext()), isError = true)
+                                findNavController().navigateUp()
+                            }
+                        }
 
                     } else {
                        showSnackBar(resources.getString(R.string.text_unauthorized_action), isError = true)
@@ -117,13 +129,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
                binding.deleteImage.visibility = View.GONE
            }
         }
-        viewModel.result.observe(viewLifecycleOwner){
-            if(viewModel.isDeleteSuccess.value == true){
-                showSnackBar(it.asString(requireContext()), isError = false)
-            }else{
-                showSnackBar(it.asString(requireContext()), isError = true)
-            }
-        }
+
 
         viewModel.alreadyLiked.observe(viewLifecycleOwner) { alreadyLiked ->
             binding.likeImage.setImageResource(
