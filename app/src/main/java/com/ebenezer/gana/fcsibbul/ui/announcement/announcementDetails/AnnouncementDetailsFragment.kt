@@ -18,6 +18,7 @@ import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragmentDirections
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -78,8 +79,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
                     // is the user is an admin
 
                     if (viewModel.isAdmin.value == true) {
-                        announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
-
+                        showConfirmDeleteDialog(announcement)
                         viewModel.result.observe(viewLifecycleOwner){
                             if(viewModel.isDeleteSuccess.value == true){
                                 showSnackBar(it.asString(requireContext()), isError = false)
@@ -146,6 +146,25 @@ class AnnouncementDetailsFragment : BaseFragment() {
         viewModel.updatedLikedUsers.observe(viewLifecycleOwner) {
             viewModel.checkLike(it)
         }
+
+    }
+
+    fun showConfirmDeleteDialog(announcement: Announcement) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.delete_dialog_title))
+            .setMessage(resources.getString(R.string.delete_dialog_message))
+            .setIcon(R.drawable.ic_vector_delete)
+            .setNeutralButton(resources.getString(R.string.cancel_dialog_message)) { dialog, _ ->
+                dialog.cancel()
+            }
+            .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
+                announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
+                dialog.dismiss()
+            }
+            .show()
 
     }
 
