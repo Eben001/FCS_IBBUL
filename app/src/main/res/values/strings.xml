@@ -85,6 +85,7 @@
     <string name="msg_connect_to_the_internet">You need to be connected to the internet to make a post</string>
     <string name="text_unauthorized_action">You are not authorized to perform this action</string>
     <string name="msg_connect_to_the_internet_to_delete">You need to be connected to the internet to delete this announcement</string>
+    <string name="success_delete">Deleted Successfully</string>
 
 
 </resources>

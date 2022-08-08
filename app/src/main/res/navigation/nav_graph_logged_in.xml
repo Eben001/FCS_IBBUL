@@ -35,6 +35,9 @@
         <argument
             android:name="announcement"
             app:argType="com.ebenezer.gana.fcsibbul.data.models.Announcement" />
+        <action
+            android:id="@+id/action_navigation_announcement_details_to_navigation_announcement"
+            app:destination="@id/navigation_announcement" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

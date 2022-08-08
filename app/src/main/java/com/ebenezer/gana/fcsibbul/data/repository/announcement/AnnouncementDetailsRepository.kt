@@ -107,7 +107,7 @@ class AnnouncementDetailsRepository {
             .document(announcementId)
             .delete()
             .addOnSuccessListener {
-                onSuccess(UiText.StringResource(R.string.success))
+                onSuccess(UiText.StringResource(R.string.success_delete))
             }
             .addOnFailureListener {
                 onFailure(UiText.DynamicString(it.localizedMessage!!))

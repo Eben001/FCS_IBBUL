@@ -76,6 +76,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
                     if (viewModel.isAdmin.value == true) {
                         announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
+                        findNavController().navigateUp()
 
                     } else {
                        showSnackBar(resources.getString(R.string.text_unauthorized_action), isError = true)
