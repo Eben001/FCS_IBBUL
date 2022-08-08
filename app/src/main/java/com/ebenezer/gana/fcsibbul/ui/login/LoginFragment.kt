@@ -17,14 +17,14 @@ import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringContainNumber
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringContainSpecialCharacter
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringLowerAndUpperCase
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isValidEmail
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
-
 
     private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

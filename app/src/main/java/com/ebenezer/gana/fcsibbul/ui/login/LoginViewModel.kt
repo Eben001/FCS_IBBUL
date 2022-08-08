@@ -1,15 +1,15 @@
 package com.ebenezer.gana.fcsibbul.ui.login
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.google.firebase.auth.FirebaseUser
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository: FcsRepository = FcsRepository()
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val repository: FcsRepository) : ViewModel() {
 
     private var _user = MutableLiveData<FirebaseUser>()
     val user: LiveData<FirebaseUser> = _user

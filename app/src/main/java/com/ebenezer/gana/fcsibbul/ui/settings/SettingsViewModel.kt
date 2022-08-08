@@ -1,16 +1,16 @@
 package com.ebenezer.gana.fcsibbul.ui.settings
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SettingsViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(private val repository: FcsRepository) : ViewModel() {
 
-    private val repository: FcsRepository = FcsRepository()
-
-    val loggedOut:LiveData<Boolean>  = repository.loggedOut
-    fun logoutUser(){
+    val loggedOut: LiveData<Boolean> = repository.loggedOut
+    fun logoutUser() {
         repository.logoutUser()
     }
 

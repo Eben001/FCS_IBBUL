@@ -11,16 +11,14 @@ import com.google.firebase.firestore.SetOptions
 
 private const val TAG = "FcsRepository"
 
-class FcsRepository {
+class FcsRepository(private val firebaseAuth: FirebaseAuth,
+private val firestore: FirebaseFirestore) {
 
     //var userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     var loggedOut: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var mFireStore = FirebaseFirestore.getInstance()
-    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
     private fun registerUser(user: User) {
-        mFireStore.collection(Constants.USERS)
+        firestore.collection(Constants.USERS)
             .document(user.id)
             .set(user, SetOptions.merge())
             .addOnSuccessListener {
@@ -51,7 +49,7 @@ class FcsRepository {
     }
 
     private fun getUserDetails(userDetails: (User?) -> Unit) {
-        mFireStore.collection(Constants.USERS)
+        firestore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .get()
             .addOnSuccessListener { document ->
@@ -63,7 +61,7 @@ class FcsRepository {
 
     // Returns the snapshot of a the logged in user
     fun verifyIfAdmin(user: (User) -> Unit) {
-        mFireStore.collection(Constants.USERS)
+        firestore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -82,7 +80,7 @@ class FcsRepository {
 
     private fun getCurrentUserId(): String {
         // An instance of currentUser using FirebaseAuth module
-        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser = firebaseAuth.currentUser
 
         var currentUserID = ""
         if (currentUser != null) {

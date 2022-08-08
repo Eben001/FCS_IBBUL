@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -13,4 +14,8 @@ object NetworkingModule {
     @Provides
     @Singleton
     fun provideFirestore() = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuthentication() = FirebaseAuth.getInstance()
 }
