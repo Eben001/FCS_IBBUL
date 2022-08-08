@@ -98,7 +98,7 @@ class PostAnnouncementFragment : BaseFragment() {
     }
 
     private fun postNewAnnouncement() {
-        val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy") // e.g  9:43AM, 1 Oct 2022
+        val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy", Locale.getDefault()) // e.g  9:43AM, 1 Oct 2022
         val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
         viewModel.postAnnouncement(
             userId = "",
