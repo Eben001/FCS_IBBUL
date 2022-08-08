@@ -149,7 +149,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     }
 
-    fun showConfirmDeleteDialog(announcement: Announcement) {
+    private fun showConfirmDeleteDialog(announcement: Announcement) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.delete_dialog_title))
             .setMessage(resources.getString(R.string.delete_dialog_message))
