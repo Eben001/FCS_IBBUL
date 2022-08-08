@@ -21,19 +21,17 @@ class HostActivityLoggedOut : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val user = firebaseAuth.currentUser
-        user?.let {
-            val intent = Intent(this@HostActivityLoggedOut, HostActivityLoggedIn::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-
-        }
         installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityHostLoggedOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
+        firebaseAuth.currentUser?.let {
+            val intent = Intent(this@HostActivityLoggedOut, HostActivityLoggedIn::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_activity_logged_out) as NavHostFragment
         navController = navHostFragment.navController
