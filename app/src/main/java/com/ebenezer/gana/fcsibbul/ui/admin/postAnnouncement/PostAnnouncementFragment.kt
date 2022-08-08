@@ -2,12 +2,14 @@ package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
@@ -17,6 +19,7 @@ import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.M)
 class PostAnnouncementFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE

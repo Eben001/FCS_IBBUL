@@ -83,6 +83,8 @@
     <string name="ok_dialog_message">Okay</string>
     <string name="dialog_donate_message">Thank You for choosing to support this Project. \nYou can send your donations to :\n2122024186 UBA FCSIBBUL</string>
     <string name="msg_connect_to_the_internet">You need to be connected to the internet to make a post</string>
+    <string name="text_unauthorized_action">You are not authorized to perform this action</string>
+    <string name="msg_connect_to_the_internet_to_delete">You need to be connected to the internet to delete this announcement</string>
 
 
 </resources>

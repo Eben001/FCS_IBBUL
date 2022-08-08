@@ -110,6 +110,8 @@
                         android:id="@+id/deleteImage"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
                         android:layout_marginStart="16dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_vector_delete" />

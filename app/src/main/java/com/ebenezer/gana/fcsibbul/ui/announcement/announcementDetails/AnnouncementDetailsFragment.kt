@@ -1,23 +1,34 @@
 package com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails
 
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
+import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
+import com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragmentDirections
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 
+@RequiresApi(Build.VERSION_CODES.M)
 class AnnouncementDetailsFragment : BaseFragment() {
 
     private val viewModel: AnnouncementDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
     private val navigationArgs: AnnouncementDetailsFragmentArgs by navArgs()
+
+    private val networkStatusChecker by lazy {
+        NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
+    }
     private var _binding: AnnouncementDetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -31,6 +42,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.verifyIfAdmin()
 
         val announcement = navigationArgs.announcement
         viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
@@ -51,6 +63,32 @@ class AnnouncementDetailsFragment : BaseFragment() {
     }
 
     private fun setOnClickListeners(announcement: Announcement) {
+
+        binding.deleteImage.setOnClickListener {
+            /**
+             * Performs a network check
+             * @param action the action to perform when there is internet connection
+             * @param onNoInternet shows a no internet dialog
+             */
+            networkStatusChecker.performIfConnectedToInternetOrNot(
+                action = {
+                    // is the user is an admin
+
+                    if (viewModel.isAdmin.value == true) {
+                        announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
+
+                    } else {
+                       showSnackBar(resources.getString(R.string.text_unauthorized_action), isError = true)
+                    }
+                },
+                onNoInternet = {
+                    showSnackBar(
+                        resources.getString(R.string.msg_connect_to_the_internet_to_delete),
+                        isError = true
+                    )
+                })
+
+        }
         binding.likeImage.setOnClickListener {
             viewModel.likeAnnouncement(
                 viewModel.updatedLikeCount.value!!,
@@ -71,6 +109,21 @@ class AnnouncementDetailsFragment : BaseFragment() {
     }
 
     private fun observeViewModels() {
+        viewModel.isAdmin.observe(viewLifecycleOwner){isAdmin->
+           if(isAdmin){
+               binding.deleteImage.visibility = View.VISIBLE
+           }else{
+               binding.deleteImage.visibility = View.GONE
+           }
+        }
+        viewModel.result.observe(viewLifecycleOwner){
+            if(viewModel.isDeleteSuccess.value == true){
+                showSnackBar(it.asString(requireContext()), isError = false)
+            }else{
+                showSnackBar(it.asString(requireContext()), isError = true)
+            }
+        }
+
         viewModel.alreadyLiked.observe(viewLifecycleOwner) { alreadyLiked ->
             binding.likeImage.setImageResource(
                 if (alreadyLiked)

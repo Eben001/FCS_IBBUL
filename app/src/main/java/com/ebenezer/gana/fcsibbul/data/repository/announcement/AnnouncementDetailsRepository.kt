@@ -1,8 +1,12 @@
 package com.ebenezer.gana.fcsibbul.data.repository.announcement
 
 import android.util.Log
+import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
+import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.ebenezer.gana.fcsibbul.utils.UiText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -28,7 +32,9 @@ class AnnouncementDetailsRepository {
                 }
                 if (value != null) {
                     val document = value.toObject(Announcement::class.java)
-                    likedUsers(document!!.likedBy)
+                    if (document != null) {
+                        likedUsers(document.likedBy)
+                    }
 
                 }
 
@@ -87,10 +93,60 @@ class AnnouncementDetailsRepository {
                 }
                 if (value != null) {
                     val document = value.toObject(Announcement::class.java)
-                    announcement(document!!.likeCount)
+                    if (document != null) {
+                        announcement(document.likeCount)
+                    }
 
                 }
 
             }
     }
+
+    fun deleteAnnouncement(announcementId: String, onSuccess: (UiText) -> Unit, onFailure:(UiText) -> Unit) {
+        mFireStore.collection(Constants.ANNOUNCEMENTS)
+            .document(announcementId)
+            .delete()
+            .addOnSuccessListener {
+                onSuccess(UiText.StringResource(R.string.success))
+            }
+            .addOnFailureListener {
+                onFailure(UiText.DynamicString(it.localizedMessage!!))
+            }
+
+    }
+
+    /**
+     * Returns the snapshot document of a the logged in user.
+     * This information will be used to check if the user is an admin or not
+     */
+    fun verifyIfAdmin(user: (User) -> Unit) {
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserId())
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.d(TAG, "loginAdmin: Listen Failed", error)
+                    return@addSnapshotListener
+                }
+                if (value != null) {
+                    val document = value.toObject(User::class.java)
+                    user(document!!)
+
+                }
+
+            }
+    }
+
+    /**
+     * Gets the current logged in user id
+     */
+    private fun getCurrentUserId(): String {
+        var currentUserID = ""
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let {
+            currentUserID = it.uid
+        }
+        return currentUserID
+    }
+
 }
