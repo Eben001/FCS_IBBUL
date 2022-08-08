@@ -10,17 +10,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
+import javax.inject.Inject
 
 private const val TAG = "AnnouncementRepository"
 
-class AnnouncementRepository {
-    private var mFireStore = FirebaseFirestore.getInstance()
+class AnnouncementRepository @Inject constructor(private val firestore: FirebaseFirestore) {
 
     /**
      * Gets announcement list from firestore
      */
     fun getAnnouncements(result: (MutableList<Announcement>) -> Unit) {
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .orderBy("timeStamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { document ->
@@ -59,7 +59,7 @@ class AnnouncementRepository {
             likeCount = newAnnouncement.likeCount
         )
 
-        mFireStore.collection(Constants.ANNOUNCEMENTS)
+        firestore.collection(Constants.ANNOUNCEMENTS)
             .document()
             .set(announcement, SetOptions.merge())
             .addOnSuccessListener {
@@ -75,7 +75,7 @@ class AnnouncementRepository {
      * This information will be used to check if the user is an admin or not
      */
     fun verifyIfAdmin(user: (User) -> Unit) {
-        mFireStore.collection(Constants.USERS)
+        firestore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {

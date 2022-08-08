@@ -14,8 +14,9 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityHostLoggedInBinding

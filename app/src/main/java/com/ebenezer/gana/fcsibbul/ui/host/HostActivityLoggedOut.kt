@@ -9,7 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedOutBinding
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HostActivityLoggedOut : AppCompatActivity() {
 
 

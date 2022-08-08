@@ -16,10 +16,12 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostAnnouncementBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.M)
+@AndroidEntryPoint
 class PostAnnouncementFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE

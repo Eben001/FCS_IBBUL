@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PostAnnouncementViewModel : ViewModel() {
-    private val repository = AnnouncementRepository()
+@HiltViewModel
+class PostAnnouncementViewModel @Inject constructor(private val repository: AnnouncementRepository) : ViewModel() {
+
 
     private var _isPostSuccess = MutableLiveData<Boolean>()
     val isPostSuccess:LiveData<Boolean> = _isPostSuccess

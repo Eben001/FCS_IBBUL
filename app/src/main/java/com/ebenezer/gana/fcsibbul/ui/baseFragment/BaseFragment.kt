@@ -7,7 +7,9 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseFragment : Fragment() {
     protected open var bottomNavigationViewVisibility = View.VISIBLE
 
