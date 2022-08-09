@@ -1,7 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 
 import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
@@ -29,9 +29,8 @@ class PostAnnouncementFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: PostAnnouncementViewModel by viewModels()
 
-    private val networkStatusChecker by lazy {
-        NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
-    }
+    @Inject
+    lateinit var networkStatusChecker: NetworkStatusChecker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,7 +97,8 @@ class PostAnnouncementFragment : BaseFragment() {
     }
 
     private fun postNewAnnouncement() {
-        val dateFormat = SimpleDateFormat("h:mm a, dd MMM yyyy", Locale.getDefault()) // e.g  9:43AM, 1 Oct 2022
+        val dateFormat =
+            SimpleDateFormat("h:mm a, dd MMM yyyy", Locale.getDefault()) // e.g  9:43AM, 1 Oct 2022
         val currentDateAndTime: String = dateFormat.format(Calendar.getInstance().timeInMillis)
         viewModel.postAnnouncement(
             userId = "",

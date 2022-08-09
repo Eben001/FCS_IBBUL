@@ -4,8 +4,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
+import javax.inject.Inject
 
-class NetworkStatusChecker(private val connectivityManager: ConnectivityManager?) {
+class NetworkStatusChecker @Inject constructor(private val connectivityManager: ConnectivityManager?) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     inline fun performIfConnectedToInternetOrNot(action:() ->Unit, onNoInternet:()-> Unit){

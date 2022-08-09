@@ -1,7 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails
 
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
@@ -25,14 +25,12 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     private val viewModel: AnnouncementDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
-
     private val navigationArgs: AnnouncementDetailsFragmentArgs by navArgs()
-
-    private val networkStatusChecker by lazy {
-        NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
-    }
     private var _binding: AnnouncementDetailsFragmentBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var networkStatusChecker: NetworkStatusChecker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
