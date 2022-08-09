@@ -72,10 +72,9 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
 
@@ -139,7 +138,7 @@
                         android:fontFamily="@font/montserrat_bold"
                         android:gravity="end"
                         android:textColor="@color/primaryTextColor"
-                        tools:text="1st oct 2021" />
+                        tools:text="12:06 AM, 09 Aug 2022" />
 
 
                 </LinearLayout>
