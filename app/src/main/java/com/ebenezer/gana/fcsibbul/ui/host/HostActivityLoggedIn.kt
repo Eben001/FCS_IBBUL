@@ -15,17 +15,18 @@ import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityHostLoggedInBinding
     private lateinit var navController: NavController
-    private lateinit var dialogsNavigator: DialogsNavigator
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dialogsNavigator = DialogsNavigator(this)
 
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
