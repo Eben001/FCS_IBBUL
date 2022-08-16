@@ -18,9 +18,9 @@
             android:icon="@drawable/ic_bible_quotes"
             android:title="@string/daily_bible_verse" />
         <item
-            android:id="@+id/fcs_song"
+            android:id="@+id/songs"
             android:icon="@drawable/ic_song"
-            android:title="@string/fcs_song" />
+            android:title="@string/songs" />
 
     </group>
 

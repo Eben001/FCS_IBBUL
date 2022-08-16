@@ -69,10 +69,10 @@
         android:label="@string/daily_guide"
         tools:layout="@layout/fragment_daily_guide" />
     <fragment
-        android:id="@+id/navigation_fcs_song"
-        android:name="com.ebenezer.gana.fcsibbul.ui.FcsSongFragment"
-        android:label="FCS Song"
-        tools:layout="@layout/fragment_fcs_song" />
+        android:id="@+id/navigation_songs"
+        android:name="com.ebenezer.gana.fcsibbul.ui.songs.SongsFragment"
+        android:label="Songs"
+        tools:layout="@layout/fragment_songs" />
     <fragment
         android:id="@+id/navigation_daily_bible_verse"
         android:name="com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"

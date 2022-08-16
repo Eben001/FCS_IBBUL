@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:layout_margin="8dp"
-    tools:context=".ui.FcsSongFragment">
+    tools:context=".ui.songs.SongsFragment">
 
     <TextView
         android:textAlignment="center"
