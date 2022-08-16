@@ -8,7 +8,9 @@ import androidx.fragment.app.viewModels
 import com.ebenezer.gana.fcsibbul.databinding.FragmentSongsBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SongsFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
@@ -27,6 +29,19 @@ class SongsFragment : BaseFragment() {
 
         _binding = FragmentSongsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getSong()
+
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.song.observe(viewLifecycleOwner){
+            binding.song.text = it
+        }
     }
 
 

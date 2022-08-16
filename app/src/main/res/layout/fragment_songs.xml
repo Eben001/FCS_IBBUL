@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     android:padding="8dp"
-    android:layout_margin="8dp"
     tools:context=".ui.songs.SongsFragment">
 
     <TextView
-        android:textAlignment="center"
+        android:id="@+id/song"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:letterSpacing=".1"
         android:lineSpacingExtra="10dp"
+        android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceHeadline5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         tools:text="@string/mock_data_fcs_song" />
 
-</LinearLayout>
+</ScrollView>

@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.di
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
+import com.ebenezer.gana.fcsibbul.data.repository.song.SongRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -21,10 +22,16 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideAnnouncementDetailsRepo(firestore: FirebaseFirestore) = AnnouncementDetailsRepository(firestore)
+    fun provideAnnouncementDetailsRepo(firestore: FirebaseFirestore) =
+        AnnouncementDetailsRepository(firestore)
 
     @Provides
     @Singleton
-    fun provideFcsRepo(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) = FcsRepository(firebaseAuth, firestore)
+    fun provideFcsRepo(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) =
+        FcsRepository(firebaseAuth, firestore)
+
+    @Provides
+    @Singleton
+    fun provideSongsRepo(firestore: FirebaseFirestore) = SongRepository(firestore)
 
 }
