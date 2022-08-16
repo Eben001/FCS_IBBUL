@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:letterSpacing=".1"
         android:lineSpacingExtra="10dp"
-        android:text="@string/sample_bible_verse"
+        tools:text="@string/sample_bible_verse"
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceHeadline5" />
 
