@@ -67,7 +67,7 @@ class AdminDashboardFragment : BaseFragment() {
         }
         binding.postSong.setOnClickListener {
             val action =
-                AdminDashboardFragmentDirections.actionAdminDashboardFragmentToEditExcoFragment()
+                AdminDashboardFragmentDirections.actionAdminDashboardFragmentToPostSongFragment()
             this.findNavController().navigate(action)
         }
         binding.postBibleVerse.setOnClickListener {
