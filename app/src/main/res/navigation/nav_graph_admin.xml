@@ -18,12 +18,15 @@
         <action
             android:id="@+id/action_adminDashboardFragment_to_postSongFragment"
             app:destination="@id/postSongFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_bibleVerseFragment"
+            app:destination="@id/bibleVerseFragment" />
     </fragment>
     <fragment
         android:id="@+id/addExcoFragment"
         android:name="com.ebenezer.gana.fcsibbul.ui.admin.addExco.AddExcoFragment"
         android:label="Add Exco"
-        tools:layout="@layout/fragment_add_exco" >
+        tools:layout="@layout/fragment_add_exco">
         <action
             android:id="@+id/action_addExcoFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment"
@@ -43,8 +46,13 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_post_song"
         android:id="@+id/postSongFragment"
         android:name="com.ebenezer.gana.fcsibbul.ui.admin.postSong.PostSongFragment"
-        android:label="PostSongFragment" />
+        android:label="Post a Song"
+        tools:layout="@layout/fragment_post_song" />
+    <fragment
+        android:id="@+id/bibleVerseFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postBibleVerse.BibleVerseFragment"
+        android:label="Post a Bible Verse"
+        tools:layout="@layout/fragment_bible_verse" />
 </navigation>

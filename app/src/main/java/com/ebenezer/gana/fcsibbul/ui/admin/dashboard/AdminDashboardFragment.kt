@@ -71,7 +71,9 @@ class AdminDashboardFragment : BaseFragment() {
             this.findNavController().navigate(action)
         }
         binding.postBibleVerse.setOnClickListener {
-            //TODO: Implement
+            val action =
+                AdminDashboardFragmentDirections.actionAdminDashboardFragmentToBibleVerseFragment()
+            this.findNavController().navigate(action)
         }
     }
 
