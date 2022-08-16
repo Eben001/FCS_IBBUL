@@ -58,8 +58,8 @@
     <string name="hint_office_req">Office <font color='#FF0000'>*</font></string>
     <string name="post_announcement">Post Announcement</string>
     <string name="add_an_exco">Add an Exco</string>
-    <string name="edit_exco_details">Edit Exco Details</string>
-    <string name="delete_exco">Delete Exco</string>
+    <string name="post_song">Post a Song</string>
+    <string name="post_bible_verse">Post a Bible Verse</string>
     <string name="announcement">Announcement</string>
     <string name="excos">Excos</string>
     <string name="log_out">Log out</string>
