@@ -65,10 +65,13 @@ class AdminDashboardFragment : BaseFragment() {
                 AdminDashboardFragmentDirections.actionAdminDashboardFragmentToAddExcoFragment()
             this.findNavController().navigate(action)
         }
-        binding.editExco.setOnClickListener {
+        binding.postSong.setOnClickListener {
             val action =
                 AdminDashboardFragmentDirections.actionAdminDashboardFragmentToEditExcoFragment()
             this.findNavController().navigate(action)
+        }
+        binding.postBibleVerse.setOnClickListener {
+            //TODO: Implement
         }
     }
 

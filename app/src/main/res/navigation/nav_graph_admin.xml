@@ -32,9 +32,9 @@
     </fragment>
     <fragment
         android:id="@+id/editExcoFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.editExco.EditExcoFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postSong.PostSongFragment"
         android:label="Edit Exco"
-        tools:layout="@layout/fragment_edit_exco" >
+        tools:layout="@layout/fragment_post_song" >
         <action
             android:id="@+id/action_editExcoFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment"

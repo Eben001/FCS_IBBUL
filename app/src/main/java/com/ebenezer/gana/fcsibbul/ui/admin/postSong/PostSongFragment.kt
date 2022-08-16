@@ -1,4 +1,4 @@
-package com.ebenezer.gana.fcsibbul.ui.admin.editExco
+package com.ebenezer.gana.fcsibbul.ui.admin.postSong
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.FragmentEditExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 
-class EditExcoFragment : BaseFragment() {
+class PostSongFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.GONE
 
     private var _binding: FragmentEditExcoBinding? = null
