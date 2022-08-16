@@ -40,8 +40,14 @@ class SongsFragment : BaseFragment() {
 
     private fun observeViewModel() {
         viewModel.song.observe(viewLifecycleOwner){
-            binding.title.text = it.title
-            binding.content.text = it.content
+            if(it.title.isEmpty()){
+                binding.title.visibility = View.GONE
+            }else{
+                binding.title.visibility = View.VISIBLE
+                binding.title.text = it.title
+                binding.content.text = it.content
+            }
+
         }
     }
 
