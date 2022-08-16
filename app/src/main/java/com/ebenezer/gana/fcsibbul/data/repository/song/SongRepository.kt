@@ -10,7 +10,7 @@ private const val TAG = "SongRepository"
 
 class SongRepository @Inject constructor(private val firestore: FirebaseFirestore) {
 
-    fun getSong(song: (String) -> Unit) {
+    fun getSong(song: (Song) -> Unit) {
         firestore.collection(Constants.SONG)
             .document(Constants.SONG)
             .addSnapshotListener { value, error ->
@@ -20,9 +20,8 @@ class SongRepository @Inject constructor(private val firestore: FirebaseFirestor
                 }
                 if (value != null) {
                     val document = value.toObject(Song::class.java)
-                    if (document != null) {
-                        song(document.content)
-                    }
+                    song(document!!)
+
 
                 }
             }

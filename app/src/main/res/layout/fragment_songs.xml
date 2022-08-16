@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.songs.SongsFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="11dp"
         android:layout_margin="8dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
-        app:cardPreventCornerOverlap="true"
-        >
+        app:contentPaddingBottom="50dp">
+
         <LinearLayout
-            android:padding="8dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:letterSpacing=".1"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:lineSpacingExtra="10dp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 tools:text="Blessed Assurance Jesus Is Mine" />
 
 
             <TextView
-                android:layout_marginTop="4dp"
-                android:id="@+id/song"
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:letterSpacing=".1"
                 android:lineSpacingExtra="10dp"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textIsSelectable="true"
                 tools:text="@string/mock_data_fcs_song" />
 
 

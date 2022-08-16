@@ -40,7 +40,8 @@ class SongsFragment : BaseFragment() {
 
     private fun observeViewModel() {
         viewModel.song.observe(viewLifecycleOwner){
-            binding.song.text = it
+            binding.title.text = it.title
+            binding.content.text = it.content
         }
     }
 
