@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.ebenezer.gana.fcsibbul.utils.Constants
 
-class DailyBibleVerseFragment : Fragment() {
+class DailyBibleVerseFragment : BaseFragment() {
+
+    override var bottomNavigationViewVisibility = View.GONE
+    override var drawerState = Constants.DRAWER_STATE_LOCKED_CLOSED
 
 
     private lateinit var viewModel: DailyBibleVerseViewModel
