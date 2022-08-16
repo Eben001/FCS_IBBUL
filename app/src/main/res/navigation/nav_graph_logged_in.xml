@@ -76,6 +76,6 @@
     <fragment
         android:id="@+id/navigation_daily_bible_verse"
         android:name="com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"
-        android:label="fragment_daily_bible_verse"
+        android:label="Daily Bible Verse"
         tools:layout="@layout/fragment_daily_bible_verse" />
 </navigation>
