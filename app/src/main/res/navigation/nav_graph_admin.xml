@@ -52,7 +52,7 @@
         tools:layout="@layout/fragment_post_song" />
     <fragment
         android:id="@+id/bibleVerseFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postBibleVerse.BibleVerseFragment"
+        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postBibleVerse.PostBibleVerseFragment"
         android:label="Post a Bible Verse"
-        tools:layout="@layout/fragment_bible_verse" />
+        tools:layout="@layout/fragment_post_bible_verse" />
 </navigation>

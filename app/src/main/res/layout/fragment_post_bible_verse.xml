@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:orientation="vertical"
-        tools:context=".ui.admin.postBibleVerse.BibleVerseFragment">
+        tools:context=".ui.admin.postBibleVerse.PostBibleVerseFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_verse"
