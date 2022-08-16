@@ -14,7 +14,7 @@
             android:title="@string/daily_guide" />
 
         <item
-            android:id="@+id/bible_quotes"
+            android:id="@+id/daily_bible_verse"
             android:icon="@drawable/ic_bible_quotes"
             android:title="@string/daily_bible_verse" />
         <item
