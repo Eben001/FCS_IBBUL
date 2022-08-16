@@ -29,9 +29,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_announcement_details"
-        tools:layout="@layout/announcement_details_fragment"
         android:name="com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails.AnnouncementDetailsFragment"
-        android:label="Details" >
+        android:label="Details"
+        tools:layout="@layout/announcement_details_fragment">
         <argument
             android:name="announcement"
             app:argType="com.ebenezer.gana.fcsibbul.data.models.Announcement" />
@@ -43,17 +43,16 @@
         android:id="@+id/settingsFragment"
         android:name="com.ebenezer.gana.fcsibbul.ui.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_hostActivityLoggedOut"
-            app:destination="@id/hostActivityLoggedOut"
-           />
+            app:destination="@id/hostActivityLoggedOut" />
     </fragment>
     <activity
-        tools:layout="@layout/activity_host_logged_out"
         android:id="@+id/hostActivityLoggedOut"
         android:name="com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedOut"
-        android:label="HostActivityLoggedOut" />
+        android:label="HostActivityLoggedOut"
+        tools:layout="@layout/activity_host_logged_out" />
     <fragment
         android:id="@+id/navigation_excos_details"
         android:name="com.ebenezer.gana.fcsibbul.ui.excos.excosDetails.ExcosDetailsFragment"
@@ -74,4 +73,9 @@
         android:name="com.ebenezer.gana.fcsibbul.ui.FcsSongFragment"
         android:label="FCS Song"
         tools:layout="@layout/fragment_fcs_song" />
+    <fragment
+        android:id="@+id/navigation_daily_bible_verse"
+        android:name="com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"
+        android:label="fragment_daily_bible_verse"
+        tools:layout="@layout/fragment_daily_bible_verse" />
 </navigation>

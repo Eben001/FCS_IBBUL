@@ -75,7 +75,7 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             R.id.daily_guide -> navController.navigate(R.id.navigation_daily_guide)
 
-            R.id.bibleVerseFragment -> Toast.makeText(this, "Bible Quotes", Toast.LENGTH_SHORT).show()
+            R.id.bibleVerseFragment -> navController.navigate(R.id.navigation_daily_bible_verse)
             R.id.fcs_song -> navController.navigate(R.id.navigation_fcs_song)
             R.id.admin_login -> navController.navigate(R.id.nav_graph_admin)
             R.id.contact_us -> dialogsNavigator.showContactusDialog()
