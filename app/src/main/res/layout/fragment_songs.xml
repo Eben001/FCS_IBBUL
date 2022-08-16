@@ -3,19 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".ui.songs.SongsFragment">
 
-    <TextView
-        android:id="@+id/song"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:letterSpacing=".1"
-        android:lineSpacingExtra="10dp"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        tools:text="@string/mock_data_fcs_song" />
+        app:cardCornerRadius="11dp"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="true"
+        >
+        <LinearLayout
+            android:padding="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing=".1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:lineSpacingExtra="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                tools:text="Blessed Assurance Jesus Is Mine" />
+
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:id="@+id/song"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing=".1"
+                android:lineSpacingExtra="10dp"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                tools:text="@string/mock_data_fcs_song" />
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </ScrollView>
