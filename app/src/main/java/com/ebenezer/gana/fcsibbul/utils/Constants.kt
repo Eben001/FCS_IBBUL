@@ -9,4 +9,5 @@ object Constants {
     const val EXCOS: String = "excos"
     const val USERS: String = "users"
     const val SONG: String = "song"
+    const val BIBLE_VERSE: String = "daily_verse"
 }

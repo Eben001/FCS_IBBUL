@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     tools:context=".ui.dailyVerse.DailyBibleVerseFragment">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
+        android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:letterSpacing=".1"
-        android:lineSpacingExtra="10dp"
-        tools:text="@string/sample_bible_verse"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceHeadline5" />
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:contentPaddingBottom="50dp">
+
+        <TextView
+            android:id="@+id/daily_verse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:letterSpacing=".1"
+            android:lineSpacingExtra="10dp"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textIsSelectable="true"
+            tools:text="@string/sample_bible_verse" />
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 </ScrollView>

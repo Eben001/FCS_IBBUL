@@ -5,18 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.databinding.FragmentPostBibleVerseBinding
+import com.ebenezer.gana.fcsibbul.databinding.FragmentSongsBinding
 
 class PostBibleVerseFragment : Fragment() {
 
-    private lateinit var viewModel: PostBibleVerseViewModel
+    private val viewModel:PostBibleVerseViewModel by viewModels()
+    private var _binding: FragmentPostBibleVerseBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_post_bible_verse, container, false)
+        _binding = FragmentPostBibleVerseBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
 
 
 }
