@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.di
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
+import com.ebenezer.gana.fcsibbul.data.repository.bibleVerse.BibleVerseRepository
 import com.ebenezer.gana.fcsibbul.data.repository.song.SongRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,5 +34,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideSongsRepo(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) = SongRepository(firebaseAuth,firestore)
+
+     @Provides
+    @Singleton
+    fun provideDailyBibleVerseRepo(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) = BibleVerseRepository(firebaseAuth,firestore)
+
 
 }
