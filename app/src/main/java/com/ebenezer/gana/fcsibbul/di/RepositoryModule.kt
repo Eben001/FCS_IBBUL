@@ -32,6 +32,6 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideSongsRepo(firestore: FirebaseFirestore) = SongRepository(firestore)
+    fun provideSongsRepo(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) = SongRepository(firebaseAuth,firestore)
 
 }
