@@ -34,7 +34,6 @@ class SongsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getSong()
-
         observeViewModel()
     }
 
@@ -42,6 +41,10 @@ class SongsFragment : BaseFragment() {
         viewModel.song.observe(viewLifecycleOwner){
             if(it.title.isEmpty()){
                 binding.title.visibility = View.GONE
+                binding.content.text = it.content
+                if(it.content.isEmpty()){
+                    binding.cardSong.visibility = View.GONE
+                }
             }else{
                 binding.title.visibility = View.VISIBLE
                 binding.title.text = it.title
