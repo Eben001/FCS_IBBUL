@@ -7,6 +7,7 @@
     tools:context=".ui.dailyVerse.DailyBibleVerseFragment">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_daily_verse"
         android:layout_width="match_parent"
         android:layout_margin="8dp"
         android:layout_height="wrap_content"

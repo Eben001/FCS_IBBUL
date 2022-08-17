@@ -35,8 +35,12 @@ class DailyBibleVerseFragment : BaseFragment() {
     }
 
     private fun observeViewModels() {
-        viewModel.bibleVerse.observe(viewLifecycleOwner){
-            binding.dailyVerse.text = it
+        viewModel.bibleVerse.observe(viewLifecycleOwner) { bibleVerse ->
+            if (bibleVerse.isEmpty()) {
+                binding.cardDailyVerse.visibility = View.GONE
+            } else {
+                binding.dailyVerse.text = bibleVerse
+            }
         }
     }
 
