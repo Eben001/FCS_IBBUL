@@ -32,15 +32,12 @@ class AnnouncementListFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView: Called")
         _binding = AnnouncementlistFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: Called")
-
         setupSettingsMenu()
 
         binding.rvAnnouncement.layoutManager = LinearLayoutManager(this.context)
@@ -90,11 +87,8 @@ class AnnouncementListFragment : BaseFragment() {
 
 
     }
-
-
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart: Called")
         lifecycleScope.launch {
             viewModel.getAnnouncements()
             binding.swipeRefresh.isRefreshing = true
@@ -102,44 +96,8 @@ class AnnouncementListFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        Log.d(TAG, "onDestroy: called")
         super.onDestroy()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: Called")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(TAG, "onAttach: Called")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate: Called")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG, "onDestroyView: Called")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG, "onDetach: Called")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: Called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: Called")
     }
 
 
