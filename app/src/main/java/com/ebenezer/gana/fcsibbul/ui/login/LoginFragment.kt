@@ -7,17 +7,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.LoginFragmentBinding
+import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
             // checking ids of each text field and applying functions accordingly.
             when (view.id) {
                 R.id.et_email -> {
-                    validateEmail()
+                    isEmailValid()
                 }
             }
         }
@@ -66,26 +66,40 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim { it <= ' ' }
             val password = binding.etPassword.text.toString().trim { it <= ' ' }
-            viewModel.loginUser(email, password)
 
-            if (isLoginDetailsValid()) {
+            if (isFieldNotEmpty() && isEmailValid()) {
                 viewModel.loginUser(email, password)
             }
         }
     }
-    private fun isLoginDetailsValid(): Boolean = validateEmail()
-    private fun validateEmail(): Boolean {
-        if (!isValidEmail(binding.etEmail.text.toString())) {
+    private fun isFieldNotEmpty(): Boolean {
+        return when {
+            binding.etEmail.text.toString().trim().isEmpty() -> {
+                showSnackBar("Please enter your email", isError = true)
+                false
+            }
+            binding.etPassword.text.toString().trim().isEmpty() -> {
+                showSnackBar("Please enter your password", isError = true)
+                false
+            }
+
+            else -> true
+
+        }
+    }
+    private fun isEmailValid(): Boolean {
+        return if (!isValidEmail(binding.etEmail.text.toString())) {
             binding.tilEmail.error = resources.getString(R.string.invalid_email)
             binding.etEmail.requestFocus()
             if (binding.etEmail.text.toString().isEmpty()) {
                 binding.tilEmail.isErrorEnabled = false
             }
-            return false
+            false
         } else {
             binding.tilEmail.isErrorEnabled = false
+            true
+
         }
-        return true
     }
 
     private fun observeViewModes() {
