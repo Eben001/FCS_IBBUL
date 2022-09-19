@@ -13,9 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.LoginFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
-import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringContainNumber
-import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringContainSpecialCharacter
-import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isStringLowerAndUpperCase
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,15 +22,6 @@ class LoginFragment : Fragment() {
     private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = LoginFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-
-    }
 
     /**
      * applying text watcher on each text field
@@ -47,71 +35,52 @@ class LoginFragment : Fragment() {
                 R.id.et_email -> {
                     validateEmail()
                 }
-                R.id.et_password -> {
-                    validatePassword()
-                }
             }
-
         }
-
     }
 
-    private fun resetEditTextField() {
-        binding.etEmail.setText("")
-        binding.etPassword.setText("")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = LoginFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
+        observeViewModes()
+    }
 
-        viewModel.user.observe(viewLifecycleOwner) { user ->
-            if (user != null) { // user is logged in
-                val intent = Intent(requireActivity(), HostActivityLoggedIn::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                resetEditTextField()
-
-            }
-        }
+    private fun setupListeners() {
+        binding.etEmail.addTextChangedListener(TextFieldValidation(binding.etEmail))
+        binding.etPassword.addTextChangedListener(TextFieldValidation(binding.etPassword))
 
         binding.tvRegister.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToNavigationSignup()
             this.findNavController().navigate(action)
 
         }
-
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim { it <= ' ' }
             val password = binding.etPassword.text.toString().trim { it <= ' ' }
             viewModel.loginUser(email, password)
 
-            /*  if (isLoginDetailsValid()) {
-                  viewModel.loginUser(email, password)
-              }*/
+            if (isLoginDetailsValid()) {
+                viewModel.loginUser(email, password)
+            }
         }
     }
-
-
-    private fun setupListeners() {
-        // binding.etEmail.addTextChangedListener(TextFieldValidation(binding.etEmail))
-        //binding.etPassword.addTextChangedListener(TextFieldValidation(binding.etPassword))
-    }
-
-
-    private fun isLoginDetailsValid(): Boolean =
-        validateEmail() && validatePassword()
-
-
+    private fun isLoginDetailsValid(): Boolean = validateEmail()
     private fun validateEmail(): Boolean {
-        if (binding.etEmail.toString().trim().isEmpty()) {
-            binding.tilEmail.error = "Required Field"
+        if (!isValidEmail(binding.etEmail.text.toString())) {
+            binding.tilEmail.error = resources.getString(R.string.invalid_email)
             binding.etEmail.requestFocus()
-            return false
-        } else if (!isValidEmail(binding.etEmail.text.toString())) {
-            binding.tilEmail.error = "Invalid Email"
-            binding.etEmail.requestFocus()
+            if (binding.etEmail.text.toString().isEmpty()) {
+                binding.tilEmail.isErrorEnabled = false
+            }
             return false
         } else {
             binding.tilEmail.isErrorEnabled = false
@@ -119,36 +88,21 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun validatePassword(): Boolean {
-        if (binding.etPassword.text.toString().trim().isEmpty()) {
-            binding.tilPassword.error = "Required Field"
-            binding.etPassword.requestFocus()
-
-            return false
-        } else if (binding.etPassword.text.toString().length < 6) {
-            binding.tilPassword.error = "password can't be less than 6"
-            binding.etPassword.requestFocus()
-
-            return false
-        } else if (!isStringContainNumber(binding.etPassword.text.toString())) {
-            binding.tilPassword.error = "Required at least 1 digit"
-            binding.etPassword.requestFocus()
-            return false
-        } else if (!isStringLowerAndUpperCase(binding.etPassword.text.toString())) {
-            binding.tilPassword.error =
-                "Password must contain upper and lower case letters"
-            binding.etPassword.requestFocus()
-            return false
-        } else if (!isStringContainSpecialCharacter(binding.etPassword.text.toString())) {
-            binding.tilPassword.error = "1 special character required"
-            binding.etPassword.requestFocus()
-            return false
-        } else {
-            binding.tilPassword.isErrorEnabled = false
+    private fun observeViewModes() {
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user != null) { // user is logged in
+                val intent = Intent(requireActivity(), HostActivityLoggedIn::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                resetEditTextField()
+            }
         }
-        return true
     }
 
+    private fun resetEditTextField() {
+        binding.etEmail.text?.clear()
+        binding.etPassword.text?.clear()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
