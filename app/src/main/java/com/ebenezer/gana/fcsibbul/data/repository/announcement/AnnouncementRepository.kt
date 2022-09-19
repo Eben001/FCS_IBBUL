@@ -63,7 +63,7 @@ class AnnouncementRepository @Inject constructor(private val firestore: Firebase
             .document()
             .set(announcement, SetOptions.merge())
             .addOnSuccessListener {
-                onSuccess(UiText.StringResource(R.string.success))
+                onSuccess(UiText.StringResource(R.string.posted_success))
             }
             .addOnFailureListener {
                onFailure(UiText.DynamicString(it.message!!))

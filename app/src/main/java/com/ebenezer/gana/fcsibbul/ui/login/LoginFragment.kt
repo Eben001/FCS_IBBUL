@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
@@ -69,9 +71,12 @@ class LoginFragment : BaseFragment() {
 
             if (isFieldNotEmpty() && isEmailValid()) {
                 viewModel.loginUser(email, password)
+                dismissKeyboard()
             }
+
         }
     }
+
     private fun isFieldNotEmpty(): Boolean {
         return when {
             binding.etEmail.text.toString().trim().isEmpty() -> {
@@ -87,6 +92,7 @@ class LoginFragment : BaseFragment() {
 
         }
     }
+
     private fun isEmailValid(): Boolean {
         return if (!isValidEmail(binding.etEmail.text.toString())) {
             binding.tilEmail.error = resources.getString(R.string.invalid_email)
@@ -101,8 +107,15 @@ class LoginFragment : BaseFragment() {
 
         }
     }
+    private fun dismissKeyboard() {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+
 
     private fun observeViewModes() {
+
         viewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) { // user is logged in
                 val intent = Intent(requireActivity(), HostActivityLoggedIn::class.java)
@@ -111,13 +124,19 @@ class LoginFragment : BaseFragment() {
                 resetEditTextField()
             }
         }
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (viewModel.isPostSuccess.value == true) {
+                showSnackBar(it.asString(requireContext()), isError = false)
+            } else {
+                showSnackBar(it.asString(requireContext()), isError = true)
+            }
+        }
     }
 
     private fun resetEditTextField() {
         binding.etEmail.text?.clear()
         binding.etPassword.text?.clear()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

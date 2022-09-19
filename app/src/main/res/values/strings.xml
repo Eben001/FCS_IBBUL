@@ -63,7 +63,7 @@
     <string name="announcement">Announcement</string>
     <string name="excos">Excos</string>
     <string name="log_out">Log out</string>
-    <string name="success">Posted Successfully!</string>
+    <string name="posted_success">Posted Successfully!</string>
     <string name="err_msg_title">Please enter a title</string>
     <string name="err_msg_details">Please enter announcement details</string>
     <string name="not_an_admin">You are not an admin. Please contact your administrator</string>
@@ -92,6 +92,7 @@
     <string name="sample_bible_verse">PSALM 103:1–4 Praise the LORD, my soul; all my inmost being, praise His holy name. Praise the LORD, my soul, and forget not all His benefits — who forgives all your sins and heals all your diseases, who redeems your life from the pit and crowns you with love and compassion.</string>
     <string name="bible_verse">Bible Verse</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="success">Success!</string>
 
 
 </resources>

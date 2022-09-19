@@ -2,8 +2,10 @@ package com.ebenezer.gana.fcsibbul.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,7 +36,7 @@ private val firestore: FirebaseFirestore) {
     //user has completed their profile or not. If completed, proceed to log in else prompt user to complete profile
     fun loginUser(
         email: String, password: String, user: (FirebaseUser?) -> Unit,
-        userDetails: (User?) -> Unit
+        userDetails: (User?) -> Unit, onSuccess:(UiText) -> Unit, onFailure:(UiText) -> Unit
     ) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -44,7 +46,11 @@ private val firestore: FirebaseFirestore) {
                     }
                     user(firebaseAuth.currentUser)
                     loggedOut.value = false
+                    onSuccess(UiText.StringResource(R.string.success))
                 }
+            }
+            .addOnFailureListener {
+                onFailure(UiText.DynamicString(it.message!!))
             }
     }
 
