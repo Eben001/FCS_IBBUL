@@ -16,6 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import coil.load
+import com.bumptech.glide.Glide
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
@@ -108,8 +110,10 @@ class AddExcoFragment : BaseFragment() {
                 val selectedImageUri = data.data
                 try {
                     mSelectedImageFileUri = selectedImageUri
-                    Toast.makeText(requireContext(), "$mSelectedImageFileUri", Toast.LENGTH_SHORT).show()
                     //Use Coil to Load image
+                    binding.excoImage.load(mSelectedImageFileUri){
+                        placeholder(R.drawable.ic_user_placeholder)
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(
