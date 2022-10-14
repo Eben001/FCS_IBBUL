@@ -1,16 +1,14 @@
 package com.ebenezer.gana.fcsibbul.ui.excos.excosList
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.data.repository.excos.ExcosRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExcosViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: ExcosRepository = ExcosRepository()
+class ExcosViewModel @Inject constructor(private val repository: ExcosRepository) : ViewModel() {
+
 
     private val _excos = MutableLiveData<MutableList<Exco>>()
     val excos: LiveData<MutableList<Exco>> = _excos

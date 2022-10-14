@@ -17,15 +17,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import coil.load
-import com.bumptech.glide.Glide
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
-
+@AndroidEntryPoint
 class AddExcoFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
@@ -34,6 +34,7 @@ class AddExcoFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: AddExcoViewModel by viewModels()
     private var mSelectedImageFileUri: Uri? = null
+    private var mExcoImageUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +49,22 @@ class AddExcoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeViewModels()
         setOnClickListeners()
 
+    }
+
+    private fun observeViewModels() {
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (viewModel.isPostSuccess.value == true) {
+                showSnackBar(it.asString(requireContext()), isError = false)
+            } else {
+                showSnackBar(it.asString(requireContext()), isError = true)
+            }
+        }
+        viewModel.imageUrl.observe(viewLifecycleOwner) {
+            mExcoImageUrl = it
+        }
     }
 
     private fun setOnClickListeners() {
@@ -76,7 +91,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
             shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-               showRequestPermissionRationale()
+                showRequestPermissionRationale()
             }
 
             else -> {
@@ -97,6 +112,7 @@ class AddExcoFragment : BaseFragment() {
         )
         pickImageFromGalleryForResult.launch(galleryIntent)
     }
+
     private var pickImageFromGalleryForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -111,9 +127,13 @@ class AddExcoFragment : BaseFragment() {
                 try {
                     mSelectedImageFileUri = selectedImageUri
                     //Use Coil to Load image
-                    binding.excoImage.load(mSelectedImageFileUri){
+                    binding.excoImage.load(mSelectedImageFileUri) {
                         placeholder(R.drawable.ic_user_placeholder)
                     }
+                    viewModel.uploadImageToCloudStorage(
+                        requireActivity(),
+                        mSelectedImageFileUri, Constants.EXCOS_IMAGE
+                    )
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(
@@ -140,12 +160,10 @@ class AddExcoFragment : BaseFragment() {
     }
 
 
-
     private fun showConfirmDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.add_exco_title))
             .setMessage(resources.getString(R.string.add_exco_message))
-            .setIcon(R.drawable.ic_vector_delete)
             .setNeutralButton(resources.getString(R.string.cancel_dialog_message)) { dialog, _ ->
                 dialog.cancel()
             }
@@ -153,13 +171,25 @@ class AddExcoFragment : BaseFragment() {
                 dialog.dismiss()
             }
             .setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
-
+                addExco()
             }
             .show()
     }
 
     private fun addExco() {
-
+        if (mSelectedImageFileUri != null) {
+            viewModel.addExco(
+                "",
+                binding.etFirstName.text.toString().trim(),
+                binding.etLastName.text.toString().trim(),
+                binding.etEmail.text.toString().trim(),
+                mExcoImageUrl,
+                binding.etPhone.text.toString().trim(),
+                binding.etOffice.text.toString().trim()
+            )
+        } else {
+            showSnackBar("Please upload an Image", isError = true)
+        }
     }
 
     private fun isValidDetails(): Boolean {
@@ -180,7 +210,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
 
-            binding.etOffice.toString().trim().isEmpty() -> {
+            binding.etOffice.text.toString().trim().isEmpty() -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_office),
                     isError = true
