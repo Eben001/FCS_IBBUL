@@ -24,7 +24,7 @@ class ExcosListAdapter(private val context: Context, private val onItemClicked:(
                     excoPhone.text = excos.phone
                     excoPost.text = excos.office
                     excoDepartment.text = excos.department
-                    excoLevel.text = excos.level
+                    excoLevel.text = context.resources.getString(R.string.exco_level, excos.level)
                     excoImage.load(excos.image_url){
                         placeholder(R.drawable.loading_animation)
                         error(R.drawable.ic_broken_image)

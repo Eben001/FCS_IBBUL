@@ -12,8 +12,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/exco_image"
@@ -26,22 +25,26 @@
 
         <TextView
             android:id="@+id/exco_name"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/exco_image"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="20sp"
             tools:text="Gana Ebenezer" />
 
         <TextView
             android:id="@+id/exco_post"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/exco_name"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/exco_image"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="20sp"
             tools:text="President" />
@@ -53,20 +56,23 @@
             android:layout_below="@id/exco_post"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/exco_image"
+            android:maxLength="14"
             android:textColor="@color/black"
             android:textSize="20sp"
             tools:text="09038549279" />
 
         <TextView
             android:id="@+id/exco_department"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/exco_phone"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/exco_image"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Conputer Science" />
+            tools:text="Counselling Psychology" />
 
 
         <TextView

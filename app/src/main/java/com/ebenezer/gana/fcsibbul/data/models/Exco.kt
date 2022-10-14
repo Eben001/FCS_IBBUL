@@ -13,5 +13,5 @@ data class Exco(
     val phone:String = "",
     val office:String = "",
     val department:String ="",
-    val level:String = ""
+    val level:Int = 100
 ):Parcelable

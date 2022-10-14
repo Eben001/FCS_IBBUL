@@ -32,12 +32,14 @@ class AddExcoViewModel @Inject constructor(private val repository: ExcosReposito
         emailId: String,
         imageUrl: String,
         phoneNumber: String,
-        office: String
+        office: String,
+        department:String,
+        level:Int
     ) {
         val newData =
             Exco(
                 id, firstName, lastName, emailId,
-                imageUrl, phoneNumber, office
+                imageUrl, phoneNumber, office, department, level
             )
         addNewExco(newData)
     }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.FragmentExcosDetailsBinding
@@ -37,8 +38,11 @@ class ExcosDetailsFragment : Fragment() {
             excoPhone.text = excos.phone
             excoPost.text = excos.office
             excoDepartment.text = excos.department
-            excoLevel.text = excos.level
-            excoImage.setImageResource(R.drawable.img_eben)
+            excoLevel.text = context?.resources?.getString(R.string.exco_level, excos.level)
+            excoImage.load(excos.image_url){
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
         }
     }
 

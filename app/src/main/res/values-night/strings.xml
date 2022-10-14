@@ -19,4 +19,5 @@
     <string name="msg_grant_permission">To be able to upload an image, FCS App requires that you grant it the permission to Read your storage</string>
     <string name="no_thanks">No thanks</string>
     <string name="add_exco">Add Exco</string>
+    <string name="err_msg_enter_level">Please enter the exco\'s level</string>
 </resources>

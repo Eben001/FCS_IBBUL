@@ -185,7 +185,9 @@ class AddExcoFragment : BaseFragment() {
                 binding.etEmail.text.toString().trim(),
                 mExcoImageUrl,
                 binding.etPhone.text.toString().trim(),
-                binding.etOffice.text.toString().trim()
+                binding.etOffice.text.toString().trim(),
+                binding.etDepartment.text.toString().trim(),
+                binding.etLevel.text.toString().toInt()
             )
         } else {
             showSnackBar("Please upload an Image", isError = true)
@@ -204,6 +206,30 @@ class AddExcoFragment : BaseFragment() {
             binding.etLastName.text.toString().trim().isEmpty() -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_last_name),
+                    isError = true
+                )
+                false
+            }
+
+            binding.etPhone.text.toString().trim().isEmpty() -> {
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_phone),
+                    isError = true
+                )
+                false
+            }
+
+            binding.etDepartment.text.toString().trim().isEmpty() -> {
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_department),
+                    isError = true
+                )
+                false
+            }
+
+            binding.etLastName.text.toString().trim().isEmpty() -> {
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_level),
                     isError = true
                 )
                 false
