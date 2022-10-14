@@ -10,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 private const val TAG = "ExcosListFragment"
 
+@AndroidEntryPoint
 class ExcosListFragment : Fragment() {
 
     private var _binding: ExcoslistFragmentBinding? = null

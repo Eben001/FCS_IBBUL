@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ListItemExcosBinding
@@ -24,7 +25,10 @@ class ExcosListAdapter(private val context: Context, private val onItemClicked:(
                     excoPost.text = excos.office
                     excoDepartment.text = excos.department
                     excoLevel.text = excos.level
-                    excoImage.setImageResource(R.drawable.img_eben)
+                    excoImage.load(excos.image_url){
+                        placeholder(R.drawable.loading_animation)
+                        error(R.drawable.ic_broken_image)
+                    }
                 }
 
             }

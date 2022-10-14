@@ -29,7 +29,7 @@ class ExcosRepository @Inject constructor(
             emailId = exco.emailId,
             image_url = exco.image_url,
             phone = exco.phone,
-            office = exco.phone,
+            office = exco.office,
             department = exco.department,
             level = exco.level
         )

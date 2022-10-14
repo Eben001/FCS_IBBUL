@@ -3,108 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_margin_height"
-    app:cardCornerRadius="@dimen/list_item_card_elevation"
-    app:cardElevation="@dimen/list_item_card_elevation"
-    android:layout_margin="@dimen/list_item_card_elevation"
-    app:cardPreventCornerOverlap="true"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_height="150dp"
+    android:layout_margin="8dp"
+    android:focusable="true"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/exco_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
-            android:contentDescription="@string/excos_image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/img_eben" />
+            tools:src="@drawable/img_eben" />
+
 
         <TextView
             android:id="@+id/exco_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintBottom_toTopOf="@+id/exco_phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/exco_image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             tools:text="Gana Ebenezer" />
 
         <TextView
-            android:id="@+id/exco_phone"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintBottom_toTopOf="@+id/exco_post"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/exco_name"
-            tools:text="09038549279" />
-
-        <TextView
             android:id="@+id/exco_post"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/primaryTextColor"
-
-            app:layout_constraintBottom_toTopOf="@+id/exco_department"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/exco_phone"
+            android:layout_below="@id/exco_name"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/exco_image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             tools:text="President" />
 
         <TextView
-            android:id="@+id/exco_department"
-
+            android:id="@+id/exco_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintBottom_toTopOf="@+id/exco_level"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/exco_post"
-            tools:text="Computer Science" />
+            android:layout_below="@id/exco_post"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/exco_image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="09038549279" />
+
+        <TextView
+            android:id="@+id/exco_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exco_phone"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/exco_image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="Conputer Science" />
+
 
         <TextView
             android:id="@+id/exco_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/exco_department"
-            tools:text="300 Level" />
+            android:layout_below="@id/exco_department"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/exco_image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="400L" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="200dp" />
+    </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
