@@ -33,11 +33,11 @@ class ExcosDetailsFragment : Fragment() {
 
     fun bind(excos:Exco){
         binding.apply {
-            excoName.text = excos.name
+            excoName.text = resources.getString(R.string.first_name_last_name, excos.firstName,excos.lastName)
+            excoPhone.text = excos.phone
+            excoPost.text = excos.office
             excoDepartment.text = excos.department
             excoLevel.text = excos.level
-            excoPhone.text = excos.phone
-            excoPost.text = excos.post
             excoImage.setImageResource(R.drawable.img_eben)
         }
     }

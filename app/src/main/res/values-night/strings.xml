@@ -11,4 +11,12 @@
     <string name="btn_lbl_register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="action_settings">Settings</string>
+    <string name="err_msg_enter_office">Please Enter the Exco\'s Office</string>
+    <string name="add_exco_title">Add an Exco</string>
+    <string name="add_exco_message">Are you sure you want to add this Exco?</string>
+    <string name="read_permission_denied"><![CDATA["    <string name=\"read_permission_denied\">You just denied the permission, you can grant it from the settings</string> "]]></string>
+    <string name="image_selection_failed">Failed to upload image!.</string>
+    <string name="msg_grant_permission">To be able to upload an image, FCS App requires that you grant it the permission to Read your storage</string>
+    <string name="no_thanks">No thanks</string>
+    <string name="add_exco">Add Exco</string>
 </resources>

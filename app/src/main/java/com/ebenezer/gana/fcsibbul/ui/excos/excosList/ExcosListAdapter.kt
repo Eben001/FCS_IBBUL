@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.excos.excosList
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,20 +10,22 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ListItemExcosBinding
 
-class ExcosListAdapter(private val onItemClicked:(Exco) -> Unit) : ListAdapter<Exco,
+class ExcosListAdapter(private val context: Context, private val onItemClicked:(Exco) -> Unit) : ListAdapter<Exco,
         ExcosListAdapter.ExcosViewHolder>(DiffCallback) {
 
-    class ExcosViewHolder(private var binding: ListItemExcosBinding) :
+    inner class ExcosViewHolder(private var binding: ListItemExcosBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(exco: Exco) {
+        fun bind(excos: Exco) {
             binding.apply {
-                excoName.text = exco.name
-                excoImage.setImageResource(R.drawable.img_eben)
-                excoLevel.text = exco.level
-                excoDepartment.text = exco.department
-                excoPhone.text = exco.phone.toString()
-                excoPost.text = exco.post
+                binding.apply {
+                    excoName.text = context.resources.getString(R.string.first_name_last_name, excos.firstName,excos.lastName)
+                    excoPhone.text = excos.phone
+                    excoPost.text = excos.office
+                    excoDepartment.text = excos.department
+                    excoLevel.text = excos.level
+                    excoImage.setImageResource(R.drawable.img_eben)
+                }
 
             }
         }
@@ -53,7 +56,7 @@ class ExcosListAdapter(private val onItemClicked:(Exco) -> Unit) : ListAdapter<E
             }
 
             override fun areContentsTheSame(oldItem: Exco, newItem: Exco): Boolean {
-                return oldItem.id == newItem.id && oldItem.name == newItem.name
+                return oldItem.id == newItem.id && oldItem.image_url == newItem.image_url
             }
         }
     }

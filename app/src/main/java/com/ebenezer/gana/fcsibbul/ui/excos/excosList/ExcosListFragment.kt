@@ -31,7 +31,7 @@ class ExcosListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ExcosListAdapter {
+        val adapter = ExcosListAdapter(requireContext()) {
             val action =
                 ExcosListFragmentDirections.actionNavigationExcosToNavigationExcosDetails(it)
             findNavController().navigate(action)
