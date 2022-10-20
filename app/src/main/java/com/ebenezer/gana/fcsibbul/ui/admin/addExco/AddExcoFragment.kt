@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import coil.dispose
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
@@ -57,6 +58,9 @@ class AddExcoFragment : BaseFragment() {
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isPostSuccess.value == true) {
                 showSnackBar(it.asString(requireContext()), isError = false)
+                clearInputFields()
+                binding.addExco.isEnabled = true
+
             } else {
                 showSnackBar(it.asString(requireContext()), isError = true)
             }
@@ -192,10 +196,22 @@ class AddExcoFragment : BaseFragment() {
                     binding.etLevel.text.toString().toInt()
                 )
             }
+            binding.addExco.isEnabled = false
 
         } else {
             showSnackBar("Please upload an Image", isError = true)
         }
+    }
+
+    private fun clearInputFields() {
+        binding.excoImage.load(R.drawable.ic_user_placeholder)
+        binding.etFirstName.text?.clear()
+        binding.etLastName.text?.clear()
+        binding.etEmail.text?.clear()
+        binding.etPhone.text?.clear()
+        binding.etOffice.text?.clear()
+        binding.etDepartment.text?.clear()
+        binding.etLevel.text?.clear()
     }
 
     private fun isValidDetails(): Boolean {
