@@ -179,7 +179,8 @@ class AddExcoFragment : BaseFragment() {
 
             viewModel.uploadImageToCloudStorage(
                 requireActivity(),
-                mSelectedImageFileUri, Constants.EXCOS_IMAGE
+                mSelectedImageFileUri, Constants.EXCOS_IMAGE,
+                excoFullName = "${binding.etFirstName.text.toString().trim()} - ${binding.etLastName.text.toString().trim()}"
             )
 
             //Observe and use the excoUrl received from uploadImageToCloudStorage() call

@@ -54,8 +54,8 @@ class AddExcoViewModel @Inject constructor(private val repository: ExcosReposito
         })
     }
 
-    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String) {
-        repository.uploadExcoImageToCloud(activity, imageFileURI, imageType, onSuccess = {
+    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String, excoFullName:String) {
+        repository.uploadExcoImageToCloud(activity, imageFileURI, imageType, excoFullName,  onSuccess = {
             _imageUrl.value = it
         },
             onFailure = {

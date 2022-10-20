@@ -46,12 +46,12 @@ class ExcosRepository @Inject constructor(
     }
 
     fun uploadExcoImageToCloud(
-        activity: Activity, imageFileURI: Uri?, imageType: String, onSuccess: (String) -> Unit,
+        activity: Activity, imageFileURI: Uri?, imageType: String, excoFullName:String, onSuccess: (String) -> Unit,
         onFailure: (UiText) -> Unit
     ) {
 
         val storageReference = firebaseStorage.reference.child(
-            "$imageType ${System.currentTimeMillis()}.${
+            "$imageType $excoFullName ${System.currentTimeMillis()}.${
                 Constants.getFileExtension(
                     activity, imageFileURI
                 )
