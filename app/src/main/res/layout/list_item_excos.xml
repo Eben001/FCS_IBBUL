@@ -18,7 +18,7 @@
             android:id="@+id/exco_image"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             tools:src="@drawable/img_eben" />
 
