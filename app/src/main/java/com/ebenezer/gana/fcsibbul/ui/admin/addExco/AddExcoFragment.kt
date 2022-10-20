@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import coil.dispose
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
@@ -70,7 +69,7 @@ class AddExcoFragment : BaseFragment() {
 
     private fun setOnClickListeners() {
         binding.addExco.setOnClickListener {
-            if (isValidDetails()) {
+            if (isValidDetails() && isValidLevelField()) {
                 showConfirmDialog()
             }
         }
@@ -240,23 +239,6 @@ class AddExcoFragment : BaseFragment() {
                 false
             }
 
-            binding.etDepartment.text.toString().trim().isEmpty() -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_department),
-                    isError = true
-                )
-                false
-            }
-
-            binding.etLastName.text.toString().trim().isEmpty() -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_level),
-                    isError = true
-                )
-                false
-            }
-
-
             binding.etOffice.text.toString().trim().isEmpty() -> {
                 showSnackBar(
                     resources.getString(R.string.err_msg_enter_office),
@@ -265,9 +247,39 @@ class AddExcoFragment : BaseFragment() {
                 false
             }
 
+            binding.etDepartment.text.toString().trim().isEmpty() -> {
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_department),
+                    isError = true
+                )
+                false
+            }
+
+            binding.etLevel.text.toString().trim().isEmpty() -> {
+                showSnackBar(
+                    resources.getString(R.string.err_msg_enter_level),
+                    isError = true
+                )
+                false
+            }
             else -> true
         }
 
+    }
+
+    private fun isValidLevelField():Boolean{
+        return when(binding.etLevel.text.toString().trim()){
+            "100","200","300","400","500" -> {
+                true
+            }
+            else -> {
+                showSnackBar(
+                    resources.getString(R.string.enter_valid_level),
+                    isError = true
+                )
+                false
+            }
+        }
     }
 
 
