@@ -34,7 +34,6 @@ class AddExcoFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: AddExcoViewModel by viewModels()
     private var mSelectedImageFileUri: Uri? = null
-    private var mExcoImageUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,9 +61,7 @@ class AddExcoFragment : BaseFragment() {
                 showSnackBar(it.asString(requireContext()), isError = true)
             }
         }
-        viewModel.imageUrl.observe(viewLifecycleOwner) {
-            mExcoImageUrl = it
-        }
+
     }
 
     private fun setOnClickListeners() {
@@ -130,10 +127,7 @@ class AddExcoFragment : BaseFragment() {
                     binding.excoImage.load(mSelectedImageFileUri) {
                         placeholder(R.drawable.ic_user_placeholder)
                     }
-                    viewModel.uploadImageToCloudStorage(
-                        requireActivity(),
-                        mSelectedImageFileUri, Constants.EXCOS_IMAGE
-                    )
+
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(
@@ -178,17 +172,27 @@ class AddExcoFragment : BaseFragment() {
 
     private fun addExco() {
         if (mSelectedImageFileUri != null) {
-            viewModel.addExco(
-                "",
-                binding.etFirstName.text.toString().trim(),
-                binding.etLastName.text.toString().trim(),
-                binding.etEmail.text.toString().trim(),
-                mExcoImageUrl,
-                binding.etPhone.text.toString().trim(),
-                binding.etOffice.text.toString().trim(),
-                binding.etDepartment.text.toString().trim(),
-                binding.etLevel.text.toString().toInt()
+
+            viewModel.uploadImageToCloudStorage(
+                requireActivity(),
+                mSelectedImageFileUri, Constants.EXCOS_IMAGE
             )
+
+            //Observe and use the excoUrl received from uploadImageToCloudStorage() call
+            viewModel.imageUrl.observe(viewLifecycleOwner) { excoUrl ->
+                viewModel.addExco(
+                    "",
+                    binding.etFirstName.text.toString().trim(),
+                    binding.etLastName.text.toString().trim(),
+                    binding.etEmail.text.toString().trim(),
+                    excoUrl,
+                    binding.etPhone.text.toString().trim(),
+                    binding.etOffice.text.toString().trim(),
+                    binding.etDepartment.text.toString().trim(),
+                    binding.etLevel.text.toString().toInt()
+                )
+            }
+
         } else {
             showSnackBar("Please upload an Image", isError = true)
         }
