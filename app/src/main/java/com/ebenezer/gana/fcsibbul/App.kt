@@ -6,11 +6,14 @@ import androidx.annotation.RequiresApi
 import com.ebenezer.gana.fcsibbul.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        Timber.plant(Timber.DebugTree())
+
         startKoin {
             androidContext(this@App)
             modules(

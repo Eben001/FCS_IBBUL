@@ -9,8 +9,8 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import timber.log.Timber
 
-private const val TAG = "AnnouncementDetailsRepo"
 
 class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
@@ -22,8 +22,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(
-                        TAG,
+                    Timber.d(
                         "unable to get liked users: Listen Failed",
                         error
                     )
@@ -49,7 +48,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
             }
             .addOnFailureListener {
-                Log.e(TAG, "postAnnouncement: Error while posting announcement")
+                Timber.e( "postAnnouncement: Error while posting announcement")
             }
     }
 
@@ -61,7 +60,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
             }
             .addOnFailureListener {
-                Log.e(TAG, "postAnnouncement: Error while posting announcement")
+                Timber.e( "postAnnouncement: Error while posting announcement")
             }
     }
 
@@ -73,7 +72,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
             }
             .addOnFailureListener {
-                Log.e(TAG, "postAnnouncement: Error while posting announcement")
+                Timber.e( "postAnnouncement: Error while posting announcement")
             }
     }
 
@@ -83,8 +82,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(
-                        TAG,
+                    Timber.d(
                         "loginAdmin: Listen Failed",
                         error
                     )
@@ -127,7 +125,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(TAG, "loginAdmin: Listen Failed", error)
+                    Timber.d( "loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {

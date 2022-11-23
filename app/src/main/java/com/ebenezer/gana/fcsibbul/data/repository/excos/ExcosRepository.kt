@@ -11,8 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
-
-private const val TAG = "ExcosRepository"
+import timber.log.Timber
 
 class ExcosRepository(
     private val firestore: FirebaseFirestore,
@@ -86,7 +85,7 @@ class ExcosRepository(
                 excos(excosList)
             }
             .addOnFailureListener {
-                Log.e(TAG, "Error getting excos list ${it.printStackTrace()}")
+                Timber.e( "Error getting excos list ${it.printStackTrace()}")
             }
     }
 

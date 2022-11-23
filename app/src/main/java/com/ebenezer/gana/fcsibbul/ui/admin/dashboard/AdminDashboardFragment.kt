@@ -12,7 +12,6 @@ import com.ebenezer.gana.fcsibbul.databinding.FragmentAdminDashboardBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
 
-private const val TAG = "AdminDashboardFragment"
 
 class AdminDashboardFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.GONE
@@ -27,7 +26,7 @@ class AdminDashboardFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Log.d(TAG, "onCreateView: Called")
+
 
         _binding = FragmentAdminDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -36,7 +35,6 @@ class AdminDashboardFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(TAG, "onViewCreated: called")
         viewModel.verifyIfAdmin()
         viewModel.isAdmin.observe(viewLifecycleOwner) {
             if (it) {

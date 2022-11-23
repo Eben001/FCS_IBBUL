@@ -8,8 +8,6 @@ import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 
 
-private const val TAG = "SignUpViewModel"
-
 class SignUpViewModel (private val repository: FcsRepository) : ViewModel() {
 
     private val _isSignupSuccess = MutableLiveData<Boolean>()

@@ -10,8 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import timber.log.Timber
 
-private const val TAG = "FcsRepository"
 
 class FcsRepository(private val firebaseAuth: FirebaseAuth,
 private val firestore: FirebaseFirestore) {
@@ -27,7 +27,7 @@ private val firestore: FirebaseFirestore) {
                 logoutUser()
             }
             .addOnFailureListener {
-                Log.d(TAG, "registerUser: Error while registering this user")
+                Timber.d("registerUser: Error while registering this user")
             }
     }
 
@@ -71,7 +71,7 @@ private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(TAG, "loginAdmin: Listen Failed", error)
+                    Timber.d( "loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {

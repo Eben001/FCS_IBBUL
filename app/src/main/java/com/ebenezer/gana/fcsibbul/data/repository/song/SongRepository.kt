@@ -8,8 +8,8 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import timber.log.Timber
 
-private const val TAG = "SongRepository"
 
 class SongRepository(
     private val firebaseAuth: FirebaseAuth,
@@ -21,7 +21,7 @@ class SongRepository(
             .document(Constants.SONG)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(TAG, "getSong: Listen Failed", error)
+                    Timber.d( "getSong: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {

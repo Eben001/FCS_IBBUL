@@ -8,8 +8,7 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-
-private const val TAG = "BibleVerseRepository"
+import timber.log.Timber
 
 class BibleVerseRepository(
     private val firebaseAuth: FirebaseAuth,
@@ -21,7 +20,7 @@ class BibleVerseRepository(
             .document(Constants.BIBLE_VERSE)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(TAG, "getBibleVerse: Listen Failed", error)
+                    Timber.d("getBibleVerse: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {

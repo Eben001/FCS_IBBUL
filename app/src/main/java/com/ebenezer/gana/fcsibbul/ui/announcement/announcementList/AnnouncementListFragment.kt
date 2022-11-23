@@ -14,7 +14,6 @@ import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import kotlinx.coroutines.launch
 
-private const val TAG = "AnnouncementListFragment"
 class AnnouncementListFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
 

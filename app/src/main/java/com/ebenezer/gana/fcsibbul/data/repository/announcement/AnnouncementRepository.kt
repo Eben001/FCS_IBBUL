@@ -10,8 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-
-private const val TAG = "AnnouncementRepository"
+import timber.log.Timber
 
 class AnnouncementRepository(private val firestore: FirebaseFirestore) {
 
@@ -37,7 +36,7 @@ class AnnouncementRepository(private val firestore: FirebaseFirestore) {
                 result(announcementsList)
             }
             .addOnFailureListener {
-                Log.e(TAG, "Error getting announcement: ${it.printStackTrace()}")
+                Timber.e( "Error getting announcement: ${it.printStackTrace()}")
 
             }
 
@@ -82,7 +81,7 @@ class AnnouncementRepository(private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Log.d(TAG, "loginAdmin: Listen Failed", error)
+                    Timber.d("loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {
