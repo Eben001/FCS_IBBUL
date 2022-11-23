@@ -6,11 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.models.DailyBibleVerse
 import com.ebenezer.gana.fcsibbul.data.repository.bibleVerse.BibleVerseRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class PostBibleVerseViewModel @Inject constructor(
+class PostBibleVerseViewModel(
     private val repository: BibleVerseRepository
 ) : ViewModel() {
     private var _isPostSuccess = MutableLiveData<Boolean>()

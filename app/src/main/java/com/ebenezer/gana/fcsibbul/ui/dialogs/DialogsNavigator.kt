@@ -3,10 +3,8 @@ package com.ebenezer.gana.fcsibbul.ui.dialogs
 import android.content.Context
 import com.ebenezer.gana.fcsibbul.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.android.qualifiers.ActivityContext
-import javax.inject.Inject
 
-class DialogsNavigator @Inject constructor(@ActivityContext private val context: Context) {
+class DialogsNavigator(private val context: Context) {
 
     fun showContactusDialog() {
         MaterialAlertDialogBuilder(context)

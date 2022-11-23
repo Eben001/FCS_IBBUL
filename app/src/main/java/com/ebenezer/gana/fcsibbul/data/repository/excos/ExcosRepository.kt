@@ -11,11 +11,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
-import javax.inject.Inject
 
 private const val TAG = "ExcosRepository"
 
-class ExcosRepository @Inject constructor(
+class ExcosRepository(
     private val firestore: FirebaseFirestore,
     private val firebaseStorage: FirebaseStorage
 ) {
@@ -46,7 +45,11 @@ class ExcosRepository @Inject constructor(
     }
 
     fun uploadExcoImageToCloud(
-        activity: Activity, imageFileURI: Uri?, imageType: String, excoFullName:String, onSuccess: (String) -> Unit,
+        activity: Activity,
+        imageFileURI: Uri?,
+        imageType: String,
+        excoFullName: String,
+        onSuccess: (String) -> Unit,
         onFailure: (UiText) -> Unit
     ) {
 

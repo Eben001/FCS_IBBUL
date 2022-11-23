@@ -7,30 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 @RequiresApi(Build.VERSION_CODES.M)
-@AndroidEntryPoint
+
 class AnnouncementDetailsFragment : BaseFragment() {
 
-    private val viewModel: AnnouncementDetailsViewModel by viewModels()
+    private val viewModel: AnnouncementDetailsViewModel by viewModel()
     override var bottomNavigationViewVisibility = View.GONE
     private val navigationArgs: AnnouncementDetailsFragmentArgs by navArgs()
     private var _binding: AnnouncementDetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var networkStatusChecker: NetworkStatusChecker
+
+    private val networkStatusChecker by inject<NetworkStatusChecker>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

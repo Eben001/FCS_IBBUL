@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.models.Song
 import com.ebenezer.gana.fcsibbul.data.repository.song.SongRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class PostSongViewModel @Inject constructor(private val repository: SongRepository):ViewModel() {
+
+class PostSongViewModel(private val repository: SongRepository):ViewModel() {
     private var _isPostSuccess = MutableLiveData<Boolean>()
     val isPostSuccess: LiveData<Boolean> = _isPostSuccess
 

@@ -9,21 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.LoginFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
 import com.ebenezer.gana.fcsibbul.ui.login.FieldValidators.isValidEmail
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
+
 class LoginFragment : BaseFragment() {
 
     private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel:LoginViewModel by viewModel()
 
     /**
      * applying text watcher on each text field

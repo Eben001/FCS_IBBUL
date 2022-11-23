@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.FragmentSettingsBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedOut
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class SettingsFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SettingsViewModel by viewModels()
+    private val viewModel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

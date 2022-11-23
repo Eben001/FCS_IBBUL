@@ -8,11 +8,10 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import javax.inject.Inject
 
 private const val TAG = "BibleVerseRepository"
 
-class BibleVerseRepository @Inject constructor(
+class BibleVerseRepository(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) {

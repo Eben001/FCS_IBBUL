@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.models.Song
 import com.ebenezer.gana.fcsibbul.data.repository.song.SongRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SongsViewModel @Inject constructor(private val repository:SongRepository) : ViewModel() {
+
+class SongsViewModel constructor(private val repository:SongRepository) : ViewModel() {
     private val _song = MutableLiveData<Song>()
     val song:LiveData<Song> = _song
 

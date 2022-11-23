@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.SignUpFragmentBinding
@@ -16,7 +16,7 @@ class SignUpFragment : BaseFragment() {
     private var _binding: SignUpFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SignUpViewModel by viewModels()
+    private val viewModel: SignUpViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

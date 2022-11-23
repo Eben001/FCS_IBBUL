@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.repository.bibleVerse.BibleVerseRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class DailyBibleVerseViewModel @Inject constructor(private val repository: BibleVerseRepository) :
+
+class DailyBibleVerseViewModel (private val repository: BibleVerseRepository) :
     ViewModel() {
     private val _bibleVerse = MutableLiveData<String>()
     val bibleVerse: LiveData<String> = _bibleVerse

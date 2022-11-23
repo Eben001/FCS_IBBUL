@@ -10,11 +10,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import javax.inject.Inject
 
 private const val TAG = "AnnouncementRepository"
 
-class AnnouncementRepository @Inject constructor(private val firestore: FirebaseFirestore) {
+class AnnouncementRepository(private val firestore: FirebaseFirestore) {
 
     /**
      * Gets announcement list from firestore
@@ -48,7 +47,11 @@ class AnnouncementRepository @Inject constructor(private val firestore: Firebase
     /**
      * Posts new announcement
      */
-    fun postAnnouncement(newAnnouncement: Announcement, onSuccess:(UiText) -> Unit, onFailure:(UiText) -> Unit) {
+    fun postAnnouncement(
+        newAnnouncement: Announcement,
+        onSuccess: (UiText) -> Unit,
+        onFailure: (UiText) -> Unit
+    ) {
 
         //Gets the id of the user who posted the announcement and go ahead with posting
         val announcement = Announcement(
@@ -66,7 +69,7 @@ class AnnouncementRepository @Inject constructor(private val firestore: Firebase
                 onSuccess(UiText.StringResource(R.string.posted_success))
             }
             .addOnFailureListener {
-               onFailure(UiText.DynamicString(it.message!!))
+                onFailure(UiText.DynamicString(it.message!!))
             }
     }
 

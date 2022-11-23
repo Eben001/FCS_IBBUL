@@ -1,31 +1,27 @@
 package com.ebenezer.gana.fcsibbul.ui.announcement.announcementList
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ebenezer.gana.fcsibbul.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 private const val TAG = "AnnouncementListFragment"
-@AndroidEntryPoint
 class AnnouncementListFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
 
     private var _binding: AnnouncementlistFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AnnouncementListViewModel by viewModels()
+    private val viewModel: AnnouncementListViewModel by viewModel()
 
 
     override fun onCreateView(

@@ -8,29 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostBibleVerseBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @RequiresApi(Build.VERSION_CODES.M)
-@AndroidEntryPoint
 class PostBibleVerseFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
     override var drawerState = Constants.DRAWER_STATE_LOCKED_CLOSED
 
 
-    private val viewModel: PostBibleVerseViewModel by viewModels()
+    private val viewModel: PostBibleVerseViewModel by viewModel()
     private var _binding: FragmentPostBibleVerseBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var networkStatusChecker: NetworkStatusChecker
+    private val networkStatusChecker by inject<NetworkStatusChecker>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -9,11 +9,10 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import javax.inject.Inject
 
 private const val TAG = "AnnouncementDetailsRepo"
 
-class AnnouncementDetailsRepository @Inject constructor(private val firestore: FirebaseFirestore) {
+class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
     fun getUpdatedLikedUsers(
         announcementId: String,
@@ -102,7 +101,11 @@ class AnnouncementDetailsRepository @Inject constructor(private val firestore: F
             }
     }
 
-    fun deleteAnnouncement(announcementId: String, onSuccess: (UiText) -> Unit, onFailure:(UiText) -> Unit) {
+    fun deleteAnnouncement(
+        announcementId: String,
+        onSuccess: (UiText) -> Unit,
+        onFailure: (UiText) -> Unit
+    ) {
         firestore.collection(Constants.ANNOUNCEMENTS)
             .document(announcementId)
             .delete()

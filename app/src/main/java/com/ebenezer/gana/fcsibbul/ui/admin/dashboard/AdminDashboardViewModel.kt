@@ -6,11 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class AdminDashboardViewModel @Inject constructor(private val repository: FcsRepository) : ViewModel() {
+class AdminDashboardViewModel (private val repository: FcsRepository) : ViewModel() {
 
     private var _isAdmin = MutableLiveData<Boolean>()
     val isAdmin: LiveData<Boolean> = _isAdmin

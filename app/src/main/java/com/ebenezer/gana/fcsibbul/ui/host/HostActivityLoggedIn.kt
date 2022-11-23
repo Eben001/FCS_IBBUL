@@ -14,16 +14,19 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.activityScope
+import org.koin.core.scope.Scope
 
-@AndroidEntryPoint
-class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+AndroidScopeComponent{
 
     private lateinit var binding: ActivityHostLoggedInBinding
     private lateinit var navController: NavController
-    @Inject
-    lateinit var dialogsNavigator: DialogsNavigator
+
+    override val scope: Scope by activityScope()
+    private val dialogsNavigator by inject<DialogsNavigator>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

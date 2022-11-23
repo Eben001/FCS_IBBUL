@@ -9,16 +9,15 @@ import androidx.navigation.fragment.NavHostFragment
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedOutBinding
 import com.google.firebase.auth.FirebaseAuth
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-@AndroidEntryPoint
+
 class HostActivityLoggedOut : AppCompatActivity() {
 
     private lateinit var binding: ActivityHostLoggedOutBinding
     private lateinit var navController: NavController
-    @Inject
-    lateinit var firebaseAuth: FirebaseAuth
+
+    private val firebaseAuth by inject<FirebaseAuth>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()

@@ -15,24 +15,22 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
 
-@AndroidEntryPoint
 class AddExcoFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
 
     private var _binding: FragmentAddExcoBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddExcoViewModel by viewModels()
+    private val viewModel: AddExcoViewModel by viewModel()
     private var mSelectedImageFileUri: Uri? = null
 
     override fun onCreateView(

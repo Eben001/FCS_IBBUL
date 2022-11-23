@@ -8,29 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostAnnouncementBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.M)
-@AndroidEntryPoint
+
 class PostAnnouncementFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
 
     private var _binding: FragmentPostAnnouncementBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PostAnnouncementViewModel by viewModels()
+    private val viewModel: PostAnnouncementViewModel by viewModel()
 
-    @Inject
-    lateinit var networkStatusChecker: NetworkStatusChecker
+
+    private val networkStatusChecker by inject<NetworkStatusChecker>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

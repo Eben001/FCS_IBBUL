@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class AnnouncementDetailsViewModel @Inject constructor(private val repository: AnnouncementDetailsRepository) :
+
+class AnnouncementDetailsViewModel constructor(private val repository: AnnouncementDetailsRepository) :
     ViewModel() {
 
     private val _likesCount = MutableLiveData<Long>()

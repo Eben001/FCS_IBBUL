@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 
 private const val TAG = "SignUpViewModel"
-@HiltViewModel
-class SignUpViewModel @Inject constructor(private val repository: FcsRepository) : ViewModel() {
+
+class SignUpViewModel (private val repository: FcsRepository) : ViewModel() {
 
     private val _isSignupSuccess = MutableLiveData<Boolean>()
     val isSignupSuccess: LiveData<Boolean> = _isSignupSuccess

@@ -7,27 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostSongBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 @RequiresApi(Build.VERSION_CODES.M)
-@AndroidEntryPoint
 class PostSongFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.GONE
 
     private var _binding: FragmentPostSongBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: PostSongViewModel by viewModels()
+    private val viewModel: PostSongViewModel by viewModel()
 
-    @Inject
-    lateinit var networkStatusChecker: NetworkStatusChecker
+    private val networkStatusChecker by inject<NetworkStatusChecker>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

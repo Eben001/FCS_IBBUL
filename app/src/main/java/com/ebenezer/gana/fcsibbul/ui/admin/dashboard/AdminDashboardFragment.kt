@@ -6,23 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAdminDashboardBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
-import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "AdminDashboardFragment"
 
-@AndroidEntryPoint
 class AdminDashboardFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.GONE
     override var drawerState = Constants.DRAWER_STATE_LOCKED_CLOSED
 
     private var _binding: FragmentAdminDashboardBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AdminDashboardViewModel by viewModels()
+    private val viewModel: AdminDashboardViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

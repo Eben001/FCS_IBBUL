@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.FragmentDailyBibleVerseBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class DailyBibleVerseFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
@@ -18,7 +17,7 @@ class DailyBibleVerseFragment : BaseFragment() {
     private var _binding: FragmentDailyBibleVerseBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DailyBibleVerseViewModel by viewModels()
+    private val viewModel: DailyBibleVerseViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

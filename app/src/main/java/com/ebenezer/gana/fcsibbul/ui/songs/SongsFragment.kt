@@ -4,20 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.FragmentSongsBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class SongsFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.GONE
     override var drawerState = Constants.DRAWER_STATE_LOCKED_CLOSED
 
 
-    private val viewModel: SongsViewModel by viewModels()
+    private val viewModel: SongsViewModel by viewModel()
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!
 

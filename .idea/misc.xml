@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Eben/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/activity_host_logged_in.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eben/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/list_item_announcement.xml" value="0.5" />
+        <entry key="..\:/Users/Eben/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/layout/list_item_excos.xml" value="0.5" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1645" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable-v24/ic_vector_delete.xml" value="0.1255" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/FCS_IBBUL/app/src/main/res/drawable-v24/ic_white_color_back_24dp.xml" value="0.1875" />

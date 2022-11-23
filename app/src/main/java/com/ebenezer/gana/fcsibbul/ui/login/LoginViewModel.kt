@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseUser
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(private val repository: FcsRepository) : ViewModel() {
+
+class LoginViewModel (private val repository: FcsRepository) : ViewModel() {
 
     private var _isPostSuccess = MutableLiveData<Boolean>()
     val isPostSuccess: LiveData<Boolean> = _isPostSuccess

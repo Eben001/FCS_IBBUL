@@ -5,22 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 private const val TAG = "ExcosListFragment"
 
-@AndroidEntryPoint
+
 class ExcosListFragment : Fragment() {
 
     private var _binding: ExcoslistFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:ExcosViewModel by viewModels()
+    private val viewModel:ExcosViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

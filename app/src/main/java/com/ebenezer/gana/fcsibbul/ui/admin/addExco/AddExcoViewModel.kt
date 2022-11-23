@@ -5,15 +5,11 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.data.repository.excos.ExcosRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class AddExcoViewModel @Inject constructor(private val repository: ExcosRepository) : ViewModel() {
+class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
 
 
     private var _isPostSuccess = MutableLiveData<Boolean>()
