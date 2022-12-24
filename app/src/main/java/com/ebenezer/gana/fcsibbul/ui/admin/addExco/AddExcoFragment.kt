@@ -2,24 +2,20 @@ package com.ebenezer.gana.fcsibbul.ui.admin.addExco
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
@@ -72,43 +68,25 @@ class AddExcoFragment : BaseFragment() {
             }
         }
         binding.excoImage.setOnClickListener {
-            //Function to check if the permission to use the device storage is granted
-            //Request one if not granted
-            requestPermission()
+            showImagePicker()
         }
     }
 
-
-    private fun requestPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                showImageChooser()
-            }
-
-            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                showRequestPermissionRationale()
-            }
-
-            else -> {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                    Constants.READ_STORAGE_PERMISSION_CODE
+    private fun showImagePicker() {
+        ImagePicker.with(this)
+            .compress(1024)
+            .maxResultSize(1080, 1080)
+            .crop(10f, 10f)    //Crop image with 16:9 aspect ratio
+            .galleryMimeTypes(
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
                 )
+            )
+            .createIntent { intent ->
+                pickImageFromGalleryForResult.launch(intent)
             }
-        }
-
-    }
-
-    private fun showImageChooser() {
-        val galleryIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
-        pickImageFromGalleryForResult.launch(galleryIntent)
     }
 
     private var pickImageFromGalleryForResult = registerForActivityResult(
@@ -142,19 +120,6 @@ class AddExcoFragment : BaseFragment() {
         }
     }
 
-    private fun showRequestPermissionRationale() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(resources.getString(R.string.msg_grant_permission))
-            .setNeutralButton(resources.getString(R.string.cancel_dialog_message)) { dialog, _ ->
-                dialog.cancel()
-            }
-            .setNegativeButton(resources.getString(R.string.no_thanks)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-
     private fun showConfirmDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.add_exco_title))
@@ -177,7 +142,9 @@ class AddExcoFragment : BaseFragment() {
             viewModel.uploadImageToCloudStorage(
                 requireActivity(),
                 mSelectedImageFileUri, Constants.EXCOS_IMAGE,
-                excoFullName = "${binding.etFirstName.text.toString().trim()} - ${binding.etLastName.text.toString().trim()}"
+                excoFullName = "${
+                    binding.etFirstName.text.toString().trim()
+                } - ${binding.etLastName.text.toString().trim()}"
             )
 
             //Observe and use the excoUrl received from uploadImageToCloudStorage() call
@@ -265,9 +232,9 @@ class AddExcoFragment : BaseFragment() {
 
     }
 
-    private fun isValidLevelField():Boolean{
-        return when(binding.etLevel.text.toString().trim()){
-            "100","200","300","400","500" -> {
+    private fun isValidLevelField(): Boolean {
+        return when (binding.etLevel.text.toString().trim()) {
+            "100", "200", "300", "400", "500" -> {
                 true
             }
             else -> {
