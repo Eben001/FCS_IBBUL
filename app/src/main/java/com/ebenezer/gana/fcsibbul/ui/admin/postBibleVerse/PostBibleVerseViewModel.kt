@@ -3,9 +3,11 @@ package com.ebenezer.gana.fcsibbul.ui.admin.postBibleVerse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ebenezer.gana.fcsibbul.data.models.DailyBibleVerse
 import com.ebenezer.gana.fcsibbul.data.repository.bibleVerse.BibleVerseRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
+import kotlinx.coroutines.launch
 
 class PostBibleVerseViewModel(
     private val repository: BibleVerseRepository
@@ -32,6 +34,12 @@ class PostBibleVerseViewModel(
     ) {
         val newData = DailyBibleVerse(posterId, content)
         postNewVerse(newData)
+    }
+
+    fun sendNotification(to:String, title: String, body:String){
+        viewModelScope.launch {
+            repository.sendNotification(to, title, body)
+        }
     }
 
 }

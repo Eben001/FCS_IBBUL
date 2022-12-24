@@ -15,5 +15,5 @@ val repositoryModule = module {
     single {ExcosRepository(get(),get())}
     single {FcsRepository(get(), get())}
     single {SongRepository(get(), get())}
-    single {BibleVerseRepository(get(), get())}
+    single {BibleVerseRepository(get(), get(), get())}
 }

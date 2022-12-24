@@ -109,6 +109,8 @@
     <string name="err_msg_enter_department">Please enter the department</string>
     <string name="err_msg_enter_level">Please enter the exco\'s level</string>
     <string name="enter_valid_level">Please enter only level from 100 to 500</string>
+    <string name="channel_name">FCS Notification Channel</string>
+    <string name="channel_description">FCS IBBUL</string>
 
 
 </resources>
