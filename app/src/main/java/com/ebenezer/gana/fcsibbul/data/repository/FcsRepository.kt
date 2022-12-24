@@ -13,8 +13,10 @@ import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 
 
-class FcsRepository(private val firebaseAuth: FirebaseAuth,
-private val firestore: FirebaseFirestore) {
+class FcsRepository(
+    private val firebaseAuth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
+) {
 
     //var userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     var loggedOut: MutableLiveData<Boolean> = MutableLiveData()
@@ -36,7 +38,7 @@ private val firestore: FirebaseFirestore) {
     //user has completed their profile or not. If completed, proceed to log in else prompt user to complete profile
     fun loginUser(
         email: String, password: String, user: (FirebaseUser?) -> Unit,
-        userDetails: (User?) -> Unit, onSuccess:(UiText) -> Unit, onFailure:(UiText) -> Unit
+        userDetails: (User?) -> Unit, onSuccess: (UiText) -> Unit, onFailure: (UiText) -> Unit
     ) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -59,7 +61,7 @@ private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .get()
             .addOnSuccessListener { document ->
-                val user = document.toObject(User::class.java)!!
+                val user = document.toObject(User::class.java)
                 userDetails(user)
             }
     }
@@ -71,12 +73,13 @@ private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Timber.d( "loginAdmin: Listen Failed", error)
+                    Timber.d("loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {
-                    val document = value.toObject(User::class.java)
-                    user(document!!)
+                    value.toObject(User::class.java)?.let {
+                        user(it)
+                    }
 
                 }
 
@@ -113,16 +116,18 @@ private val firestore: FirebaseFirestore) {
                 if (task.isSuccessful) {
                     onSuccess()
                     // use the registered user to create a collection called users
-                    val firebaseUser = task.result!!.user!!
-                    val user = User(
-                        firebaseUser.uid,
-                        firstName, lastName, email,
-                        role = 0 // 0 for non admin role, 1 for admin
-                    )
-                    registerUser(user)
+                    task.result.user?.let { firebaseUser ->
+                        val user = User(
+                            firebaseUser.uid,
+                            firstName, lastName, email,
+                            role = 0 // 0 for non admin role, 1 for admin
+                        )
+                        registerUser(user)
+                    }
+
                 }
             }.addOnFailureListener {
-               onFailure(it)
+                onFailure(it)
             }
     }
 
