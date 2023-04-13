@@ -20,7 +20,7 @@
 
 
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Conditions </u></string>
-    <string name="btn_lbl_register">Sign in with Google</string>
+    <string name="btn_lbl_register">Sign in with Google to continue</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
     <string name="title_announcement">Announcement</string>
@@ -113,6 +113,9 @@
     <string name="channel_description">FCS IBBUL</string>
     <string name="announcement_notification_channel">announcements_channel</string>
     <string name="bible_verse_notification_channel">bible_verse_channel</string>
+    <string name="str_welcome">Welcome</string>
+    <string name="str_google_icon">Google icon</string>
+    <string name="fcs_logo">FCS Logo</string>
 
 
 </resources>

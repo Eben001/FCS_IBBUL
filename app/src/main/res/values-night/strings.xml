@@ -20,4 +20,5 @@
     <string name="no_thanks">No thanks</string>
     <string name="add_exco">Add Exco</string>
     <string name="err_msg_enter_level">Please enter the exco\'s level</string>
+    <string name="str_welcome">Welcome</string>
 </resources>
