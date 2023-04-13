@@ -1,6 +1,5 @@
 package com.ebenezer.gana.fcsibbul.data.repository.announcement
 
-import android.util.Log
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.models.User
@@ -36,7 +35,7 @@ class AnnouncementRepository(private val firestore: FirebaseFirestore) {
                 result(announcementsList)
             }
             .addOnFailureListener {
-                Timber.e( "Error getting announcement: ${it.printStackTrace()}")
+                Timber.e( "Error getting announcement: ${it.localizedMessage}")
 
             }
 

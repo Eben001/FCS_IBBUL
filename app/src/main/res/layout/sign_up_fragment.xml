@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,189 +38,54 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <ScrollView
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintBottom_toTopOf="@id/btn_register"
+        android:src="@drawable/ic_lovely_people"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:background="@color/primaryColor"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingBottom="@dimen/btn_padding"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp">
+
+
+        <ImageView
+            android:id="@+id/google_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/google_logo" />
+
+        <TextView
+
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:text="@string/btn_lbl_register"
+            android:textColor="@color/black"
+            android:textSize="@dimen/btn_textSize"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/hint_first_name_req"
-                android:textColorHint="@color/colorSecondaryText">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_first_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textAutoComplete|textCapWords"
-                    android:padding="@dimen/et_padding"
-                    android:singleLine="true"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/et_textSize" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/hint_last_name_req"
-                android:textColorHint="@color/colorSecondaryText">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textAutoComplete|textCapWords"
-                    android:padding="@dimen/et_padding"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/et_textSize" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/hint_email_req"
-                android:textColorHint="@color/colorSecondaryText">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:padding="@dimen/et_padding"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/et_textSize" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/hint_password_req"
-                android:textColorHint="@color/colorSecondaryText"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/primaryColor">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/et_padding"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/et_textSize" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/hint_confirm_password_req"
-                android:textColorHint="@color/colorSecondaryText"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/primaryColor">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_confirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/et_padding"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/et_textSize" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_terms_and_condition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_terms_and_condition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/black" />
-
-                <TextView
-                    android:id="@+id/tv_terms_condition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/i_agree_to_the_terms_and_condition"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="@dimen/txt_terms_and_condition_textSize" />
-            </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/primaryColor"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
-                android:paddingTop="@dimen/btn_padding"
-                android:paddingBottom="@dimen/btn_padding"
-                android:text="@string/btn_lbl_register"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/btn_textSize" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_already_have_an_account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/already_have_an_account"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
-
-                <TextView
-                    android:id="@+id/tv_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:padding="@dimen/clickable_text_view_padding"
-                    android:text="@string/login"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="@dimen/lbl_text_view_textSize" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

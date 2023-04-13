@@ -7,25 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
-import com.ebenezer.gana.fcsibbul.data.notification.FCMSender
-import com.ebenezer.gana.fcsibbul.data.notification.NotificationMessage
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostBibleVerseBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
-import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import java.io.IOException
 
 @RequiresApi(Build.VERSION_CODES.M)
 class PostBibleVerseFragment : BaseFragment() {
@@ -85,8 +74,8 @@ class PostBibleVerseFragment : BaseFragment() {
     }
 
     private fun sendNotification() {
-        viewModel.sendNotification("/topics/messaging", "Daily Bible Verse",
-            binding.etDetails.text.toString())
+        viewModel.sendNotification("/topics/dailyBibleVerse", "Daily Bible Verse",
+            binding.etDetails.text.toString(), resources.getString(R.string.bible_verse_notification_channel))
     }
 
 

@@ -1,21 +1,14 @@
 package com.ebenezer.gana.fcsibbul.data.notification
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Build
-import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.ui.common.NotificationHelper
-import com.google.firebase.auth.FirebaseAuth
+import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
-import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.O)
 class FCMReceiver : FirebaseMessagingService() {
@@ -31,17 +24,24 @@ class FCMReceiver : FirebaseMessagingService() {
     * */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
+        val intent = Intent(applicationContext, HostActivityLoggedIn::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         remoteMessage.notification?.let {notification->
-            notification.body?.let {
-                Timber.d("Notification: $it")
-                NotificationHelper.showNotificationUsingAppContext("fcs_notification",
-                "Daily Bible Verse", it)
+            notification.title?.let {title->
+                notification.body?.let {body->
+                    Timber.d("Notification: $body")
+                    NotificationHelper.showNotificationUsingAppContext("fcs_notification",
+                        title, body, contentIntent = pendingIntent)
+                }
             }
+
 
         }
 
     }
+
 
 
     /*

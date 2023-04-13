@@ -9,4 +9,5 @@ data class FCMNotification(
 data class Notification(
     val title: String,
     val body: String,
+    val channelId: String
 )

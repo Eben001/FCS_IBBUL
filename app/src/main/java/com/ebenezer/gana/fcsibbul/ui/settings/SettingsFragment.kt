@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.FragmentSettingsBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedOut
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SettingsFragment : BaseFragment() {
@@ -32,15 +34,10 @@ class SettingsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
-            viewModel.logoutUser()
-        }
-
-        viewModel.loggedOut.observe(viewLifecycleOwner) { loggedOut ->
-            if (loggedOut) {
-                val intent = Intent(requireContext(), HostActivityLoggedOut::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
+            Firebase.auth.signOut()
+            val intent = Intent(requireContext(), HostActivityLoggedOut::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 

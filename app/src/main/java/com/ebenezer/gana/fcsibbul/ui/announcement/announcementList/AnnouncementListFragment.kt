@@ -12,7 +12,10 @@ import com.ebenezer.gana.fcsibbul.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AnnouncementListFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -34,6 +37,7 @@ class AnnouncementListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSettingsMenu()
+        Timber.d("${Firebase.auth.currentUser}")
 
         binding.rvAnnouncement.layoutManager = LinearLayoutManager(this.context)
         val adapter = AnnouncementListAdapter {

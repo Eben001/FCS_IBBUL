@@ -10,8 +10,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.notification.DailyBibleVerseWorker
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
+import com.ebenezer.gana.fcsibbul.ui.announcement.announcementList.AnnouncementListFragment
+import com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
@@ -21,7 +28,7 @@ import org.koin.androidx.scope.activityScope
 import org.koin.core.scope.Scope
 
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-AndroidScopeComponent{
+    AndroidScopeComponent {
 
     private lateinit var binding: ActivityHostLoggedInBinding
     private lateinit var navController: NavController
@@ -31,7 +38,45 @@ AndroidScopeComponent{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseMessaging.getInstance().subscribeToTopic("messaging");
+
+        // Retrieve the FRAGMENT_NAME extra from the intent
+        intent.getStringExtra("FRAGMENT_NAME")?.let { fragmentName ->
+            // Navigate to the appropriate fragment
+            when (fragmentName) {
+                "AnnouncementListFragment" -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, AnnouncementListFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                "DailyBibleVerseFragment" -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, DailyBibleVerseFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                else -> {}
+            }
+        }
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .build()
+
+        val notificationWork = OneTimeWorkRequestBuilder<DailyBibleVerseWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext)
+            .enqueue(
+                notificationWork
+            )
+
+
+        FirebaseMessaging.getInstance().apply {
+            subscribeToTopic("dailyBibleVerse")
+            subscribeToTopic("announcements")
+        }
 
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)

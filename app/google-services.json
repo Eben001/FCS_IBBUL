@@ -14,15 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "490313481243-4bu3lituca1jm3nmuug0q7cabtr6su6l.apps.googleusercontent.com",
+          "client_id": "490313481243-dej59ag693ue3kd4nvcutp4vloolgpkl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ebenezer.gana.fcsibbul",
-            "certificate_hash": "9b2b664fc76439a6e86b50337aaa3208404b0072"
+            "certificate_hash": "efdf9c2ef842609a5cc3f766eb031b7179c5442b"
           }
         },
         {
-          "client_id": "490313481243-b28ofl470e6p70ig9qbp2032skbvjmph.apps.googleusercontent.com",
+          "client_id": "490313481243-mdlak0tr9jc44b782afrn4o1e5fgqtqk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

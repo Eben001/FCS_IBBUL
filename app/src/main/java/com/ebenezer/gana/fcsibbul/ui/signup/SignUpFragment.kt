@@ -1,15 +1,20 @@
 package com.ebenezer.gana.fcsibbul.ui.signup
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.navigation.fragment.findNavController
+import androidx.activity.result.contract.ActivityResultContracts
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.SignUpFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpFragment : BaseFragment() {
 
@@ -17,6 +22,7 @@ class SignUpFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: SignUpViewModel by viewModel()
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +35,12 @@ class SignUpFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(resources.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
+
         observeViewModels()
         setOnClickListeners()
     }
@@ -36,8 +48,9 @@ class SignUpFragment : BaseFragment() {
     private fun observeViewModels() {
         viewModel.isSignupSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
-                val action = SignUpFragmentDirections.actionNavigationSignupToLoginFragment()
-                findNavController().navigate(action)
+                val intent = Intent(requireActivity(), HostActivityLoggedIn::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
             }
         }
 
@@ -53,96 +66,24 @@ class SignUpFragment : BaseFragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.tvLogin.setOnClickListener {
-            findNavController().navigateUp()
-        }
         binding.btnRegister.setOnClickListener {
-            val email: String = binding.etEmail.text.toString().trim() { it <= ' ' }
-            val password: String = binding.etPassword.text.toString().trim() { it <= ' ' }
-            val firstName: String = binding.etFirstName.text.toString().trim { it <= ' ' }
-            val lastName: String = binding.etLastName.text.toString().trim { it <= ' ' }
-
-            if (validateRegistrationDetails()) {
-                viewModel.registerNewUser(
-                    firstName, lastName, email, password
-                )
-            }
+            signInWithGoogle()
         }
     }
 
-    private fun validateRegistrationDetails(): Boolean {
-        return when {
-            TextUtils.isEmpty(
-                binding.etFirstName.text.toString()
-                    .trim { it <= ' ' }) -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_first_name),
-                    isError = true
-                )
-                false
-            }
-            TextUtils.isEmpty(
-                binding.etLastName.text.toString()
-                    .trim { it <= ' ' }) -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_last_name),
-                    isError = true
-                )
-                false
-            }
-
-            TextUtils.isEmpty(
-                binding.etEmail.text.toString()
-                    .trim { it <= ' ' }) -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_email),
-                    isError = true
-                )
-                false
-            }
-
-            TextUtils.isEmpty(
-                binding.etPassword.text.toString()
-                    .trim { it <= ' ' }) -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_password),
-                    isError = true
-                )
-                false
-            }
-
-            TextUtils.isEmpty(
-                binding.etConfirmPassword.text.toString()
-                    .trim { it <= ' ' }) -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_enter_confirm_password),
-                    isError = true
-                )
-                false
-            }
-            binding.etPassword.text.toString()
-                .trim { it <= ' ' } != binding.etConfirmPassword.text.toString()
-                .trim { it <= ' ' } -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_password_and_confirm_password_mismatch),
-                    isError = true
-                )
-                false
-            }
-            !binding.cbTermsAndCondition.isChecked -> {
-                showSnackBar(
-                    resources.getString(R.string.err_msg_agree_terms_and_condition),
-                    isError = true
-                )
-                false
-            }
-            else -> {
-                true
-            }
-
-
-        }
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        launcher.launch(signInIntent)
     }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                viewModel.handleSigningTask(task)
+            }
+        }
+
 
     override fun onDestroy() {
         super.onDestroy()

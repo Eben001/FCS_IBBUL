@@ -3,34 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_login">
+    app:startDestination="@id/navigation_signup">
 
 
-    <fragment
-        android:id="@+id/navigation_login"
-        android:name="com.ebenezer.gana.fcsibbul.ui.login.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/login_fragment">
-        <action
-            android:id="@+id/action_loginFragment_to_navigation_signup"
-            app:destination="@id/navigation_signup" />
-        <action
-            android:id="@+id/action_navigation_login_to_hostActivityLoggedIn"
-            app:destination="@id/hostActivityLoggedIn"
-            app:popUpTo="@id/hostActivityLoggedIn"
-            app:popUpToInclusive="true" />
-
-    </fragment>
     <fragment
         android:id="@+id/navigation_signup"
         android:name="com.ebenezer.gana.fcsibbul.ui.signup.SignUpFragment"
         android:label="sign_up_fragment"
-        tools:layout="@layout/sign_up_fragment">
-        <action
-            android:id="@+id/action_navigation_signup_to_loginFragment"
-            app:destination="@id/navigation_login"
-            app:popUpTo="@id/navigation_login" />
-    </fragment>
+        tools:layout="@layout/sign_up_fragment"/>
 
     <activity
         android:id="@+id/hostActivityLoggedIn"

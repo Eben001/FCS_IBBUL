@@ -36,9 +36,9 @@ class PostBibleVerseViewModel(
         postNewVerse(newData)
     }
 
-    fun sendNotification(to:String, title: String, body:String){
+    fun sendNotification(to:String, title: String, body:String, channelId:String){
         viewModelScope.launch {
-            repository.sendNotification(to, title, body)
+            repository.sendNotification(to, title, body, channelId)
         }
     }
 

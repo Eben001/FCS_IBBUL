@@ -10,11 +10,7 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.net.HttpURLConnection
-import java.net.URL
 
 class BibleVerseRepository(
     private val firebaseAuth: FirebaseAuth,
@@ -65,14 +61,14 @@ class BibleVerseRepository(
             }
     }
 
-    suspend fun sendNotification(to: String, title: String, body: String) {
+    suspend fun sendNotification(to: String, title: String, body: String, channelId:String) {
         val apiKey =
             "AAAAcij1_Bs:APA91bEZktqy7YzM_2cRT_LLnh3OOkilswxr2h6ZhTK1e1wAm494HKB3IS0-bz5KfV7_k6gF2C_y8QsvAy-i2ty9ItjrapfCxAQYN7IRJG36BwmsfWfCnI7xbZdlzv8NiGmm6kcE8mWf"
         val notification = FCMNotification(
             to = to,
-            notification = Notification(title, body),
+            notification = Notification(title, body, channelId)
         )
-         val response = notificationAPI.send("key=$apiKey", notification)
+         val response = notificationAPI.sendNotification("key=$apiKey", notification)
          if (response.isSuccessful) {
              // Notification sent successfully
              Timber.d("Success Sending Notification: ${response.body()}")

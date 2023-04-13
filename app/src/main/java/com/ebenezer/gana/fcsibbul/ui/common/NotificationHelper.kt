@@ -50,6 +50,7 @@ class NotificationHelper {
             createNotificationChannel(context)
         }
 
+
         /**
          * This function is called to create a notification channel with importance setting to
          * [NotificationManager.IMPORTANCE_HIGH]. The notification channel is a prerequisite for
@@ -66,14 +67,16 @@ class NotificationHelper {
             notificationTag: String,
             contentTitle: String,
             contentText: String,
-            priority: Int = NotificationCompat.PRIORITY_MAX
+            priority: Int = NotificationCompat.PRIORITY_MAX,
+            contentIntent: PendingIntent
         ) {
             showNotification(
                 INSTANCE.applicationContext,
                 notificationTag,
                 contentTitle,
                 contentText,
-                priority
+                priority,
+                contentIntent
             )
         }
 
@@ -82,10 +85,11 @@ class NotificationHelper {
             notificationTag: String,
             contentTitle: String,
             contentText: String,
-            priority: Int = NotificationCompat.PRIORITY_MAX
+            priority: Int = NotificationCompat.PRIORITY_MAX,
+            contentIntent:PendingIntent
         ) {
             val notification =
-                INSTANCE.buildNotification(context, contentTitle, contentText, priority)
+                INSTANCE.buildNotification(context, contentTitle, contentText, priority, contentIntent)
 
             with(NotificationManagerCompat.from(context)) {
                 val currentId = INSTANCE.retrieveNotificationIdByTag(notificationTag)
@@ -110,12 +114,12 @@ class NotificationHelper {
                 throw "Context $context is not a Service".asException()
             }
 
-            val notification =
-                INSTANCE.buildNotification(context, contentTitle, contentText, priority)
+            /*val notification =*/
+            /*    INSTANCE.buildNotification(context, contentTitle, contentText, priority)*/
 
             val currentId = INSTANCE.retrieveNotificationIdByTag(notificationTag)
 
-            context.startForeground(currentId, notification)
+            //context.startForeground(currentId, notification)
         }
 
         fun cancelNotificationByTag(context: Context, notificationTag: String) {
@@ -134,14 +138,18 @@ class NotificationHelper {
         context: Context,
         contentTitle: String,
         contentText: String,
-        priority: Int
+        priority: Int,
+        pendingIntent: PendingIntent
     ) = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_bible_quotes)
         .setContentTitle(contentTitle)
         .setContentText(contentText)
+        .setContentIntent(pendingIntent)
         .setPriority(priority)
         .setStyle(NotificationCompat.BigTextStyle())
         .setCategory(Notification.CATEGORY_MESSAGE)
+        .setVibrate(longArrayOf(500, 1000, 500))
+        .setAutoCancel(true)
         .build()
 
 

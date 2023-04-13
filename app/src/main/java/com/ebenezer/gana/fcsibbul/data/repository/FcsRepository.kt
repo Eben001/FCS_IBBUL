@@ -1,11 +1,10 @@
 package com.ebenezer.gana.fcsibbul.data.repository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.ebenezer.gana.fcsibbul.utils.UiText
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,19 +17,19 @@ class FcsRepository(
     private val firestore: FirebaseFirestore
 ) {
 
-    //var userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
-    var loggedOut: MutableLiveData<Boolean> = MutableLiveData()
-
-    private fun registerUser(user: User) {
-        firestore.collection(Constants.USERS)
-            .document(user.id)
-            .set(user, SetOptions.merge())
-            .addOnSuccessListener {
-                logoutUser()
-            }
-            .addOnFailureListener {
-                Timber.d("registerUser: Error while registering this user")
-            }
+    private fun registerUser(user: User, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        user.id.let {
+            firestore.collection(Constants.USERS)
+                .document(it)
+                .set(user, SetOptions.merge())
+                .addOnSuccessListener {
+                    onSuccess()
+                }
+                .addOnFailureListener {
+                    Timber.d("registerUser: Error while registering this user")
+                    onFailure(it.localizedMessage!!)
+                }
+        }
     }
 
 
@@ -47,7 +46,7 @@ class FcsRepository(
                         userDetails(it)
                     }
                     user(firebaseAuth.currentUser)
-                    loggedOut.value = false
+                    //isLoggedOut.value = false
                     onSuccess(UiText.StringResource(R.string.success))
                 }
             }
@@ -98,11 +97,7 @@ class FcsRepository(
         return currentUserID
     }
 
-    fun logoutUser() {
-        firebaseAuth.signOut()
-        loggedOut.value = true
-    }
-
+    @Deprecated("Now used sign in with google option")
     fun createUserWithEmailAndPassword(
         email: String,
         password: String,
@@ -122,13 +117,39 @@ class FcsRepository(
                             firstName, lastName, email,
                             role = 0 // 0 for non admin role, 1 for admin
                         )
-                        registerUser(user)
+                        //registerUser(user)
                     }
 
                 }
             }.addOnFailureListener {
                 onFailure(it)
             }
+    }
+
+    fun signInWithGoogle(credential: AuthCredential, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                onSuccess()
+                // use the registered user to create a collection called users in firestore
+                task.result.user?.let { firebaseUser ->
+                    Timber.d("Firebase User ${firebaseUser.email}")
+                    val isNewUser = task.result?.additionalUserInfo?.isNewUser ?: true
+                    if(isNewUser){
+                        val user = User(
+                            firebaseUser.uid,
+                            email = firebaseUser.email,
+                            role = 0 // 0 for non admin role, 1 for admin
+                        )
+                        registerUser(user, onSuccess, onFailure)
+                    }
+
+                }
+
+            } else {
+                task.exception?.let { onFailure(it.localizedMessage!!) }
+            }
+        }
     }
 
 }

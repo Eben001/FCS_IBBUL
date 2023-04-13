@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface NotificationAPI {
     @POST("fcm/send")
-    suspend fun send(
+    suspend fun sendNotification(
         @Header("Authorization") authorization: String,
         @Body fcmNotification: FCMNotification
     ): Response<ResponseBody>

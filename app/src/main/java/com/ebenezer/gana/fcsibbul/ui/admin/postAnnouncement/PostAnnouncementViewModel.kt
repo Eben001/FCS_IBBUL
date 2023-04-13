@@ -3,11 +3,15 @@ package com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementRepository
+import com.ebenezer.gana.fcsibbul.data.repository.bibleVerse.BibleVerseRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
+import kotlinx.coroutines.launch
 
-class PostAnnouncementViewModel (private val repository: AnnouncementRepository) : ViewModel() {
+class PostAnnouncementViewModel (private val repository: AnnouncementRepository,
+private val bibleVerseRepository: BibleVerseRepository) : ViewModel() {
 
 
     private var _isPostSuccess = MutableLiveData<Boolean>()
@@ -70,6 +74,12 @@ class PostAnnouncementViewModel (private val repository: AnnouncementRepository)
         val newData =
             Announcement(userId, announcementId, title, details, date, likeCount = likeCount)
         postNewAnnouncement(newData)
+    }
+
+    fun sendNotification(to:String, title:String, body:String, channelId:String){
+        viewModelScope.launch {
+            bibleVerseRepository.sendNotification(to, title, body,channelId)
+        }
     }
 
 }

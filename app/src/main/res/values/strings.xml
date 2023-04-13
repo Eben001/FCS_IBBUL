@@ -20,7 +20,7 @@
 
 
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Conditions </u></string>
-    <string name="btn_lbl_register">Register</string>
+    <string name="btn_lbl_register">Sign in with Google</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
     <string name="title_announcement">Announcement</string>
@@ -111,6 +111,8 @@
     <string name="enter_valid_level">Please enter only level from 100 to 500</string>
     <string name="channel_name">FCS Notification Channel</string>
     <string name="channel_description">FCS IBBUL</string>
+    <string name="announcement_notification_channel">announcements_channel</string>
+    <string name="bible_verse_notification_channel">bible_verse_channel</string>
 
 
 </resources>

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.LoginFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
@@ -60,9 +59,9 @@ class LoginFragment : BaseFragment() {
         binding.etPassword.addTextChangedListener(TextFieldValidation(binding.etPassword))
 
         binding.tvRegister.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToNavigationSignup()
+            /*val action = LoginFragmentDirections.actionLoginFragmentToNavigationSignup()
             this.findNavController().navigate(action)
-
+*/
         }
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim { it <= ' ' }

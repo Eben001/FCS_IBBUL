@@ -73,6 +73,7 @@ class PostAnnouncementFragment : BaseFragment() {
                         // is the user is an admin
                         if (viewModel.isAdmin.value == true) {
                             postNewAnnouncement()
+                            sendNotification()
                             clearTextEntries()
                             hideKeyboard()
                         } else {
@@ -93,6 +94,11 @@ class PostAnnouncementFragment : BaseFragment() {
 
         }
 
+    }
+
+    private fun sendNotification() {
+        viewModel.sendNotification("/topics/announcements", binding.etTitle.text.toString(),
+            binding.etDetails.text.toString(), resources.getString(R.string.announcement_notification_channel))
     }
 
     private fun postNewAnnouncement() {
