@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navbar">#222222</color>
+    <color name="background">#222222</color>
+    <color name="abbBackgroundColor">@color/black</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="darkModeBar">#333333</color>
+
+    <color name="lighter_background">#121212</color>
+    <color name="light_blue_50">#FF263238</color>
+    <color name="light_blue_200">#FF0086C3</color>
+    <color name="light_blue_600">#FF00B0FF</color>
+    <color name="light_blue_900">#FF90CAF9</color>
+    <color name="line">#707070</color>
+
+    <color name="colorSecondaryText">#6E6E6E</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
+    <color name="onPrimaryTextColor">#FFFFFF</color>
+
+    <color name="primaryColor">#00e676</color>
+    <color name="primaryLightColor">#5DF2D6</color>
+    <color name="primaryDarkColor">#00867D</color>
+    <color name="secondaryColor">#CFD8DC</color>
+    <color name="secondaryLightColor">#FFFFFF</color>
+    <color name="secondaryDarkColor">#9E9E9E</color>
+    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="red">#F44336</color>
+
+
+
+</resources>

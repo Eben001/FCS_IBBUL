@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.ui.common
 import android.app.*
 import android.content.Context
 import android.os.Build
+import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -133,7 +134,6 @@ class NotificationHelper {
         }
 
     }
-
     private fun buildNotification(
         context: Context,
         contentTitle: String,
@@ -148,9 +148,11 @@ class NotificationHelper {
         .setPriority(priority)
         .setStyle(NotificationCompat.BigTextStyle())
         .setCategory(Notification.CATEGORY_MESSAGE)
-        .setVibrate(longArrayOf(500, 1000, 500))
+        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+        .setVibrate(longArrayOf(1000, 1000, 2000))
         .setAutoCancel(true)
         .build()
+
 
 
     private fun retrieveNotificationIdByTag(tag: String): Int {

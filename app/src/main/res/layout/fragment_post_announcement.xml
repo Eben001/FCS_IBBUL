@@ -59,6 +59,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/post_announcement"
+            android:textColor="@color/onPrimaryTextColor"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"

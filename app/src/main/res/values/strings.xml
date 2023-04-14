@@ -117,5 +117,73 @@
     <string name="str_google_icon">Google icon</string>
     <string name="fcs_logo">FCS Logo</string>
 
+    <string-array name="pref_upload_quality_entries">
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+        <item>1080p</item>
+        <item>Original</item>
+    </string-array>
+
+    <string-array name="pref_remind_me_to_take_a_break">
+        <item>1 hours</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>5 hours</item>
+        <item>10 hours</item>
+    </string-array>
+
+    <string-array name="pref_seek_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="pref_duration">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="pref_uploads">
+        <item>Only when on Wi-Fi</item>
+        <item>On any network</item>
+    </string-array>
+
+    <!-- colours & their corresponding values -->
+    <string name="original" id="103">Default</string>
+    <string name="blue" id="104">Blue</string>
+    <string name="green" id="105">Green</string>
+    <string name="orange" id="106">Orange</string>
+    <string name="yellow" id="107">Original</string>
+    <string name="teal" id="108">Teal</string>
+    <string name="violet" id="109">Violet</string>
+    <string name="pink" id="110">Pink</string>
+    <string name="lightBlue" id="111">Light Blue</string>
+    <string name="red" id="112">Red</string>
+    <string name="lime" id="113">Lime</string>
+    <string name="crimson" id="114">Crimson</string>
+    <string name="cancel">Cancel</string>
+    <string name="okay">Okay</string>
+    <string name="title">Title</string>
+    <string name="settings_general">General</string>
+    <string name="appearance">Appearance</string>
+    <string name="app_theme">App Theme</string>
+    <string name="settings_accent_colour">Accent Color</string>
+    <string name="light_mode">Light</string>
+    <string name="dark_mode">Dark</string>
+    <string name="follow_system_default">Follow system</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="help">Help</string>
+    <string name="str_are_you_sure_you_want_to_logout">Are you sure you want to log out?</string>
+    <string name="submit">Submit</string>
+    <string name="str_report_technical_issues_or_suggest_new_features">Report technical issues or suggest new features</string>
+    <string name="str_your_feedback_here">Your feedback here…</string>
+    <string name="str_feedback">Feedback</string>
+
 
 </resources>

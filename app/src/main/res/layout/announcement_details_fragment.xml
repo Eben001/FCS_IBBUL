@@ -36,7 +36,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textAlignment="center"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/primaryDarkColor"
+                    android:textColor="@color/primaryColor"
                     tools:text="FYB MEETING" />
 
 
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/primaryTextColor"
                         tools:text="0" />
 
 

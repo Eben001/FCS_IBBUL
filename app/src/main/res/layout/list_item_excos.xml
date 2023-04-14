@@ -32,7 +32,7 @@
             android:layout_toEndOf="@id/exco_image"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             tools:text="Gana Ebenezer" />
 
@@ -45,7 +45,7 @@
             android:layout_toEndOf="@id/exco_image"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             tools:text="President" />
 
@@ -57,7 +57,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/exco_image"
             android:maxLength="14"
-            android:textColor="@color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             tools:text="09038549279" />
 
@@ -70,7 +70,7 @@
             android:layout_toEndOf="@id/exco_image"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             tools:text="Counselling Psychology" />
 
@@ -82,7 +82,7 @@
             android:layout_below="@id/exco_department"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/exco_image"
-            android:textColor="@color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             tools:text="400L" />
 

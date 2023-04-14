@@ -7,8 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import com.ebenezer.gana.fcsibbul.di.*
 import com.ebenezer.gana.fcsibbul.ui.common.NotificationHelper
+import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseService
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -20,6 +22,11 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        val prefs = Prefs(this).Settings()
+        val theme = prefs.theme
+        prefs.bottomBar = 0
+
+        AppCompatDelegate.setDefaultNightMode(theme)
 
         startKoin {
             androidContext(this@App)

@@ -1,5 +1,6 @@
 package com.ebenezer.gana.fcsibbul.ui.host
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,10 +16,12 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.core.Bars.updateNavbarColour
+import com.ebenezer.gana.fcsibbul.core.setDarkStatusIcons
 import com.ebenezer.gana.fcsibbul.data.notification.DailyBibleVerseWorker
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
-import com.ebenezer.gana.fcsibbul.ui.announcement.announcementList.AnnouncementListFragment
-import com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment
+import com.ebenezer.gana.fcsibbul.ui.common.Accent.setAccentColour
+import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
@@ -38,26 +41,15 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Retrieve the FRAGMENT_NAME extra from the intent
-        intent.getStringExtra("FRAGMENT_NAME")?.let { fragmentName ->
-            // Navigate to the appropriate fragment
-            when (fragmentName) {
-                "AnnouncementListFragment" -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, AnnouncementListFragment())
-                        .addToBackStack(null)
-                        .commit()
-                }
-                "DailyBibleVerseFragment" -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, DailyBibleVerseFragment())
-                        .addToBackStack(null)
-                        .commit()
-                }
-                else -> {}
-            }
+        window.apply {
+            statusBarColor = Color.TRANSPARENT
+            updateNavbarColour()
+            setDarkStatusIcons()
+            /*navigationBarColor =
+                ContextCompat.getColor(context, R.color.abbBackgroundColor)*/
+            //WindowCompat.setDecorFitsSystemWindows(this, false)
         }
+        setAccentColour(Prefs(this).Settings().accent)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)

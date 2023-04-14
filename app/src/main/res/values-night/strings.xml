@@ -21,4 +21,8 @@
     <string name="add_exco">Add Exco</string>
     <string name="err_msg_enter_level">Please enter the exco\'s level</string>
     <string name="str_welcome">Welcome</string>
+    <string name="okay">Okay</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="str_report_technical_issues_or_suggest_new_features">Report technical issues or suggest new features</string>
+    <string name="str_your_feedback_here">Your feedback here…</string>
 </resources>

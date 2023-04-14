@@ -61,6 +61,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/post_song"
             android:layout_width="match_parent"
+            android:textColor="@color/onPrimaryTextColor"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"

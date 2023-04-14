@@ -26,7 +26,7 @@
             android:maxLines="1"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textColor="@color/primaryDarkColor"
+            android:textColor="@color/primaryColor"
             tools:text="FYB MEETING" />
 
         <TextView

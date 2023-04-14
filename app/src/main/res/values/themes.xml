@@ -17,6 +17,62 @@
 
     </style>
 
+    <style name="AppTheme.Blue" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/blueAccent</item>
+        <item name="colorPrimary">@color/blueAccent</item>
+        <item name="colorPrimaryFaded">@color/blueAccentFade</item>
+    </style>
+
+    <style name="AppTheme.Green" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/greenAccent</item>
+        <item name="colorPrimary">@color/greenAccent</item>
+    </style>
+
+    <style name="AppTheme.Orange" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/orangeAccent</item>
+        <item name="colorPrimary">@color/orangeAccent</item>
+    </style>
+
+    <style name="AppTheme.Yellow" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/yellowAccent</item>
+        <item name="colorPrimary">@color/yellowAccent</item>
+    </style>
+
+    <style name="AppTheme.Teal" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/tealAccent</item>
+        <item name="colorPrimary">@color/tealAccent</item>
+    </style>
+
+    <style name="AppTheme.Violet" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/violetAccent</item>
+        <item name="colorPrimary">@color/violetAccent</item>
+    </style>
+
+    <style name="AppTheme.Pink" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/pinkAccent</item>
+        <item name="colorPrimary">@color/pinkAccent</item>
+    </style>
+
+    <style name="AppTheme.LightBlue" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/lightBlueAccent</item>
+        <item name="colorPrimary">@color/lightBlueAccent</item>
+    </style>
+
+    <style name="AppTheme.Red" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/redAccent</item>
+        <item name="colorPrimary">@color/redAccent</item>
+    </style>
+
+    <style name="AppTheme.Lime" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/limeAccent</item>
+        <item name="colorPrimary">@color/limeAccent</item>
+    </style>
+
+    <style name="AppTheme.Crimson" parent="Theme.FCSIBBUL">
+        <item name="colorAccent">@color/crimsonAccent</item>
+        <item name="colorPrimary">@color/crimsonAccent</item>
+    </style>
+
 
 
 

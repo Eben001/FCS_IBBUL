@@ -20,9 +20,10 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar_login"
+                app:titleTextColor="?android:textColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:background="@color/abbBackgroundColor"
                 android:theme="?attr/actionBarTheme">
 
                 <TextView
@@ -31,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
                     android:gravity="start"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/toolbar_title_text_size"
                     tools:text="Announcement" />
 
