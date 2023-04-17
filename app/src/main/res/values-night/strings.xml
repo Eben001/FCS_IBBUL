@@ -1,28 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">FCS IBBUL</string>
     <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="login_account">LOGIN</string>
     <string name="hint_first_name_req">First Name <font color='#FF0000'>*</font></string>
     <string name="hint_last_name_req">Last Name <font color='#FF0000'>*</font></string>
     <string name="hint_email_req">Email ID <font color='#FF0000'>*</font></string>
+    <string name="hint_not_email_req">Email ID</string>
     <string name="hint_password_req">Password<font color='#FF0000'>*</font></string>
     <string name="hint_confirm_password_req">Confirm<font color='#FF0000'>*</font></string>
 
+
+    <string name="err_msg_enter_first_name">Please enter first name.</string>
+    <string name="err_msg_enter_last_name">Please enter last name.</string>
+    <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="err_msg_enter_password">Please enter password.</string>
+    <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
+    <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
+
+
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Conditions </u></string>
-    <string name="btn_lbl_register">Register</string>
+    <string name="btn_lbl_register">Sign in with Google to continue</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="title_announcement">Announcement</string>
+    <string name="title_excos">Excos</string>
+    <string name="lbl_forgot_password">Forgot Password ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="content_description">Background image</string>
+    <string name="fake_announcement">FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, \npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.\npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.\npls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice. FYB\'s in the house, pls be reminded of our meeting today after servcice.FYB\'s in the house, pls be reminded of our meeting today after servcice</string>
+    <string name="excos_image">Excos Excecutive Image</string>
     <string name="action_settings">Settings</string>
+
+    <string name="err_unable_to_load_announcement">Unable to refresh. Please check your internet connection</string>
+    <string name="err_try_again">Something went wrong. Please try again</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="click_to_like_the_announcement">click to like the announcement</string>
+    <string name="settings">Settings</string>
+    <string name="title_support_us">Suppot us</string>
+    <string name="title_donate">Donate</string>
+    <string name="title_rate_me">Rate me</string>
+    <string name="title_contact_us">Contact us</string>
+    <string name="daily_guide">Daily Guide</string>
+    <string name="daily_bible_verse">Daily Bible Verse</string>
+    <string name="songs">Songs</string>
+    <string name="exam_song">Exam Song</string>
+    <string name="admin">Admin</string>
+    <string name="admin_login">Admin</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="hint_title_req">Title</string>
+    <string name="hint_details_req">Details</string>
+    <string name="post">Post</string>
+    <string name="hint_phone_req">Phone number <font color='#FF0000'>*</font></string>
+    <string name="hint_office_req">Office <font color='#FF0000'>*</font></string>
+    <string name="hint_department_req">Department <font color='#FF0000'>*</font></string>
+    <string name="hint_level_req">Level <font color='#FF0000'>*</font></string>
+    <string name="post_announcement">Post Announcement</string>
+    <string name="add_an_exco">Add an Exco</string>
+    <string name="post_song">Post a Song</string>
+    <string name="post_bible_verse">Post a Bible Verse</string>
+    <string name="announcement">Announcement</string>
+    <string name="excos">Excos</string>
+    <string name="log_out">Log out</string>
+    <string name="posted_success">Posted Successfully!</string>
+    <string name="err_msg_title">Please enter a title</string>
+    <string name="err_msg_details">Please enter announcement details</string>
+    <string name="not_an_admin">You are not an admin. Please contact your administrator</string>
+    <string name="success_registration">Registration Successful </string>
+    <string name="admin_success">Login Success</string>
+    <string name="error">Error</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="mock_data_fcs_song">I Don\'t care what Church you belongs to.But as far as in Jesus you stand.If by Grace through faith you\'ve been Saved.Your my Brother/Sister so give me your hands x2</string>
+
+
+    <string name="dialog_title">Contact us</string>
+    <string name="dialog_message">You can contact us on fcsibbul@gmail.com</string>
+
+    <string name="dialog_donate_title">Donate</string>
+    <string name="ok_dialog_message">Okay</string>
+    <string name="dialog_donate_message">Thank You for choosing to support this Project. \nYou can send your donations to :\n2122024186 UBA FCSIBBUL</string>
+    <string name="msg_connect_to_the_internet">You need to be connected to the internet to make a post</string>
+    <string name="text_unauthorized_action">You are not authorized to perform this action</string>
+    <string name="msg_connect_to_the_internet_to_delete">You need to be connected to the internet to delete this announcement</string>
+    <string name="success_delete">Deleted Successfully</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="cancel_dialog_message">Cancel</string>
+    <string name="delete_dialog_message">Are you sure you want to delete this announcement?</string>
+    <string name="delete_dialog_title">Delete</string>
+    <string name="sample_bible_verse">PSALM 103:1–4 Praise the LORD, my soul; all my inmost being, praise His holy name. Praise the LORD, my soul, and forget not all His benefits — who forgives all your sins and heals all your diseases, who redeems your life from the pit and crowns you with love and compassion.</string>
+    <string name="bible_verse">Bible Verse</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="success">Success!</string>
     <string name="err_msg_enter_office">Please Enter the Exco\'s Office</string>
     <string name="add_exco_title">Add an Exco</string>
     <string name="add_exco_message">Are you sure you want to add this Exco?</string>
-    <string name="read_permission_denied"><![CDATA["    <string name=\"read_permission_denied\">You just denied the permission, you can grant it from the settings</string> "]]></string>
+    <string name="read_permission_denied">You just denied the permission, you can grant it from the settings</string>
     <string name="image_selection_failed">Failed to upload image!.</string>
-    <string name="msg_grant_permission">To be able to upload an image, FCS App requires that you grant it the permission to Read your storage</string>
+    <string name="msg_grant_permission">To be able to upload an image, FCS App requires that you grant it the permission to Read your storage. You can enable it in Settings</string>
     <string name="no_thanks">No thanks</string>
+    <string name="first_name_last_name">%s %s</string>
+    <string name="exco_level">%dL</string>
     <string name="add_exco">Add Exco</string>
+    <string name="err_msg_enter_phone">Please enter a phone number</string>
+    <string name="err_msg_enter_department">Please enter the department</string>
     <string name="err_msg_enter_level">Please enter the exco\'s level</string>
+    <string name="enter_valid_level">Please enter only level from 100 to 500</string>
+    <string name="channel_name">FCS Notification Channel</string>
+    <string name="channel_description">FCS IBBUL</string>
+    <string name="announcement_notification_channel">announcements_channel</string>
+    <string name="bible_verse_notification_channel">bible_verse_channel</string>
     <string name="str_welcome">Welcome</string>
+    <string name="str_google_icon">Google icon</string>
+    <string name="fcs_logo">FCS Logo</string>
+
+    <string-array name="pref_upload_quality_entries">
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+        <item>1080p</item>
+        <item>Original</item>
+    </string-array>
+
+    <string-array name="pref_remind_me_to_take_a_break">
+        <item>1 hours</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>5 hours</item>
+        <item>10 hours</item>
+    </string-array>
+
+    <string-array name="pref_seek_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="pref_duration">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="pref_uploads">
+        <item>Only when on Wi-Fi</item>
+        <item>On any network</item>
+    </string-array>
+
+    <!-- colours & their corresponding values -->
+    <string name="original" id="103">Default</string>
+    <string name="blue" id="104">Blue</string>
+    <string name="green" id="105">Green</string>
+    <string name="orange" id="106">Orange</string>
+    <string name="yellow" id="107">Original</string>
+    <string name="teal" id="108">Teal</string>
+    <string name="violet" id="109">Violet</string>
+    <string name="pink" id="110">Pink</string>
+    <string name="lightBlue" id="111">Light Blue</string>
+    <string name="red" id="112">Red</string>
+    <string name="lime" id="113">Lime</string>
+    <string name="crimson" id="114">Crimson</string>
+    <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
+    <string name="title">Title</string>
+    <string name="settings_general">General</string>
+    <string name="appearance">Appearance</string>
+    <string name="app_theme">App Theme</string>
+    <string name="settings_accent_colour">Accent Color</string>
+    <string name="light_mode">Light</string>
+    <string name="dark_mode">Dark</string>
+    <string name="follow_system_default">Follow system</string>
     <string name="delete_account">Delete Account</string>
+    <string name="help">Help</string>
+    <string name="str_are_you_sure_you_want_to_logout">Are you sure you want to log out?</string>
+    <string name="submit">Submit</string>
     <string name="str_report_technical_issues_or_suggest_new_features">Report technical issues or suggest new features</string>
     <string name="str_your_feedback_here">Your feedback here…</string>
+    <string name="str_feedback">Feedback</string>
+
+
 </resources>

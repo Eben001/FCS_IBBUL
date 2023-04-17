@@ -17,9 +17,11 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_register_activity"
+            app:titleTextColor="?android:textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white">
+            app:cardBackgroundColor="@color/card_background_color"
+            >
 
             <TextView
                 android:id="@+id/tv_title"
@@ -28,9 +30,9 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:paddingStart="@dimen/toolbar_title_paddingStart"
+                android:textColor="@color/colorPrimaryText"
                 android:paddingEnd="0dp"
                 android:text="@string/str_welcome"
-                android:textColor="@color/black"
                 android:textSize="@dimen/toolbar_title_text_size" />
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -57,7 +59,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:adjustViewBounds="true"
-        android:background="@color/primaryColor"
+        app:cardBackgroundColor="@color/card_background_color"
         android:fontFamily="@font/montserrat_regular"
         android:paddingBottom="@dimen/btn_padding"
         app:cardCornerRadius="4dp"
@@ -89,10 +91,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/primaryTextColor"
                 android:layout_marginEnd="16dp"
                 android:text="@string/btn_lbl_register"
-                android:textColor="@color/black"
                 android:textSize="@dimen/btn_textSize"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
