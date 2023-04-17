@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="11dp"
+    app:cardBackgroundColor="@color/card_background_color"
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true">
 

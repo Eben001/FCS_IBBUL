@@ -32,6 +32,7 @@
     <color name="red">#D32F2F</color>
     <color name="colorSnackBarError">#F72400</color>
     <color name="colorSnackBarSuccess">#8BC34A</color>
+    <color name="card_background_color">#FFFFFF</color>
 
     <color name="blueAccent">#4285F4</color>
     <color name="greenAccent">#3DDC84</color>
