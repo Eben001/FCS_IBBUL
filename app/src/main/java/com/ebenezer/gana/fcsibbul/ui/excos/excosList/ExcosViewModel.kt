@@ -12,6 +12,8 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
 
     private val _excos = MutableLiveData<List<Exco>>()
     val excos: LiveData<List<Exco>> = _excos
+    private var _isDeleteSuccess = MutableLiveData<Boolean>()
+    val isDeleteSuccess: LiveData<Boolean> = _isDeleteSuccess
 
 
     fun getExcosList() {
@@ -20,6 +22,18 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
                 _excos.value = it
             }
         }
+    }
+
+    fun deleteExcoDetails(excoDocumentID: String, imageUrl:String){
+        repository.deleteExcoDetails(excoDocumentID, imageUrl,
+        onSuccess = {
+            _isDeleteSuccess.value = true
+
+        },
+        onFailure = {
+            _isDeleteSuccess.value = false
+
+        })
     }
 
 }

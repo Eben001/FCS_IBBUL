@@ -23,6 +23,7 @@ class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
 
     fun addExco(
         id: String,
+        documentId:String,
         firstName: String,
         lastName: String,
         emailId: String,
@@ -34,8 +35,10 @@ class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
     ) {
         val newData =
             Exco(
-                id, firstName, lastName, emailId,
-                imageUrl, phoneNumber, office, department, level
+                id = id, documentId = documentId,
+                firstName = firstName, lastName = lastName, emailId = emailId,
+                image_url = imageUrl, phone = phoneNumber, office = office, department = department,
+                level = level
             )
         addNewExco(newData)
     }

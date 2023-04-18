@@ -150,15 +150,16 @@ class AddExcoFragment : BaseFragment() {
             //Observe and use the excoUrl received from uploadImageToCloudStorage() call
             viewModel.imageUrl.observe(viewLifecycleOwner) { excoUrl ->
                 viewModel.addExco(
-                    "",
-                    binding.etFirstName.text.toString().trim(),
-                    binding.etLastName.text.toString().trim(),
-                    binding.etEmail.text.toString().trim(),
-                    excoUrl,
-                    binding.etPhone.text.toString().trim(),
-                    binding.etOffice.text.toString().trim(),
-                    binding.etDepartment.text.toString().trim(),
-                    binding.etLevel.text.toString().toInt()
+                    id = "",
+                    documentId = "",
+                    firstName = binding.etFirstName.text.toString().trim(),
+                    lastName = binding.etLastName.text.toString().trim(),
+                    emailId = binding.etEmail.text.toString().trim(),
+                    imageUrl = excoUrl,
+                    phoneNumber = binding.etPhone.text.toString().trim(),
+                    office = binding.etOffice.text.toString().trim(),
+                    department = binding.etDepartment.text.toString().trim(),
+                    level = binding.etLevel.text.toString().toInt()
                 )
             }
             binding.addExco.isEnabled = false
