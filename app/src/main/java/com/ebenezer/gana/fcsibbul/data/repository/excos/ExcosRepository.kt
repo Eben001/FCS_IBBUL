@@ -56,7 +56,7 @@ class ExcosRepository(
         val storageReference = firebaseStorage.reference.child(
             "$imageType $excoFullName ${System.currentTimeMillis()}.${
                 Constants.getFileExtension(
-                    activity, imageFileURI
+                    imageFileURI
                 )
             }"
         )

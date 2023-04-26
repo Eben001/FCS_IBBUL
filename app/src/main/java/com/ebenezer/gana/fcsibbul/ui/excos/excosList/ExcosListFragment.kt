@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
+import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 private const val TAG = "ExcosListFragment"
 
 
-class ExcosListFragment : Fragment() {
+class ExcosListFragment : BaseFragment() {
 
     private var _binding: ExcoslistFragmentBinding? = null
     private val binding get() = _binding!!
@@ -53,7 +55,7 @@ class ExcosListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart: Called")
+        Timber.tag(TAG).d("onStart: Called")
         lifecycleScope.launch {
             viewModel.getExcosList()
             binding.swipeRefresh.isRefreshing = true

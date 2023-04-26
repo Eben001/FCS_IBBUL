@@ -1,8 +1,10 @@
 package com.ebenezer.gana.fcsibbul.utils
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
+import java.util.*
 
 object Constants {
 
@@ -18,19 +20,35 @@ object Constants {
     const val SONG: String = "song"
     const val BIBLE_VERSE: String = "daily_verse"
 
-    fun getFileExtension(activity: Activity, uri: Uri?): String? {
-        /**
-         * MimeTypeMap: Two-way map that maps MIME-types to file extensions and vice versa
-         *
-         * getSingleton(): Get the singleton instance of MimeTypeMap.
-         *
-         * getExtensionFromMimeType:Return the registered extension for the given Mime Type
-         *
-         * contentResolver.getType: Returns the MIME type of the given content URL.
-         */
+    fun getFileExtension(imageFileURI: Uri?): String? {
+        imageFileURI?.let { uri ->
+            val fileName = uri.lastPathSegment
+            val dotIndex = fileName?.lastIndexOf(".")
+            if (dotIndex != null && dotIndex >= 0) {
+                return fileName.substring(dotIndex + 1)
+            }
+        }
+        return null
+    }
 
+    fun getFileExtension(context:Context, imageUri: Uri?): String? {
+        val contentResolver = context.contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
 
-        return MimeTypeMap.getSingleton()
-            .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
+        // Get the file type based on the image's URI
+        val type = imageUri?.let { contentResolver.getType(it) }
+
+        // If we were unable to determine the file type based on the URI, try to guess based on the file extension
+        if (type == null) {
+            val extension = mimeTypeMap.getExtensionFromMimeType(imageUri?.let {
+                contentResolver.getType(
+                    it
+                )
+            })
+            return extension?.lowercase(Locale.ROOT)
+        }
+
+        // Return the file extension in lowercase
+        return mimeTypeMap.getExtensionFromMimeType(type)?.lowercase(Locale.ROOT)
     }
 }
