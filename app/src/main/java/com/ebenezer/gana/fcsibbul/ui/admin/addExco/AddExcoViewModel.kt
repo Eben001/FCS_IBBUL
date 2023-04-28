@@ -5,11 +5,27 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.data.repository.excos.ExcosRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
+
+
+
+    private val _isImageUploadSuccess = MutableStateFlow<Boolean?>(null)
+    val isImageUploadSuccess: StateFlow<Boolean?> = _isImageUploadSuccess
+        .stateIn(
+            initialValue = null,
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000)
+        )
 
 
     private var _isPostSuccess = MutableLiveData<Boolean>()
@@ -56,10 +72,16 @@ class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String, excoFullName:String) {
         repository.uploadExcoImageToCloud(activity, imageFileURI, imageType, excoFullName,  onSuccess = {
             _imageUrl.value = it
+            _isImageUploadSuccess.value = true
+
         },
             onFailure = {
                 _isPostSuccess.value = false
                 _result.value = it
+                viewModelScope.launch {
+                    _isImageUploadSuccess.emit(false)
+                }
+
             })
     }
 

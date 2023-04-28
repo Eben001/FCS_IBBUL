@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
@@ -17,6 +18,8 @@ import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
 
@@ -56,6 +59,29 @@ class AddExcoFragment : BaseFragment() {
 
             } else {
                 showSnackBar(it.asString(requireContext()), isError = true)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isImageUploadSuccess.collectLatest {
+                if (it == true) {
+                    //Observe and use the excoUrl received from uploadImageToCloudStorage() call
+                    viewModel.imageUrl.observe(viewLifecycleOwner) { excoUrl ->
+                        viewModel.addExco(
+                            id = "",
+                            documentId = "",
+                            firstName = binding.etFirstName.text.toString().trim(),
+                            lastName = binding.etLastName.text.toString().trim(),
+                            emailId = binding.etEmail.text.toString().trim(),
+                            imageUrl = excoUrl,
+                            phoneNumber = binding.etPhone.text.toString().trim(),
+                            office = binding.etOffice.text.toString().trim(),
+                            department = binding.etDepartment.text.toString().trim(),
+                            level = binding.etLevel.text.toString().toInt()
+                        )
+                    }
+                }
+
             }
         }
 
@@ -103,9 +129,7 @@ class AddExcoFragment : BaseFragment() {
                 try {
                     mSelectedImageFileUri = selectedImageUri
                     //Use Coil to Load image
-                    binding.excoImage.load(mSelectedImageFileUri) {
-                        placeholder(R.drawable.ic_user_placeholder)
-                    }
+                    binding.excoImage.load(mSelectedImageFileUri)
 
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -147,21 +171,6 @@ class AddExcoFragment : BaseFragment() {
                 } - ${binding.etLastName.text.toString().trim()}"
             )
 
-            //Observe and use the excoUrl received from uploadImageToCloudStorage() call
-            viewModel.imageUrl.observe(viewLifecycleOwner) { excoUrl ->
-                viewModel.addExco(
-                    id = "",
-                    documentId = "",
-                    firstName = binding.etFirstName.text.toString().trim(),
-                    lastName = binding.etLastName.text.toString().trim(),
-                    emailId = binding.etEmail.text.toString().trim(),
-                    imageUrl = excoUrl,
-                    phoneNumber = binding.etPhone.text.toString().trim(),
-                    office = binding.etOffice.text.toString().trim(),
-                    department = binding.etDepartment.text.toString().trim(),
-                    level = binding.etLevel.text.toString().toInt()
-                )
-            }
             binding.addExco.isEnabled = false
 
         } else {
