@@ -17,11 +17,10 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_register_activity"
-            app:titleTextColor="?android:textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/abbBackgroundColor"
-            >
+            app:titleTextColor="?android:textColorPrimary">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -30,9 +29,9 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:paddingStart="@dimen/toolbar_title_paddingStart"
-                android:textColor="@color/colorPrimaryText"
                 android:paddingEnd="0dp"
                 android:text="@string/str_welcome"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/toolbar_title_text_size" />
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -40,15 +39,24 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <ImageView
-        android:contentDescription="@string/fcs_logo"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_lovely_people"
+        android:layout_height="400dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btn_register"
@@ -59,9 +67,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:adjustViewBounds="true"
-        app:cardBackgroundColor="@color/card_background_color"
         android:fontFamily="@font/montserrat_regular"
         android:paddingBottom="@dimen/btn_padding"
+        app:cardBackgroundColor="@color/card_background_color"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,12 +83,12 @@
             android:layout_margin="8dp">
 
             <ImageView
-                android:contentDescription="@string/str_google_icon"
                 android:id="@+id/google_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:contentDescription="@string/str_google_icon"
                 android:src="@drawable/google_logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView"
@@ -91,9 +99,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primaryTextColor"
                 android:layout_marginEnd="16dp"
                 android:text="@string/btn_lbl_register"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/btn_textSize"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

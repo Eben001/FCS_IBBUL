@@ -2,6 +2,7 @@ package com.ebenezer.gana.fcsibbul.data.repository
 
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.User
+import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.AuthCredential
@@ -126,7 +127,11 @@ class FcsRepository(
             }
     }
 
-    fun signInWithGoogle(credential: AuthCredential, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+    fun signInWithGoogle(
+        credential: AuthCredential,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
 
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -135,7 +140,7 @@ class FcsRepository(
                 task.result.user?.let { firebaseUser ->
                     Timber.d("Firebase User ${firebaseUser.email}")
                     val isNewUser = task.result?.additionalUserInfo?.isNewUser ?: true
-                    if(isNewUser){
+                    if (isNewUser) {
                         val user = User(
                             firebaseUser.uid,
                             email = firebaseUser.email,
@@ -150,6 +155,24 @@ class FcsRepository(
                 task.exception?.let { onFailure(it.localizedMessage!!) }
             }
         }
+    }
+
+    fun getWelcomeImagesFromFirebase(images: (MutableList<WelcomeScreenImage>) -> Unit) {
+        firestore.collection(Constants.WELCOME_SCREEN_IMAGES)
+            .get()
+            .addOnSuccessListener { document ->
+                val welcomeImages = mutableListOf<WelcomeScreenImage>()
+
+                for(item in document){
+                    val welcomeImageItem = item.toObject(WelcomeScreenImage::class.java)
+                    welcomeImages.add(welcomeImageItem)
+                }
+                images(welcomeImages)
+
+            }
+            .addOnFailureListener {
+                Timber.e("Error getting welcome images ${it.printStackTrace()}")
+            }
     }
 
 }

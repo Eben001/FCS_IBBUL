@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.SignUpFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
@@ -14,9 +17,22 @@ import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.abs
 
 class SignUpFragment : BaseFragment() {
+
+    private val autoScrollCoroutineScope = CoroutineScope(Dispatchers.Main)
+    private var autoScrollJob: Job? = null
+    private var isAutoScrollPaused = false
+    private lateinit var welcomeImageAdapter: WelcomeImageAdapter
 
     private var _binding: SignUpFragmentBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +59,7 @@ class SignUpFragment : BaseFragment() {
 
         observeViewModels()
         setOnClickListeners()
+        getImageUrlsFromFirebaseStorage()
     }
 
     private fun observeViewModels() {
@@ -63,6 +80,7 @@ class SignUpFragment : BaseFragment() {
 
         }
 
+
     }
 
     private fun setOnClickListeners() {
@@ -76,6 +94,50 @@ class SignUpFragment : BaseFragment() {
         launcher.launch(signInIntent)
     }
 
+    private fun getImageUrlsFromFirebaseStorage() {
+        viewModel.getWelcomeImagesFromFirebaseStorage()
+        viewModel.welcomeScreenImages.observe(viewLifecycleOwner) { welcomeScreenImages ->
+
+            welcomeImageAdapter = WelcomeImageAdapter()
+            binding.viewPager.adapter = welcomeImageAdapter
+
+            val compositePageTransformer = CompositePageTransformer().apply {
+                addTransformer(MarginPageTransformer(40))
+                addTransformer { page, position ->
+                    val r = 1 - abs(position)
+                    page.scaleY = 0.85f + r * 0.15f
+                }
+            }
+            binding.viewPager.setPageTransformer(compositePageTransformer)
+            binding.viewPager.clipToPadding = false
+            binding.viewPager.clipChildren = false
+            binding.viewPager.offscreenPageLimit = 3
+            binding.viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            welcomeImageAdapter.updateImages(welcomeScreenImages) // Update the adapter's image list
+
+            startAutoScroll() // Start auto scroll
+
+        }
+    }
+
+
+    private fun startAutoScroll() {
+        autoScrollJob?.cancel() // Cancel any existing auto scroll job
+        autoScrollJob = autoScrollCoroutineScope.launch {
+            while (isActive) {
+                if (!isAutoScrollPaused) {
+                    delay(2000)
+                    val currentItem = binding.viewPager.currentItem
+                    val nextItem = currentItem + 1
+                    binding.viewPager.setCurrentItem(nextItem, true)
+                } else {
+                    delay(100)
+                }
+            }
+        }
+    }
+
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -84,9 +146,21 @@ class SignUpFragment : BaseFragment() {
             }
         }
 
+    override fun onResume() {
+        super.onResume()
+        isAutoScrollPaused = false
+        startAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isAutoScrollPaused = true
+    }
 
     override fun onDestroy() {
         super.onDestroy()
+        autoScrollJob?.cancel()
+        autoScrollCoroutineScope.cancel()
         _binding = null
     }
 

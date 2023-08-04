@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -12,13 +13,16 @@ import com.google.firebase.auth.GoogleAuthProvider
 import timber.log.Timber
 
 
-class SignUpViewModel (private val repository: FcsRepository) : ViewModel() {
+class SignUpViewModel(private val repository: FcsRepository) : ViewModel() {
 
     private val _isSignupSuccess = MutableLiveData<Boolean>()
     val isSignupSuccess: LiveData<Boolean> = _isSignupSuccess
 
     private val _result = MutableLiveData<UiText>()
     val result: LiveData<UiText> = _result
+
+    private val _welcomeScreenImages = MutableLiveData<List<WelcomeScreenImage>>()
+    val welcomeScreenImages: LiveData<List<WelcomeScreenImage>> = _welcomeScreenImages
 
 
     private fun registerUser(firstName: String, lastName: String, email: String, password: String) {
@@ -54,16 +58,23 @@ class SignUpViewModel (private val repository: FcsRepository) : ViewModel() {
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken:String) {
+    private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         repository.signInWithGoogle(credential, onSuccess = {
             _isSignupSuccess.value = true
 
         },
-        onFailure = {
-            _isSignupSuccess.value = false
-            Timber.e(it)
-        })
+            onFailure = {
+                _isSignupSuccess.value = false
+                Timber.e(it)
+            })
+    }
+
+    fun getWelcomeImagesFromFirebaseStorage() {
+        repository.getWelcomeImagesFromFirebase { welcomeScreenImages ->
+            _welcomeScreenImages.value = welcomeScreenImages
+
+        }
     }
 
 
