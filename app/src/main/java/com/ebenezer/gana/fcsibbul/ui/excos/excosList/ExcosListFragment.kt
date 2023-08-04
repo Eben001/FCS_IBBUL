@@ -5,10 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -41,11 +45,22 @@ class ExcosListFragment : BaseFragment() {
             findNavController().navigate(action)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.excoPagingFlow.collectLatest { pagingData ->
-                Timber.e("Paging Data $pagingData")
-                adapter.submitData(pagingData)
+       lifecycleScope.launch {
+           repeatOnLifecycle(Lifecycle.State.STARTED){
+               adapter.loadStateFlow.collect{
+                   binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
+                   binding.appendProgress.isVisible = it.source.append is LoadState.Loading
+               }
+           }
+        }
+
+        lifecycleScope.launch{
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.excoPagingFlow.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
             }
+
         }
 
         binding.rvExcos.adapter = adapter

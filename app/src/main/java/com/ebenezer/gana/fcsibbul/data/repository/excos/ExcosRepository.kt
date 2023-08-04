@@ -101,7 +101,7 @@ class ExcosRepository(
 
     fun getExcos() =
         firestore.collection(Constants.EXCOS)
-            .orderBy("timeStamp", Query.Direction.DESCENDING)
+            .orderBy("timeStamp", Query.Direction.ASCENDING)
             .limit(PAGE_SIZE.toLong())
 
 
