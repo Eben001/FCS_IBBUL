@@ -60,7 +60,6 @@ class ExcosListFragment : BaseFragment() {
                     adapter.submitData(pagingData)
                 }
             }
-
         }
 
         binding.rvExcos.adapter = adapter

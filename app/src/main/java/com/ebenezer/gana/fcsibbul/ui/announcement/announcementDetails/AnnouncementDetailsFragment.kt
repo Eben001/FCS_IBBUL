@@ -17,6 +17,7 @@ import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 
@@ -44,8 +45,9 @@ class AnnouncementDetailsFragment : BaseFragment() {
         viewModel.verifyIfAdmin()
 
         val announcement = navigationArgs.announcement
-        viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
-        viewModel.getUpdatedLikes(announcement.announcementId!!)
+        Timber.d("AnnouncementDetails ${announcement.announcementId}")
+       // viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
+        //viewModel.getUpdatedLikes(announcement.announcementId!!)
 
         bind(announcement)
         setOnClickListeners(announcement)
@@ -101,11 +103,11 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
         }
         binding.likeImage.setOnClickListener {
-            viewModel.likeAnnouncement(
+            /*viewModel.likeAnnouncement(
                 viewModel.updatedLikeCount.value!!,
                 viewModel.updatedLikedUsers.value!!,
                 announcement.announcementId!!
-            )
+            )*/
         }
         binding.share.setOnClickListener {
             Intent().apply {

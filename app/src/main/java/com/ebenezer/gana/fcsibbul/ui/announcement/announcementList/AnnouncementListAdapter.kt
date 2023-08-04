@@ -2,14 +2,16 @@ package com.ebenezer.gana.fcsibbul.ui.announcement.announcementList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.databinding.ListItemAnnouncementBinding
 
-class AnnouncementListAdapter(private val onItemClicked:(Announcement) -> Unit) : ListAdapter<Announcement,
-        AnnouncementListAdapter.AnnouncementViewHolder>(DiffCallback) {
+class AnnouncementListAdapter(private val onItemClicked: (Announcement) -> Unit) :
+    PagingDataAdapter<Announcement,
+            AnnouncementListAdapter.AnnouncementViewHolder>(DiffCallback) {
 
 
     class AnnouncementViewHolder(private var binding: ListItemAnnouncementBinding) :
@@ -35,11 +37,15 @@ class AnnouncementListAdapter(private val onItemClicked:(Announcement) -> Unit) 
     }
 
     override fun onBindViewHolder(holder: AnnouncementViewHolder, position: Int) {
-       val current = getItem(position)
-        holder.bind(current)
-        holder.itemView.setOnClickListener {
-            onItemClicked(current)
+        val current = getItem(position)
+
+        current?.let {
+            holder.bind(current)
+            holder.itemView.setOnClickListener {
+                onItemClicked(current)
+            }
         }
+
 
     }
 

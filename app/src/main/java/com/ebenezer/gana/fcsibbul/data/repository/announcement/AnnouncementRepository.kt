@@ -4,6 +4,7 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.ebenezer.gana.fcsibbul.utils.Constants.PAGE_SIZE
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +13,15 @@ import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 
 class AnnouncementRepository(private val firestore: FirebaseFirestore) {
+
+    /**
+     * Gets announcement list from firestore
+     */
+    fun getAnnouncements()  =
+        firestore.collection(Constants.ANNOUNCEMENTS)
+            .orderBy("timeStamp", Query.Direction.DESCENDING)
+            .limit(PAGE_SIZE.toLong())
+
 
     /**
      * Gets announcement list from firestore
