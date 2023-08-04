@@ -5,6 +5,7 @@ import android.net.Uri
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.ebenezer.gana.fcsibbul.utils.Constants.PAGE_SIZE
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -97,6 +98,14 @@ class ExcosRepository(
 
 
     }
+
+    fun getExcos() =
+        firestore.collection(Constants.EXCOS)
+            .orderBy("timeStamp", Query.Direction.DESCENDING)
+            .limit(PAGE_SIZE.toLong())
+
+
+
 
     fun getExcos(excos: (MutableList<Exco>) -> Unit) {
         firestore.collection(Constants.EXCOS)

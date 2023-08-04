@@ -3,15 +3,15 @@ package com.ebenezer.gana.fcsibbul.ui.excos.excosList
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ListItemExcosBinding
 
-class ExcosListAdapter(private val context: Context, private val onItemClicked:(Exco) -> Unit) : ListAdapter<Exco,
+class ExcosListAdapter(private val context: Context, private val onItemClicked:(Exco) -> Unit) : PagingDataAdapter<Exco,
         ExcosListAdapter.ExcosViewHolder>(DiffCallback) {
 
     inner class ExcosViewHolder(private var binding: ListItemExcosBinding) :
@@ -46,10 +46,13 @@ class ExcosListAdapter(private val context: Context, private val onItemClicked:(
 
     override fun onBindViewHolder(holder: ExcosViewHolder, position: Int) {
        val current = getItem(position)
-        holder.bind(current)
-        holder.itemView.setOnClickListener {
-            onItemClicked(current)
+        current?.let {
+            holder.bind(current)
+            holder.itemView.setOnClickListener {
+                onItemClicked(current)
+            }
         }
+
 
     }
 

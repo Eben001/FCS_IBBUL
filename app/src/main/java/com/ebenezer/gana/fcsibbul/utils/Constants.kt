@@ -8,6 +8,7 @@ import java.util.*
 
 object Constants {
 
+    const val PAGE_SIZE = 5
     const val WELCOME_SCREEN_IMAGES: String = "welcome_screen_images"
     const val EXCOS_IMAGE: String = "excos_image"
     const val DRAWER_STATE_LOCKED_CLOSED = 1

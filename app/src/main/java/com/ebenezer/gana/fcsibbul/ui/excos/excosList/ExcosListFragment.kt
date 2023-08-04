@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -21,7 +22,7 @@ class ExcosListFragment : BaseFragment() {
 
     private var _binding: ExcoslistFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:ExcosViewModel by viewModel()
+    private val viewModel: ExcosViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +40,23 @@ class ExcosListFragment : BaseFragment() {
                 ExcosListFragmentDirections.actionNavigationExcosToNavigationExcosDetails(it)
             findNavController().navigate(action)
         }
-        binding.rvExcos.adapter = adapter
-        viewModel.excos.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            binding.swipeRefresh.isRefreshing = false
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.excoPagingFlow.collectLatest { pagingData ->
+                Timber.e("Paging Data $pagingData")
+                adapter.submitData(pagingData)
+            }
         }
+
+        binding.rvExcos.adapter = adapter
+        /* viewModel.excos.observe(viewLifecycleOwner) {
+             adapter.submitList(it)
+             binding.swipeRefresh.isRefreshing = false
+         }*/
         binding.swipeRefresh.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.getExcosList()
-                binding.swipeRefresh.isRefreshing = true
+                //viewModel.getExcosList()
+              //  binding.swipeRefresh.isRefreshing = true
 
             }
         }
@@ -56,10 +65,10 @@ class ExcosListFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         Timber.tag(TAG).d("onStart: Called")
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             viewModel.getExcosList()
             binding.swipeRefresh.isRefreshing = true
-        }
+        }*/
     }
 
 
