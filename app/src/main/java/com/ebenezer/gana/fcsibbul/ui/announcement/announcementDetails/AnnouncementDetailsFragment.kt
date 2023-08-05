@@ -162,6 +162,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
             .setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
                 announcement.announcementId?.let { id -> viewModel.deleteAnnouncement(id) }
                 dialog.dismiss()
+                findNavController().navigateUp()
             }
             .show()
 
