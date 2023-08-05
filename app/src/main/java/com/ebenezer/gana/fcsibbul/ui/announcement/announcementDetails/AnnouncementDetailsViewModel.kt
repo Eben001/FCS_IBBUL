@@ -75,13 +75,18 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
 
     fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
         val alreadyLiked = likedBy.contains(getCurrentUserId())
+        val maxLikes = 2000
 
         if (alreadyLiked) {
-            repository.removeLike(getCurrentUserId(), documentId)
-            _likesCount.value = totalLikes - 1
+            if(totalLikes > 0){
+                repository.removeLike(getCurrentUserId(), documentId)
+                _likesCount.value = totalLikes - 1
+            }
         } else {
-            repository.addLike(getCurrentUserId(), documentId)
-            _likesCount.value = totalLikes + 1
+            if (totalLikes < maxLikes) {
+                repository.addLike(getCurrentUserId(), documentId)
+                _likesCount.value = totalLikes + 1
+            }
         }
 
         _alreadyLiked.value = !alreadyLiked
