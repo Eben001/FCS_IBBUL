@@ -1,10 +1,16 @@
 package com.ebenezer.gana.fcsibbul.ui.announcement.announcementList
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -12,14 +18,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ebenezer.gana.fcsibbul.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
+import com.ebenezer.gana.fcsibbul.ui.announcement.shared.SharedViewModel
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class AnnouncementListFragment : BaseFragment() {
@@ -31,6 +37,7 @@ class AnnouncementListFragment : BaseFragment() {
     private lateinit var adapter:AnnouncementListAdapter
 
     private val viewModel: AnnouncementListViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -76,6 +83,16 @@ class AnnouncementListFragment : BaseFragment() {
             }
 
         }
+        lifecycleScope.launch{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                sharedViewModel.announcementDeleted.observe(viewLifecycleOwner) { announcementDeleted ->
+                    if (announcementDeleted) {
+                        refreshList()
+                        sharedViewModel.setAnnouncementDeleted(false) // Reset the value
+                    }
+                }
+            }
+        }
 
         setOnClickListener()
     }
@@ -108,16 +125,9 @@ class AnnouncementListFragment : BaseFragment() {
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-    override fun onStart() {
-        super.onStart()
+    private fun refreshList() {
         adapter.refresh()
     }
 
