@@ -27,8 +27,16 @@ class AnnouncementPagingSource(private val repository: AnnouncementRepository) :
             val currentPage = params.key ?: repository.getAnnouncements().get().await()
             val lastVisibleProduct = currentPage.documents[currentPage.size() - 1]
             val nextPage = repository.getAnnouncements().startAfter(lastVisibleProduct).get().await()
+
+            val announcementsList = mutableListOf<Announcement>()
+            for (document in currentPage) {
+                val announcement = document.toObject(Announcement::class.java)
+                announcement.announcementId = document.id
+                announcementsList.add(announcement)
+            }
+
             LoadResult.Page(
-                data = currentPage.toObjects(Announcement::class.java),
+                data = announcementsList,
                 prevKey = null,
                 nextKey = nextPage
             )

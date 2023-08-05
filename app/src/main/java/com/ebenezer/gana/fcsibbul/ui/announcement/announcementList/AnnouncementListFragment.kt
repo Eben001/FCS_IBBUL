@@ -28,6 +28,8 @@ class AnnouncementListFragment : BaseFragment() {
     private var _binding: AnnouncementlistFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var adapter:AnnouncementListAdapter
+
     private val viewModel: AnnouncementListViewModel by viewModel()
 
 
@@ -45,48 +47,46 @@ class AnnouncementListFragment : BaseFragment() {
         Timber.d("${Firebase.auth.currentUser}")
 
         binding.rvAnnouncement.layoutManager = LinearLayoutManager(this.context)
-        val adapter = AnnouncementListAdapter {
+        adapter = AnnouncementListAdapter {
             val action =
                 AnnouncementListFragmentDirections.actionNavigationAnnouncementToAnnouncementDetailsFragment(
                     it
                 )
-            Timber.d("AnnouncementList ${it.announcementId}")
-
 
             findNavController().navigate(action)
         }
+        binding.rvAnnouncement.adapter = adapter
+
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 adapter.loadStateFlow.collect{
                     binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
                     binding.appendProgress.isVisible = it.source.append is LoadState.Loading
+                    binding.swipeRefresh.isRefreshing = false
 
                 }
             }
         }
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.announcementPagingFlow.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
+
                 }
             }
+
         }
 
-        binding.rvAnnouncement.adapter = adapter
-        /*viewModel.announcement.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            binding.swipeRefresh.isRefreshing = false
-        }*/
-        /*binding.swipeRefresh.setOnRefreshListener {
-            lifecycleScope.launch {
-                viewModel.announcementPagingFlow.collectLatest { pagingData ->
-                    adapter.submitData(pagingData)
-                }
-                binding.swipeRefresh.isRefreshing = true
-            }
-
-        }*/
+        setOnClickListener()
     }
+
+    private fun setOnClickListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            adapter.refresh()
+        }
+    }
+
 
     private fun setupSettingsMenu(){
         val menuHost: MenuHost = requireActivity()
@@ -111,12 +111,14 @@ class AnnouncementListFragment : BaseFragment() {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
     override fun onStart() {
         super.onStart()
-        /*lifecycleScope.launch {
-            viewModel.getAnnouncements()
-            binding.swipeRefresh.isRefreshing = true
-        }*/
+        adapter.refresh()
     }
 
     override fun onDestroy() {

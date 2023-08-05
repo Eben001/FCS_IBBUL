@@ -17,7 +17,6 @@ import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 
@@ -45,9 +44,8 @@ class AnnouncementDetailsFragment : BaseFragment() {
         viewModel.verifyIfAdmin()
 
         val announcement = navigationArgs.announcement
-        Timber.d("AnnouncementDetails ${announcement.announcementId}")
-       // viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
-        //viewModel.getUpdatedLikes(announcement.announcementId!!)
+        viewModel.getUpdatedLikedUsers(announcement.announcementId!!)
+        viewModel.getUpdatedLikes(announcement.announcementId!!)
 
         bind(announcement)
         setOnClickListeners(announcement)
@@ -59,7 +57,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
             title.text = announcement.title
             announcementDetails.text = announcement.details
             announcementDateTime.text = announcement.date
-            likes.text = announcement.likeCount.toString()
+            //likes.text = announcement.likeCount.toString()
         }
     }
 
@@ -103,11 +101,11 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
         }
         binding.likeImage.setOnClickListener {
-            /*viewModel.likeAnnouncement(
+            viewModel.likeOrUnlikeAnnouncement(
                 viewModel.updatedLikeCount.value!!,
                 viewModel.updatedLikedUsers.value!!,
                 announcement.announcementId!!
-            )*/
+            )
         }
         binding.share.setOnClickListener {
             Intent().apply {
@@ -139,8 +137,9 @@ class AnnouncementDetailsFragment : BaseFragment() {
             )
         }
 
-        viewModel.likesCount.observe(viewLifecycleOwner) {
+        viewModel.updatedLikeCount.observe(viewLifecycleOwner) {
             binding.likes.text = it.toString()
+
         }
 
         viewModel.updatedLikedUsers.observe(viewLifecycleOwner) {

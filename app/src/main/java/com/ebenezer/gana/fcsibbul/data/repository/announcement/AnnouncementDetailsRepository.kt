@@ -22,83 +22,60 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Timber.d(
-                        "unable to get liked users: Listen Failed",
-                        error
-                    )
+                    Timber.e("Unable to get liked users: Listen Failed", error)
                     return@addSnapshotListener
                 }
-                if (value != null) {
-                    val document = value.toObject(Announcement::class.java)
-                    if (document != null) {
-                        likedUsers(document.likedBy)
-                    }
-
+                val document = value?.toObject(Announcement::class.java)
+                if (document != null) {
+                    likedUsers(document.likedBy)
                 }
-
             }
     }
 
 
     fun addLike(likedUser: String, documentId: String) {
-        firestore.collection(Constants.ANNOUNCEMENTS)
-            .document(documentId)
-            .update("likedBy", FieldValue.arrayUnion(likedUser))
-            .addOnSuccessListener {
-
-            }
-            .addOnFailureListener {
-                Timber.e( "postAnnouncement: Error while posting announcement")
-            }
+        val fieldUpdate = mapOf<String, Any>("likedBy" to FieldValue.arrayUnion(likedUser))
+        updateDocument(documentId, fieldUpdate)
     }
 
-    fun updateLikeHasMap(updateHashMap: HashMap<String, Any>, documentId: String) {
-        firestore.collection(Constants.ANNOUNCEMENTS)
-            .document(documentId)
-            .update(updateHashMap)
-            .addOnSuccessListener {
-
-            }
-            .addOnFailureListener {
-                Timber.e( "postAnnouncement: Error while posting announcement")
-            }
+    fun updateLikeMap(updateMap: Map<String, Any>, documentId: String) {
+        updateDocument(documentId, updateMap)
     }
 
     fun removeLike(likedBy: String, documentId: String) {
-        firestore.collection(Constants.ANNOUNCEMENTS)
-            .document(documentId)
-            .update("likedBy", FieldValue.arrayRemove(likedBy))
-            .addOnSuccessListener {
-
-            }
-            .addOnFailureListener {
-                Timber.e( "postAnnouncement: Error while posting announcement")
-            }
+        val fieldUpdate = mapOf<String, Any>("likedBy" to FieldValue.arrayRemove(likedBy))
+        updateDocument(documentId, fieldUpdate)
     }
 
 
-    fun getUpdatedLikes(announcementId: String, announcement: (likes: Long) -> Unit) {
+    private fun updateDocument(documentId: String, fieldUpdate: Map<String, Any>) {
+        firestore.collection(Constants.ANNOUNCEMENTS)
+            .document(documentId)
+            .update(fieldUpdate)
+            .apply {
+                addOnSuccessListener {
+                    Timber.d("Update successful")
+                }
+                addOnFailureListener { exception ->
+                    Timber.e("Update failed", exception)
+                }
+            }
+    }
+
+    fun getUpdatedLikes(announcementId: String, likes: (Long) -> Unit) {
         firestore.collection(Constants.ANNOUNCEMENTS)
             .document(announcementId)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Timber.d(
-                        "loginAdmin: Listen Failed",
-                        error
-                    )
+                    Timber.e("Unable to get updated likes: Listen Failed", error)
                     return@addSnapshotListener
                 }
-                if (value != null) {
-                    val document = value.toObject(Announcement::class.java)
-                    if (document != null) {
-                        announcement(document.likeCount)
-                    }
-
+                val document = value?.toObject(Announcement::class.java)
+                if (document != null) {
+                    likes(document.likeCount)
                 }
-
             }
     }
-
     fun deleteAnnouncement(
         announcementId: String,
         onSuccess: (UiText) -> Unit,
@@ -125,7 +102,7 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
             .document(getCurrentUserId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Timber.d( "loginAdmin: Listen Failed", error)
+                    Timber.d("loginAdmin: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {

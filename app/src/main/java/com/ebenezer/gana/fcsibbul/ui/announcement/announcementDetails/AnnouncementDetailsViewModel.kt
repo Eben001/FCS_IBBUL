@@ -55,65 +55,35 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
     }
 
 
-    var likeChecker = false
-
     fun checkLike(likedBy: ArrayList<String>) {
         _alreadyLiked.value = likedBy.contains(getCurrentUserId())
     }
 
     fun deleteAnnouncement(announcementId: String) {
         repository.deleteAnnouncement(announcementId,
-            onSuccess = {
-                _isDeleteSuccess.value = true
-                _result.value = it
-            }, onFailure = {
-                _isDeleteSuccess.value = false
-                _result.value = it
-            })
+            onSuccess = { _isDeleteSuccess.value = true },
+            onFailure = { _isDeleteSuccess.value = false })
     }
 
-    fun likeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
-        val updateHashMap = HashMap<String, Any>()
+    fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
+        val alreadyLiked = likedBy.contains(getCurrentUserId())
 
-        likeChecker = true
-        if (likeChecker) {
-            if (likedBy.contains(getCurrentUserId())) {
-                if (totalLikes > 0) {
-                    repository.removeLike(getCurrentUserId(), documentId)
-                    likeChecker = false
-                    _alreadyLiked.value = false
-
-                    val total = totalLikes - 1
-                    _likesCount.value = total
-                    updateHashMap["likeCount"] = total
-                    repository.updateLikeHasMap(updateHashMap, documentId)
-                }
-
-            } else {
-                repository.addLike(getCurrentUserId(), documentId)
-                likeChecker = false
-                _alreadyLiked.value = true
-
-                val total = totalLikes + 1
-                _likesCount.value = total
-                updateHashMap["likeCount"] = total
-                repository.updateLikeHasMap(updateHashMap, documentId)
-
-            }
+        if (alreadyLiked) {
+            repository.removeLike(getCurrentUserId(), documentId)
+            _likesCount.value = totalLikes - 1
+        } else {
+            repository.addLike(getCurrentUserId(), documentId)
+            _likesCount.value = totalLikes + 1
         }
 
+        _alreadyLiked.value = !alreadyLiked
 
+        val updateHashMap = hashMapOf("likeCount" to _likesCount.value!!)
+        repository.updateLikeMap(updateHashMap, documentId)
     }
-
 
     private fun getCurrentUserId(): String {
-        var currentUserID = ""
-
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        currentUser?.let {
-            currentUserID = it.uid
-        }
-        return currentUserID
+        return FirebaseAuth.getInstance().currentUser?.uid ?: ""
     }
 
 
