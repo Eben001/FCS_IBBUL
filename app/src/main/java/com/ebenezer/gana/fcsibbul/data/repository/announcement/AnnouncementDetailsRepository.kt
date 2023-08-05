@@ -1,6 +1,5 @@
 package com.ebenezer.gana.fcsibbul.data.repository.announcement
 
-import android.util.Log
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Announcement
 import com.ebenezer.gana.fcsibbul.data.models.User
@@ -9,11 +8,21 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 
 class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
+     suspend fun isDocumentExists(documentId: String): Boolean {
+        val documentRef = firestore.collection(Constants.ANNOUNCEMENTS).document(documentId)
+        return try {
+            val documentSnapshot = documentRef.get().await()
+            documentSnapshot.exists()
+        } catch (e: Exception) {
+            false
+        }
+    }
     fun getUpdatedLikedUsers(
         announcementId: String,
         likedUsers: (ArrayList<String>) -> Unit

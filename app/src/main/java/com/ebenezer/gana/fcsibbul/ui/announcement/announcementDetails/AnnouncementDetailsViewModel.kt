@@ -3,9 +3,11 @@ package com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ebenezer.gana.fcsibbul.data.repository.announcement.AnnouncementDetailsRepository
 import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 
 class AnnouncementDetailsViewModel constructor(private val repository: AnnouncementDetailsRepository) :
@@ -54,6 +56,12 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
         }
     }
 
+    fun checkDocumentExists(documentId: String, onDocumentExists: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val exists = repository.isDocumentExists(documentId)
+            onDocumentExists(exists)
+        }
+    }
 
     fun checkLike(likedBy: ArrayList<String>) {
         _alreadyLiked.value = likedBy.contains(getCurrentUserId())
