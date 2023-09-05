@@ -127,12 +127,12 @@ class SignUpFragment : BaseFragment() {
         autoScrollJob = autoScrollCoroutineScope.launch {
             while (isActive) {
                 if (!isAutoScrollPaused) {
-                    delay(2000)
+                    delay(4000)
                     val currentItem = binding.viewPager.currentItem
                     val nextItem = currentItem + 1
                     binding.viewPager.setCurrentItem(nextItem, true)
                 } else {
-                    delay(100)
+                    delay(1000)
                 }
             }
         }
