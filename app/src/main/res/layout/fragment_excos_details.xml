@@ -2,9 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/parent"
     android:layout_margin="@dimen/list_item_card_elevation"
     app:cardCornerRadius="@dimen/list_item_card_elevation"
     app:cardElevation="@dimen/list_item_card_elevation"
@@ -23,21 +23,23 @@
             android:id="@+id/exco_image"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:contentDescription="@string/excos_image"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/img_eben" />
 
         <TextView
             android:id="@+id/exco_name"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_regular"
+            android:maxLines="1"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/guideline"
@@ -46,8 +48,11 @@
 
         <TextView
             android:id="@+id/exco_post"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_regular"
+            android:maxLines="1"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/exco_phone"
@@ -58,8 +63,11 @@
 
         <TextView
             android:id="@+id/exco_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/exco_department"
@@ -70,19 +78,25 @@
 
         <TextView
             android:id="@+id/exco_department"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/exco_level"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/exco_phone"
-            tools:text="Computer Science" />
+            tools:text="Computer Scienceasdf" />
 
         <TextView
             android:id="@+id/exco_level"
+            android:fontFamily="@font/montserrat_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,17 +112,6 @@
             app:layout_constraintGuide_begin="200dp" />
 
 
-        <ImageView
-            android:id="@+id/deleteExco"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_vector_delete"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
