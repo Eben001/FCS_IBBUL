@@ -11,7 +11,9 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.models.FeedbackData
 import com.ebenezer.gana.fcsibbul.databinding.FragmentSettingsBinding
+import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.common.AccentColor
 import com.ebenezer.gana.fcsibbul.ui.common.AccentSetting
 import com.ebenezer.gana.fcsibbul.ui.common.Feedback
@@ -40,10 +42,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private val binding get() = _binding!!
     private val viewModel: SettingsViewModel by viewModel()
 
+    private var userInput: String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as HostActivityLoggedIn).setBottomNavigationVisibility(View.GONE)
         (activity as HostActivityLoggedIn).setDrawerLockedState(DRAWER_STATE_LOCKED_CLOSED)
+
+        observeViewModels()
+
+    }
+    private fun observeViewModels() {
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (viewModel.isFeedbackSubmitSuccess.value == true) {
+                Toast.makeText(requireContext(), it.asString(requireContext()), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), viewModel.result.value?.asString(requireContext()), Toast.LENGTH_SHORT).show()
+
+            }
+        }
     }
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -124,11 +141,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         label(R.string.str_report_technical_issues_or_suggest_new_features)
                         hint(R.string.str_your_feedback_here)
                         //validationListener { value -> } // Add custom validation logic
-                        changeListener { value -> } // Input value changed
-                        resultListener { value -> } // Input value changed when form finished
+                        changeListener { value -> userInput = value} // Input value changed
+                        resultListener { value -> userInput = value } // Input value changed when form finished
                     })
                     onPositive(R.string.submit){
-                        Toast.makeText(requireContext(), "Thank you for submitting your feedback", Toast.LENGTH_SHORT).show()
+                        if (!userInput.isNullOrEmpty()) {
+                            val userId:String? = null
+                            viewModel.sendFeedback(FeedbackData(userId, userInput!!))
+                        }
                     }
                 }
                 true

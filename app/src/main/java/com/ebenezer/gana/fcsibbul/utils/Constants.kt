@@ -21,6 +21,8 @@ object Constants {
     const val USERS: String = "users"
     const val SONG: String = "song"
     const val BIBLE_VERSE: String = "daily_verse"
+    const val FEEDBACKS: String = "feedbacks"
+
 
     fun getFileExtension(imageFileURI: Uri?): String? {
         imageFileURI?.let { uri ->

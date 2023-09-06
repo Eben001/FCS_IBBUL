@@ -1,6 +1,7 @@
 package com.ebenezer.gana.fcsibbul.data.repository
 
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.models.FeedbackData
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.utils.Constants
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 
@@ -17,6 +19,16 @@ class FcsRepository(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) {
+
+    suspend fun sendFeedback(feedbackData: FeedbackData, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        try {
+
+            firestore.collection(Constants.FEEDBACKS).add(FeedbackData(userId =getCurrentUserId(), feedbackData.feedbackText)).await()
+            onSuccess()
+        } catch (e: Exception) {
+            e.message?.let { onFailure(it) }
+        }
+    }
 
     private fun registerUser(user: User, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         user.id.let {
