@@ -13,6 +13,10 @@ import kotlinx.coroutines.launch
 class AnnouncementDetailsViewModel constructor(private val repository: AnnouncementDetailsRepository) :
     ViewModel() {
 
+    private var _isLikingOrUnliking = MutableLiveData<Boolean>()
+    val isLikingOrUnliking: LiveData<Boolean> = _isLikingOrUnliking
+
+
     private val _likesCount = MutableLiveData<Long>()
     val likesCount: LiveData<Long> = _likesCount
 
@@ -73,6 +77,7 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
             onFailure = { _isDeleteSuccess.value = false })
     }
 
+/*
     fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
         val alreadyLiked = likedBy.contains(getCurrentUserId())
         val maxLikes = 2000
@@ -93,6 +98,44 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
 
         val updateHashMap = hashMapOf("likeCount" to _likesCount.value!!)
         repository.updateLikeMap(updateHashMap, documentId)
+    }
+*/
+
+    fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
+        val alreadyLiked = likedBy.contains(getCurrentUserId())
+        val maxLikes = 2000
+
+        // Check if the button is already in the process of liking/unliking.
+        if (_isLikingOrUnliking.value == true) {
+            // Skip the operation if it's already in progress.
+            return
+        }
+
+        // Disable the like button to prevent rapid clicking.
+        _isLikingOrUnliking.value = true
+
+        if (alreadyLiked) {
+            if (totalLikes > 0) {
+                repository.removeLike(getCurrentUserId(), documentId)
+                _likesCount.value = totalLikes - 1
+                // Enable the like button after the operation is completed.
+                _isLikingOrUnliking.value = false
+            }
+        } else {
+            if (totalLikes < maxLikes) {
+                repository.addLike(getCurrentUserId(), documentId)
+                _likesCount.value = totalLikes + 1
+                // Enable the like button after the operation is completed.
+                _isLikingOrUnliking.value = false
+            }
+        }
+
+        _alreadyLiked.value = !alreadyLiked
+
+        val updateHashMap = hashMapOf("likeCount" to _likesCount.value!!)
+        repository.updateLikeMap(updateHashMap, documentId)
+
+
     }
 
     private fun getCurrentUserId(): String {

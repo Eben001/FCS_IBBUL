@@ -105,11 +105,24 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
                 }
                 binding.likeImage.setOnClickListener {
-                    viewModel.likeOrUnlikeAnnouncement(
-                        viewModel.updatedLikeCount.value!!,
-                        viewModel.updatedLikedUsers.value!!,
-                        announcement.announcementId!!
-                    )
+                    // Check if the like/unlike operation is in progress
+                    if (viewModel.isLikingOrUnliking.value != true) {
+                        // Disable the like button to prevent rapid clicking
+                        binding.likeImage.isEnabled = false
+
+                        viewModel.likeOrUnlikeAnnouncement(
+                            viewModel.updatedLikeCount.value!!,
+                            viewModel.updatedLikedUsers.value!!,
+                            announcement.announcementId!!
+                        )
+
+                        // Observe the isLikingOrUnliking LiveData to enable the button when the operation is completed
+                        viewModel.isLikingOrUnliking.observe(viewLifecycleOwner) { isLikingOrUnliking ->
+                            if (!isLikingOrUnliking) {
+                                binding.likeImage.isEnabled = true
+                            }
+                        }
+                    }
 
 
                 }
