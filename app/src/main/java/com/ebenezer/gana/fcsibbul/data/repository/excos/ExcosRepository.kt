@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
+import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.ebenezer.gana.fcsibbul.utils.Constants.PAGE_SIZE
 import com.ebenezer.gana.fcsibbul.utils.UiText
@@ -18,6 +19,28 @@ class ExcosRepository(
     private val firestore: FirebaseFirestore,
     private val firebaseStorage: FirebaseStorage
 ) {
+
+    /**
+     * Returns the snapshot document of a the logged in user.
+     * This information will be used to check if the user is an admin or not
+     */
+    fun verifyIfAdmin(user: (User) -> Unit) {
+        firestore.collection(Constants.USERS)
+            .document(getCurrentUserId())
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Timber.d("loginAdmin: Listen Failed", error)
+                    return@addSnapshotListener
+                }
+                if (value != null) {
+                    value.toObject(User::class.java)?.let {
+                        user(it)
+                    }
+
+                }
+
+            }
+    }
 
     fun addNewExco(exco: Exco, onSuccess: (UiText) -> Unit, onFailure: (UiText) -> Unit) {
 

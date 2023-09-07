@@ -39,11 +39,18 @@ class ExcosListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
-
         adapter = ExcosListAdapter(requireContext())
-        adapter.setOnItemLongClickListener { excos ->
-            showConfirmDeleteDialog(excos)
+        viewModel.verifyIfAdmin()
+        viewModel.isAdmin.observe(viewLifecycleOwner) {isAdmin->
+            if(isAdmin){
+                adapter.setOnItemLongClickListener { excos ->
+                    showConfirmDeleteDialog(excos)
+                }
+            }else{
+                adapter.removeOnItemLongClickListener()
+            }
         }
+
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -65,7 +72,6 @@ class ExcosListFragment : BaseFragment() {
         }
 
         binding.rvExcos.adapter = adapter
-
 
     }
 
@@ -94,7 +100,7 @@ class ExcosListFragment : BaseFragment() {
     }
 
     private fun observeViewModels() {
-        viewModel.result.observe(viewLifecycleOwner){
+        viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isDeleteSuccess.value == true) {
                 showSnackBar(it.asString(requireContext()), false)
                 refreshList()
@@ -116,6 +122,7 @@ class ExcosListFragment : BaseFragment() {
     private fun refreshList() {
         adapter.refresh()
     }
+
     override fun onResume() {
         super.onResume()
         refreshList()

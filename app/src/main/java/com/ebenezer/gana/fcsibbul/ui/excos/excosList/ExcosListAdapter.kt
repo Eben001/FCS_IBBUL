@@ -18,6 +18,10 @@ class ExcosListAdapter(private val context: Context) : PagingDataAdapter<Exco,
     fun setOnItemLongClickListener(listener: (Exco) -> Unit) {
         onItemLongClickListener = listener
     }
+    fun removeOnItemLongClickListener() {
+        onItemLongClickListener = null
+    }
+
     inner class ExcosViewHolder(private var binding: ListItemExcosBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

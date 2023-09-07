@@ -23,6 +23,27 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
     private var _result = MutableLiveData<UiText>()
     val result: LiveData<UiText> = _result
 
+    private var _isAdmin = MutableLiveData<Boolean>()
+    val isAdmin: LiveData<Boolean> = _isAdmin
+
+
+    fun verifyIfAdmin() {
+        repository.verifyIfAdmin {
+            when (it.role) {
+                1 -> {
+                    _isAdmin.value = true
+                }
+
+                0 -> {
+                    _isAdmin.value = false
+
+
+                }
+            }
+
+        }
+    }
+
     val excoPagingFlow = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE),
 
