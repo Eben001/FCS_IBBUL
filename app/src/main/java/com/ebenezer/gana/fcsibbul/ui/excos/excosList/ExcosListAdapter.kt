@@ -11,9 +11,13 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ListItemExcosBinding
 
-class ExcosListAdapter(private val context: Context, private val onItemClicked:(Exco) -> Unit) : PagingDataAdapter<Exco,
+class ExcosListAdapter(private val context: Context) : PagingDataAdapter<Exco,
         ExcosListAdapter.ExcosViewHolder>(DiffCallback) {
 
+    private var onItemLongClickListener: ((Exco) -> Unit)? = null
+    fun setOnItemLongClickListener(listener: (Exco) -> Unit) {
+        onItemLongClickListener = listener
+    }
     inner class ExcosViewHolder(private var binding: ListItemExcosBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -28,6 +32,10 @@ class ExcosListAdapter(private val context: Context, private val onItemClicked:(
                     excoImage.load(excos.image_url){
                         placeholder(R.drawable.loading_animation)
                         error(R.drawable.ic_broken_image)
+                    }
+                    itemView.setOnLongClickListener {
+                        onItemLongClickListener?.invoke(excos)
+                        true // Return true to consume the long click event
                     }
                 }
 
@@ -48,9 +56,6 @@ class ExcosListAdapter(private val context: Context, private val onItemClicked:(
        val current = getItem(position)
         current?.let {
             holder.bind(current)
-            holder.itemView.setOnClickListener {
-                onItemClicked(current)
-            }
         }
 
 

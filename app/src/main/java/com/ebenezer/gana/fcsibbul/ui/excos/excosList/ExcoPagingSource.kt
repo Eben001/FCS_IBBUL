@@ -24,10 +24,18 @@ class ExcoPagingSource(private val repository: ExcosRepository) :
 
 
             val currentPage = params.key ?: repository.getExcos().get().await()
-            val lastVisibleProduct = currentPage.documents[currentPage.size() - 1]
-            val nextPage = repository.getExcos().startAfter(lastVisibleProduct).get().await()
+            val lastVisibleItem = currentPage.documents[currentPage.size() - 1]
+            val nextPage = repository.getExcos().startAfter(lastVisibleItem).get().await()
+            val excosList = mutableListOf<Exco>()
+
+            for(item in currentPage){
+                val excoItem = item.toObject(Exco::class.java)
+                excoItem.documentId = item.id
+                excosList.add(excoItem)
+            }
+
             LoadResult.Page(
-                data = currentPage.toObjects(Exco::class.java),
+                data = excosList,
                 prevKey = null,
                 nextKey = nextPage
             )

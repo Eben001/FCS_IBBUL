@@ -1,23 +1,22 @@
 package com.ebenezer.gana.fcsibbul.ui.excos.excosList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "ExcosListFragment"
 
@@ -27,6 +26,7 @@ class ExcosListFragment : BaseFragment() {
     private var _binding: ExcoslistFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ExcosViewModel by viewModel()
+    private lateinit var adapter: ExcosListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,24 +38,26 @@ class ExcosListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setOnClickListener()
 
-        val adapter = ExcosListAdapter(requireContext()) {
-            val action =
-                ExcosListFragmentDirections.actionNavigationExcosToNavigationExcosDetails(it)
-            findNavController().navigate(action)
+        adapter = ExcosListAdapter(requireContext())
+        adapter.setOnItemLongClickListener { excos ->
+            showConfirmDeleteDialog(excos)
         }
 
-       lifecycleScope.launch {
-           repeatOnLifecycle(Lifecycle.State.STARTED){
-               adapter.loadStateFlow.collect{
-                   binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
-                   binding.appendProgress.isVisible = it.source.append is LoadState.Loading
-               }
-           }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.loadStateFlow.collect {
+                    binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
+                    binding.appendProgress.isVisible = it.source.append is LoadState.Loading
+                    binding.swipeRefresh.isRefreshing = false
+
+                }
+            }
         }
 
-        lifecycleScope.launch{
-            repeatOnLifecycle(Lifecycle.State.STARTED){
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.excoPagingFlow.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
                 }
@@ -63,26 +65,60 @@ class ExcosListFragment : BaseFragment() {
         }
 
         binding.rvExcos.adapter = adapter
-        /* viewModel.excos.observe(viewLifecycleOwner) {
-             adapter.submitList(it)
-             binding.swipeRefresh.isRefreshing = false
-         }*/
-        binding.swipeRefresh.setOnClickListener {
-            lifecycleScope.launch {
-                //viewModel.getExcosList()
-              //  binding.swipeRefresh.isRefreshing = true
 
+
+    }
+
+    private fun showConfirmDeleteDialog(excos: Exco) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.delete_dialog_title))
+            .setMessage(resources.getString(R.string.delete_exco_dialog_message))
+            .setIcon(R.drawable.ic_vector_delete)
+            .setNeutralButton(resources.getString(R.string.cancel_dialog_message)) { dialog, _ ->
+                dialog.cancel()
             }
+            .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
+                deleteExcoDetails(excos)
+                dialog.dismiss()
+                observeViewModels()
+            }
+            .show()
+
+    }
+
+    private fun deleteExcoDetails(excos: Exco) {
+        viewModel.deleteExcoDetails(excos.documentId, excos.image_url)
+    }
+
+    private fun observeViewModels() {
+        viewModel.result.observe(viewLifecycleOwner){
+            if (viewModel.isDeleteSuccess.value == true) {
+                showSnackBar(it.asString(requireContext()), false)
+                refreshList()
+            } else {
+                showSnackBar(it.asString(requireContext()), true)
+            }
+        }
+
+
+    }
+
+    private fun setOnClickListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            refreshList()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Timber.tag(TAG).d("onStart: Called")
-        /*lifecycleScope.launch {
-            viewModel.getExcosList()
-            binding.swipeRefresh.isRefreshing = true
-        }*/
+    private fun refreshList() {
+        adapter.refresh()
+    }
+    override fun onResume() {
+        super.onResume()
+        refreshList()
     }
 
 

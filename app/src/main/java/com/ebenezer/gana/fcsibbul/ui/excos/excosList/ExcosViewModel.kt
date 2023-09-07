@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.data.repository.excos.ExcosRepository
 import com.ebenezer.gana.fcsibbul.utils.Constants.PAGE_SIZE
-import com.firebase.ui.firestore.paging.FirestorePagingSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
+import com.ebenezer.gana.fcsibbul.utils.UiText
 
 class ExcosViewModel constructor(private val repository: ExcosRepository) : ViewModel() {
 
@@ -22,6 +20,8 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
     private var _isDeleteSuccess = MutableLiveData<Boolean>()
     val isDeleteSuccess: LiveData<Boolean> = _isDeleteSuccess
 
+    private var _result = MutableLiveData<UiText>()
+    val result: LiveData<UiText> = _result
 
     val excoPagingFlow = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE),
@@ -42,10 +42,12 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
         repository.deleteExcoDetails(excoDocumentID, imageUrl,
             onSuccess = {
                 _isDeleteSuccess.value = true
+                _result.value = UiText.StringResource(R.string.success_delete)
 
             },
             onFailure = {
                 _isDeleteSuccess.value = false
+                _result.value = UiText.DynamicString(it)
 
             })
     }

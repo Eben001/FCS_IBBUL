@@ -77,7 +77,7 @@ class ExcosRepository(
     fun deleteExcoDetails(
         excoDocumentId: String, imageUrl: String,
         onSuccess: (UiText) -> Unit,
-        onFailure: (UiText) -> Unit
+        onFailure: (String) -> Unit
     ) {
 
         firestore.collection(Constants.EXCOS).document(excoDocumentId)
@@ -89,11 +89,11 @@ class ExcosRepository(
                         onSuccess(UiText.StringResource(R.string.success_delete))
                     }
                     .addOnFailureListener { e ->
-                        onFailure(UiText.DynamicString(e.localizedMessage!!))
+                        onFailure(e.localizedMessage!!)
                     }
             }
             .addOnFailureListener { e ->
-                onFailure(UiText.DynamicString(e.localizedMessage!!))
+                onFailure(e.localizedMessage!!)
             }
 
 
