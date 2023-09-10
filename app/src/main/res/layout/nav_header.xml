@@ -2,11 +2,11 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="180dp">
+    android:layout_height="280dp">
 
-    <ImageView
-        android:importantForAccessibility="no"
-        android:src="@drawable/fcs_logo"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_nav_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent" />
+
 </FrameLayout>

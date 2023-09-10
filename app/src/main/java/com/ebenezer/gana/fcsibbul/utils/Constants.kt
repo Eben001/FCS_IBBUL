@@ -1,13 +1,13 @@
 package com.ebenezer.gana.fcsibbul.utils
 
-import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
-import java.util.*
+import java.util.Locale
 
 object Constants {
 
+    const val NAV_HEADER_IMAGES: String = "nav_header_images"
     const val PAGE_SIZE = 10
     const val WELCOME_SCREEN_IMAGES: String = "welcome_screen_images"
     const val EXCOS_IMAGE: String = "excos_image"

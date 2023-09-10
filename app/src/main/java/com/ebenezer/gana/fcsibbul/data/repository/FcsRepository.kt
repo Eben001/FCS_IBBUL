@@ -2,6 +2,7 @@ package com.ebenezer.gana.fcsibbul.data.repository
 
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.FeedbackData
+import com.ebenezer.gana.fcsibbul.data.models.HeaderImage
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.utils.Constants
@@ -180,6 +181,24 @@ class FcsRepository(
                     welcomeImages.add(welcomeImageItem)
                 }
                 images(welcomeImages)
+
+            }
+            .addOnFailureListener {
+                Timber.e("Error getting welcome images ${it.printStackTrace()}")
+            }
+    }
+
+    fun getHeaderImagesFromFirebase(images: (MutableList<HeaderImage>) -> Unit) {
+        firestore.collection(Constants.NAV_HEADER_IMAGES)
+            .get()
+            .addOnSuccessListener { document ->
+                val headerImages = mutableListOf<HeaderImage>()
+
+                for(item in document){
+                    val headerImageItem = item.toObject(HeaderImage::class.java)
+                    headerImages.add(headerImageItem)
+                }
+                images(headerImages)
 
             }
             .addOnFailureListener {

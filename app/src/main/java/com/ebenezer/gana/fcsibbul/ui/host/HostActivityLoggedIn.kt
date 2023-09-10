@@ -11,6 +11,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -25,16 +29,31 @@ import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.activityScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
+import kotlin.math.abs
 
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     AndroidScopeComponent {
+    private lateinit var headerImageAdapter: HeaderImageAdapter
+    private lateinit var viewPager: ViewPager2
+    private var autoScrollJob: Job? = null
+    private var isAutoScrollPaused = false
+    private val autoScrollCoroutineScope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var binding: ActivityHostLoggedInBinding
     private lateinit var navController: NavController
+    private val viewModel: HostActivityLoggedInViewModel by viewModel()
 
     override val scope: Scope by activityScope()
     private val dialogsNavigator by inject<DialogsNavigator>()
@@ -94,7 +113,55 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             navController,
             appBarConfiguration
         )
+
+        getImageUrlsFromFirebaseStorage()
     }
+    private fun startAutoScroll() {
+        autoScrollJob?.cancel() // Cancel any existing auto scroll job
+        autoScrollJob = autoScrollCoroutineScope.launch {
+            while (isActive) {
+                if (!isAutoScrollPaused) {
+                    delay(4000)
+                    val currentItem = viewPager.currentItem
+                    val nextItem = currentItem + 1
+                    viewPager.setCurrentItem(nextItem, true)
+                } else {
+                    delay(1000)
+                }
+            }
+        }
+    }
+
+
+    private fun getImageUrlsFromFirebaseStorage() {
+        viewModel.getHeaderImagesFromFirebaseStorage()
+        viewModel.headerImages.observe(this) { headerImages ->
+
+            viewPager = findViewById(R.id.viewPager_nav_header)
+
+            headerImageAdapter = HeaderImageAdapter()
+            viewPager.adapter = headerImageAdapter
+
+            val compositePageTransformer = CompositePageTransformer().apply {
+                addTransformer(MarginPageTransformer(40))
+                addTransformer { page, position ->
+                    val r = 1 - abs(position)
+                    page.scaleY = 0.85f + r * 0.15f
+                }
+            }
+            viewPager.setPageTransformer(compositePageTransformer)
+            viewPager.clipToPadding = false
+            viewPager.clipChildren = false
+            viewPager.offscreenPageLimit = 3
+            viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            headerImageAdapter.updateImages(headerImages) // Update the adapter's image list
+
+            startAutoScroll() // Start auto scroll
+
+        }
+    }
+
 
 
     fun setDrawerLockedState(state: Int) {
@@ -135,10 +202,29 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            isAutoScrollPaused = true
+
         } else {
             super.onBackPressed()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isAutoScrollPaused = false
+        startAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isAutoScrollPaused = true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        autoScrollJob?.cancel()
+        autoScrollCoroutineScope.cancel()
     }
 
 

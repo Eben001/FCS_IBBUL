@@ -9,6 +9,7 @@ import com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails.Announceme
 import com.ebenezer.gana.fcsibbul.ui.announcement.announcementList.AnnouncementListViewModel
 import com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseViewModel
 import com.ebenezer.gana.fcsibbul.ui.excos.excosList.ExcosViewModel
+import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedInViewModel
 import com.ebenezer.gana.fcsibbul.ui.login.LoginViewModel
 import com.ebenezer.gana.fcsibbul.ui.settings.SettingsViewModel
 import com.ebenezer.gana.fcsibbul.ui.signup.SignUpViewModel
@@ -31,4 +32,5 @@ val appModule = module {
     viewModel {PostAnnouncementViewModel(get(), get())}
     viewModel {AdminDashboardViewModel(get()) }
     viewModel { AddExcoViewModel(get()) }
+    viewModel { HostActivityLoggedInViewModel(get()) }
 }
