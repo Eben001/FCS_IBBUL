@@ -6,8 +6,7 @@
 
     <ImageView
         android:importantForAccessibility="no"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_lovely_people"
+        android:src="@drawable/fcs_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </FrameLayout>
