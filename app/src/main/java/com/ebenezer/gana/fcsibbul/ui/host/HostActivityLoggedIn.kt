@@ -41,7 +41,6 @@ import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.activityScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
-import kotlin.math.abs
 
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     AndroidScopeComponent {
@@ -145,10 +144,22 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             val compositePageTransformer = CompositePageTransformer().apply {
                 addTransformer(MarginPageTransformer(40))
                 addTransformer { page, position ->
-                    val r = 1 - abs(position)
-                    page.scaleY = 0.85f + r * 0.15f
+                    val rotation = -position * 30 // Rotation angle
+                    page.rotation = rotation
+
+                    // Hide adjacent pages' edges
+                    if (position < -0.5 || position > 0.5) {
+                        page.alpha = 0f
+                    } else {
+                        page.alpha = 1f
+                    }
                 }
             }
+
+
+
+
+
             viewPager.setPageTransformer(compositePageTransformer)
             viewPager.clipToPadding = false
             viewPager.clipChildren = false
