@@ -13,6 +13,7 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.faltenreich.skeletonlayout.Skeleton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,6 +28,8 @@ class ExcosListFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: ExcosViewModel by viewModel()
     private lateinit var adapter: ExcosListAdapter
+    private lateinit var skeleton: Skeleton
+    private var hasShownSkeleton = false // Boolean flag to track if the skeleton has been shown
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,7 @@ class ExcosListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
+        skeleton = view.findViewById(R.id.skeletonLayout)
         adapter = ExcosListAdapter(requireContext())
         viewModel.verifyIfAdmin()
         viewModel.isAdmin.observe(viewLifecycleOwner) {isAdmin->
@@ -54,10 +58,18 @@ class ExcosListFragment : BaseFragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                adapter.loadStateFlow.collect {
-                    binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
-                    binding.appendProgress.isVisible = it.source.append is LoadState.Loading
+                adapter.addLoadStateListener { loadState ->
+                    if (loadState.append is LoadState.Loading && !hasShownSkeleton) {
+                        // Show skeleton layout only once when appending data
+                        skeleton.showSkeleton()
+                        hasShownSkeleton = true // Set the flag to true
+                    } else {
+                        skeleton.showOriginal()
+                    }
+                    binding.appendProgress.isVisible = loadState.append is LoadState.Loading
+                    binding.prependProgress.isVisible = loadState.prepend is LoadState.Loading
                     binding.swipeRefresh.isRefreshing = false
+
 
                 }
             }

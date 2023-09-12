@@ -21,6 +21,7 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.announcement.shared.SharedViewModel
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.faltenreich.skeletonlayout.Skeleton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.collectLatest
@@ -30,11 +31,13 @@ import timber.log.Timber
 
 class AnnouncementListFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
+    private lateinit var skeleton: Skeleton
 
     private var _binding: AnnouncementlistFragmentBinding? = null
     private val binding get() = _binding!!
+    private var hasShownSkeleton = false // Boolean flag to track if the skeleton has been shown
 
-    private lateinit var adapter:AnnouncementListAdapter
+    private lateinit var adapter: AnnouncementListAdapter
 
     private val viewModel: AnnouncementListViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -52,6 +55,7 @@ class AnnouncementListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupSettingsMenu()
         Timber.d("${Firebase.auth.currentUser}")
+        skeleton = view.findViewById(R.id.skeletonLayout)
 
         binding.rvAnnouncement.layoutManager = LinearLayoutManager(this.context)
         adapter = AnnouncementListAdapter {
@@ -65,17 +69,26 @@ class AnnouncementListFragment : BaseFragment() {
         binding.rvAnnouncement.adapter = adapter
 
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                adapter.loadStateFlow.collect{
-                    binding.prependProgress.isVisible = it.source.prepend is LoadState.Loading
-                    binding.appendProgress.isVisible = it.source.append is LoadState.Loading
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.addLoadStateListener { loadState ->
+                    if (loadState.append is LoadState.Loading && !hasShownSkeleton) {
+                        // Show skeleton layout only once when appending data
+                        skeleton.showSkeleton()
+                        hasShownSkeleton = true // Set the flag to true
+                    } else {
+                        skeleton.showOriginal()
+                    }
+                    binding.appendProgress.isVisible = loadState.append is LoadState.Loading
+                    binding.prependProgress.isVisible = loadState.prepend is LoadState.Loading
                     binding.swipeRefresh.isRefreshing = false
 
+
                 }
+
             }
         }
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.announcementPagingFlow.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
 
@@ -83,8 +96,8 @@ class AnnouncementListFragment : BaseFragment() {
             }
 
         }
-        lifecycleScope.launch{
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedViewModel.announcementDeleted.observe(viewLifecycleOwner) { announcementDeleted ->
                     if (announcementDeleted) {
                         refreshList()
@@ -105,12 +118,13 @@ class AnnouncementListFragment : BaseFragment() {
     }
 
 
-    private fun setupSettingsMenu(){
+    private fun setupSettingsMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.settings_menu, menu)
             }
+
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.action_settings -> {
