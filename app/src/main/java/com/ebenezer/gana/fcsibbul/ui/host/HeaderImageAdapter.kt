@@ -45,6 +45,7 @@ class HeaderImageAdapter() :
                 //transformations(CircleCropTransformation())
 
             }
+            binding.welcomeImage.rotationY = 180F
 
         }
     }

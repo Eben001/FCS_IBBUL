@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.ui.host
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -24,6 +24,7 @@ import com.ebenezer.gana.fcsibbul.core.Bars.updateNavbarColour
 import com.ebenezer.gana.fcsibbul.core.setDarkStatusIcons
 import com.ebenezer.gana.fcsibbul.data.notification.DailyBibleVerseWorker
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
+import com.ebenezer.gana.fcsibbul.databinding.NavHeaderBinding
 import com.ebenezer.gana.fcsibbul.ui.common.Accent.setAccentColour
 import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
@@ -45,12 +46,12 @@ import org.koin.core.scope.Scope
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     AndroidScopeComponent {
     private lateinit var headerImageAdapter: HeaderImageAdapter
-    private lateinit var viewPager: ViewPager2
     private var autoScrollJob: Job? = null
     private var isAutoScrollPaused = false
     private val autoScrollCoroutineScope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var binding: ActivityHostLoggedInBinding
+    private lateinit var navHeaderBinding: NavHeaderBinding
     private lateinit var navController: NavController
     private val viewModel: HostActivityLoggedInViewModel by viewModel()
 
@@ -91,6 +92,9 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarLogin)
+        val headerView: View = binding.navView.getHeaderView(0)
+        navHeaderBinding = NavHeaderBinding.bind(headerView)
+
         binding.navView.setNavigationItemSelectedListener(this)
 
         val navHostFragment =
@@ -121,9 +125,9 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             while (isActive) {
                 if (!isAutoScrollPaused) {
                     delay(4000)
-                    val currentItem = viewPager.currentItem
+                    val currentItem = navHeaderBinding.viewPagerNavHeader.currentItem
                     val nextItem = currentItem + 1
-                    viewPager.setCurrentItem(nextItem, true)
+                    navHeaderBinding.viewPagerNavHeader.setCurrentItem(nextItem, true)
                 } else {
                     delay(1000)
                 }
@@ -136,10 +140,9 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         viewModel.getHeaderImagesFromFirebaseStorage()
         viewModel.headerImages.observe(this) { headerImages ->
 
-            viewPager = findViewById(R.id.viewPager_nav_header)
-
             headerImageAdapter = HeaderImageAdapter()
-            viewPager.adapter = headerImageAdapter
+            navHeaderBinding.viewPagerNavHeader.adapter = headerImageAdapter
+            navHeaderBinding.viewPagerNavHeader.rotationY = 180F
 
             val compositePageTransformer = CompositePageTransformer().apply {
                 addTransformer(MarginPageTransformer(40))
@@ -160,11 +163,11 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
 
 
-            viewPager.setPageTransformer(compositePageTransformer)
-            viewPager.clipToPadding = false
-            viewPager.clipChildren = false
-            viewPager.offscreenPageLimit = 3
-            viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            navHeaderBinding.viewPagerNavHeader.setPageTransformer(compositePageTransformer)
+            navHeaderBinding.viewPagerNavHeader.clipToPadding = false
+            navHeaderBinding.viewPagerNavHeader.clipChildren = false
+            navHeaderBinding.viewPagerNavHeader.offscreenPageLimit = 3
+            navHeaderBinding.viewPagerNavHeader.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             headerImageAdapter.updateImages(headerImages) // Update the adapter's image list
 
