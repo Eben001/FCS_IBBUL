@@ -24,7 +24,7 @@
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/content_description"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_lovely_people" />
+                android:src="@drawable/fcs_logo" />
 
 
             <com.google.android.material.button.MaterialButton
