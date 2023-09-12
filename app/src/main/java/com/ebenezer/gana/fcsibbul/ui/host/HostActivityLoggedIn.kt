@@ -22,6 +22,7 @@ import androidx.work.WorkManager
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.core.Bars.updateNavbarColour
 import com.ebenezer.gana.fcsibbul.core.setDarkStatusIcons
+import com.ebenezer.gana.fcsibbul.data.models.HeaderImage
 import com.ebenezer.gana.fcsibbul.data.notification.DailyBibleVerseWorker
 import com.ebenezer.gana.fcsibbul.databinding.ActivityHostLoggedInBinding
 import com.ebenezer.gana.fcsibbul.databinding.NavHeaderBinding
@@ -60,43 +61,66 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.apply {
-            statusBarColor = Color.TRANSPARENT
-            updateNavbarColour()
-            setDarkStatusIcons()
-            /*navigationBarColor =
-                ContextCompat.getColor(context, R.color.abbBackgroundColor)*/
-            //WindowCompat.setDecorFitsSystemWindows(this, false)
-        }
-        setAccentColour(Prefs(this).Settings().accent)
-
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
-            .build()
-
-        val notificationWork = OneTimeWorkRequestBuilder<DailyBibleVerseWorker>()
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance(applicationContext)
-            .enqueue(
-                notificationWork
-            )
-
-
-        FirebaseMessaging.getInstance().apply {
-            subscribeToTopic("dailyBibleVerse")
-            subscribeToTopic("announcements")
-        }
-
+        setupWindowAndAccent()
+        setupNotificationWork()
+        setupFirebaseMessaging()
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarLogin)
+        setupNavigationViews()
+        setupNavController()
+        setupHeaderImages()
+        setupNavHeaderView()
+
+
+    }
+
+    private fun setupNavHeaderView() {
         val headerView: View = binding.navView.getHeaderView(0)
         navHeaderBinding = NavHeaderBinding.bind(headerView)
+    }
 
-        binding.navView.setNavigationItemSelectedListener(this)
+    private fun setupHeaderImages() {
+        viewModel.getHeaderImagesFromFirebaseStorage()
+        viewModel.headerImages.observe(this) { headerImages ->
+            setupViewPager(headerImages)
+            startAutoScroll() // Start auto scroll
 
+        }
+
+    }
+
+    private fun setupViewPager(headerImages: List<HeaderImage>) {
+        headerImageAdapter = HeaderImageAdapter()
+        navHeaderBinding.viewPagerNavHeader.adapter = headerImageAdapter
+        navHeaderBinding.viewPagerNavHeader.rotationY = 180F
+
+        val compositePageTransformer = CompositePageTransformer().apply {
+            addTransformer(MarginPageTransformer(40))
+            addTransformer { page, position ->
+                val rotation = -position * 30 // Rotation angle
+                page.rotation = rotation
+
+                // Hide adjacent pages' edges
+                if (position < -0.5 || position > 0.5) {
+                    page.alpha = 0f
+                } else {
+                    page.alpha = 1f
+                }
+            }
+        }
+
+        navHeaderBinding.viewPagerNavHeader.apply {
+            setPageTransformer(compositePageTransformer)
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
+        headerImageAdapter.updateImages(headerImages) // Update the adapter's image list
+    }
+
+    private fun setupNavController() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_logged_in) as NavHostFragment
         navController = navHostFragment.navController
@@ -116,9 +140,48 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             navController,
             appBarConfiguration
         )
-
-        getImageUrlsFromFirebaseStorage()
     }
+
+    private fun setupNavigationViews() {
+        binding.navView.setNavigationItemSelectedListener(this)
+
+    }
+
+    private fun setupFirebaseMessaging() {
+        FirebaseMessaging.getInstance().apply {
+            subscribeToTopic("dailyBibleVerse")
+            subscribeToTopic("announcements")
+        }
+
+    }
+
+    private fun setupNotificationWork() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .build()
+
+        val notificationWork = OneTimeWorkRequestBuilder<DailyBibleVerseWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext)
+            .enqueue(
+                notificationWork
+            )
+    }
+
+    private fun setupWindowAndAccent() {
+        window.apply {
+            statusBarColor = Color.TRANSPARENT
+            updateNavbarColour()
+            setDarkStatusIcons()
+            /*navigationBarColor =
+                ContextCompat.getColor(context, R.color.abbBackgroundColor)*/
+            //WindowCompat.setDecorFitsSystemWindows(this, false)
+        }
+        setAccentColour(Prefs(this).Settings().accent)
+    }
+
     private fun startAutoScroll() {
         autoScrollJob?.cancel() // Cancel any existing auto scroll job
         autoScrollJob = autoScrollCoroutineScope.launch {
@@ -134,48 +197,6 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             }
         }
     }
-
-
-    private fun getImageUrlsFromFirebaseStorage() {
-        viewModel.getHeaderImagesFromFirebaseStorage()
-        viewModel.headerImages.observe(this) { headerImages ->
-
-            headerImageAdapter = HeaderImageAdapter()
-            navHeaderBinding.viewPagerNavHeader.adapter = headerImageAdapter
-            navHeaderBinding.viewPagerNavHeader.rotationY = 180F
-
-            val compositePageTransformer = CompositePageTransformer().apply {
-                addTransformer(MarginPageTransformer(40))
-                addTransformer { page, position ->
-                    val rotation = -position * 30 // Rotation angle
-                    page.rotation = rotation
-
-                    // Hide adjacent pages' edges
-                    if (position < -0.5 || position > 0.5) {
-                        page.alpha = 0f
-                    } else {
-                        page.alpha = 1f
-                    }
-                }
-            }
-
-
-
-
-
-            navHeaderBinding.viewPagerNavHeader.setPageTransformer(compositePageTransformer)
-            navHeaderBinding.viewPagerNavHeader.clipToPadding = false
-            navHeaderBinding.viewPagerNavHeader.clipChildren = false
-            navHeaderBinding.viewPagerNavHeader.offscreenPageLimit = 3
-            navHeaderBinding.viewPagerNavHeader.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-            headerImageAdapter.updateImages(headerImages) // Update the adapter's image list
-
-            startAutoScroll() // Start auto scroll
-
-        }
-    }
-
 
 
     fun setDrawerLockedState(state: Int) {
@@ -196,6 +217,7 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
                     navController.popBackStack(R.id.navigation_excos, true)
                 }
             }
+
             R.id.daily_guide -> navController.navigate(R.id.navigation_daily_guide)
 
             R.id.daily_bible_verse -> navController.navigate(R.id.navigation_daily_bible_verse)
