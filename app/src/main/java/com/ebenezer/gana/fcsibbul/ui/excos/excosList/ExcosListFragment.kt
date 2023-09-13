@@ -14,6 +14,7 @@ import com.ebenezer.gana.fcsibbul.data.models.Exco
 import com.ebenezer.gana.fcsibbul.databinding.ExcoslistFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.faltenreich.skeletonlayout.Skeleton
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,6 +43,7 @@ class ExcosListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
+        initializeAds()
         skeleton = view.findViewById(R.id.skeletonLayout)
         adapter = ExcosListAdapter(requireContext())
         viewModel.verifyIfAdmin()
@@ -86,6 +88,12 @@ class ExcosListFragment : BaseFragment() {
         binding.rvExcos.adapter = adapter
 
     }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
+    }
+
 
     private fun showConfirmDeleteDialog(excos: Exco) {
         MaterialAlertDialogBuilder(requireContext())

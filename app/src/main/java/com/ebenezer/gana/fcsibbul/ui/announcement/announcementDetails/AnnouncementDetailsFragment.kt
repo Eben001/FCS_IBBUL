@@ -16,6 +16,7 @@ import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.AnnouncementDetailsFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.announcement.shared.SharedViewModel
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,6 +45,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeAds()
         viewModel.verifyIfAdmin()
 
         val announcement = navigationArgs.announcement
@@ -53,6 +55,11 @@ class AnnouncementDetailsFragment : BaseFragment() {
         bind(announcement)
         setOnClickListeners(announcement)
         observeViewModels()
+    }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
     }
 
     private fun bind(announcement: Announcement) {

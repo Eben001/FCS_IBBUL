@@ -29,6 +29,9 @@ import com.ebenezer.gana.fcsibbul.databinding.NavHeaderBinding
 import com.ebenezer.gana.fcsibbul.ui.common.Accent.setAccentColour
 import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
@@ -61,6 +64,8 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this) {}
+
         setupWindowAndAccent()
         setupNotificationWork()
         setupFirebaseMessaging()
@@ -71,7 +76,14 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupNavController()
         setupHeaderImages()
         setupNavHeaderView()
+        initializeAds()
 
+
+    }
+
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        navHeaderBinding.adView.loadAd(adRequest)
 
     }
 

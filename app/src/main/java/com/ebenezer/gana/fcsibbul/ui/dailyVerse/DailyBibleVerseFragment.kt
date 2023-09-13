@@ -8,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ebenezer.gana.fcsibbul.databinding.FragmentDailyBibleVerseBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
+import com.google.android.gms.ads.AdRequest
 
 
 class DailyBibleVerseFragment : BaseFragment() {
@@ -29,8 +30,14 @@ class DailyBibleVerseFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeAds()
         viewModel.getDailyBibleVerse()
         observeViewModels()
+    }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
     }
 
     private fun observeViewModels() {

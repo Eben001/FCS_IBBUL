@@ -17,6 +17,7 @@ import com.ebenezer.gana.fcsibbul.databinding.FragmentAddExcoBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.utils.Constants
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,9 +45,14 @@ class AddExcoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initializeAds()
         observeViewModels()
         setOnClickListeners()
+
+    }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
     }
 

@@ -13,6 +13,7 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostAnnouncementBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.android.gms.ads.AdRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
@@ -42,10 +43,16 @@ class PostAnnouncementFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeAds()
         viewModel.verifyIfAdmin()
 
         observeViewModels()
         setOnclickListeners()
+
+    }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
     }
 

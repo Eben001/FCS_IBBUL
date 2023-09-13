@@ -14,6 +14,7 @@ import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.network.NetworkStatusChecker
 import com.ebenezer.gana.fcsibbul.databinding.FragmentPostSongBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
+import com.google.android.gms.ads.AdRequest
 import org.koin.android.ext.android.inject
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -38,11 +39,18 @@ class PostSongFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeAds()
         observeViewModels()
         setOnclickListeners()
 
 
     }
+    private fun initializeAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
+    }
+
 
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
