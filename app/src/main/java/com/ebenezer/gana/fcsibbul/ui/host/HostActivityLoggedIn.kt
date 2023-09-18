@@ -30,7 +30,6 @@ import com.ebenezer.gana.fcsibbul.ui.common.Accent.setAccentColour
 import com.ebenezer.gana.fcsibbul.ui.common.Prefs
 import com.ebenezer.gana.fcsibbul.ui.dialogs.DialogsNavigator
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
@@ -71,13 +70,30 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupFirebaseMessaging()
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        observeViewModels()
         setSupportActionBar(binding.toolbarLogin)
         setupNavigationViews()
         setupNavController()
         setupHeaderImages()
+        setupHeaderTag()
         setupNavHeaderView()
         initializeAds()
 
+
+    }
+
+    private fun observeViewModels() {
+        viewModel.headerTag.observe(this){headerTag->
+            if(headerTag.text.isEmpty()){
+                navHeaderBinding.headerPictureTag.visibility = View.GONE
+            }else{
+                navHeaderBinding.headerPictureTag.visibility = View.VISIBLE
+                navHeaderBinding.headerPictureTag.text = headerTag.text
+            }
+        }    }
+
+    private fun setupHeaderTag() {
+        viewModel.getHeaderTag()
 
     }
 

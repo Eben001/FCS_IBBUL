@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.data.repository
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.FeedbackData
 import com.ebenezer.gana.fcsibbul.data.models.HeaderImage
+import com.ebenezer.gana.fcsibbul.data.models.HeaderTag
 import com.ebenezer.gana.fcsibbul.data.models.User
 import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.utils.Constants
@@ -203,6 +204,25 @@ class FcsRepository(
             }
             .addOnFailureListener {
                 Timber.e("Error getting welcome images ${it.printStackTrace()}")
+            }
+    }
+
+    fun getHeaderTag(text: (HeaderTag) -> Unit) {
+        firestore.collection(Constants.NAV_HEADER_IMAGE_TAG)
+            .document(Constants.NAV_HEADER_IMAGE_TAG)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Timber.d( "getHeaderTag: Listen Failed", error)
+                    return@addSnapshotListener
+                }
+                if (value != null) {
+                    val document = value.toObject(HeaderTag::class.java)
+                    if (document != null) {
+                        text(document)
+                    }
+
+
+                }
             }
     }
 

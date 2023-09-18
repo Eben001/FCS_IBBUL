@@ -4,18 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ebenezer.gana.fcsibbul.data.models.HeaderImage
+import com.ebenezer.gana.fcsibbul.data.models.HeaderTag
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
 
-class HostActivityLoggedInViewModel(private val repository: FcsRepository): ViewModel() {
+class HostActivityLoggedInViewModel(private val repository: FcsRepository) : ViewModel() {
 
     private val _headerImages = MutableLiveData<List<HeaderImage>>()
     val headerImages: LiveData<List<HeaderImage>> = _headerImages
+
+    private val _headerTag = MutableLiveData<HeaderTag>()
+    val headerTag: LiveData<HeaderTag> = _headerTag
 
 
     fun getHeaderImagesFromFirebaseStorage() {
         repository.getHeaderImagesFromFirebase { headerImages ->
             _headerImages.value = headerImages
 
+        }
+    }
+
+    fun getHeaderTag() {
+        repository.getHeaderTag { headerTag ->
+            _headerTag.value = headerTag
         }
     }
 
