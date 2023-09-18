@@ -7,13 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.ebenezer.gana.fcsibbul.R
+import com.ebenezer.gana.fcsibbul.data.network.ConnectivityObserver
+import com.ebenezer.gana.fcsibbul.data.network.NetworkConnectivityObserver
 import com.ebenezer.gana.fcsibbul.databinding.SignUpFragmentBinding
 import com.ebenezer.gana.fcsibbul.ui.baseFragment.BaseFragment
 import com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,8 +27,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
@@ -33,12 +41,15 @@ class SignUpFragment : BaseFragment() {
     private var autoScrollJob: Job? = null
     private var isAutoScrollPaused = false
     private lateinit var welcomeImageAdapter: WelcomeImageAdapter
+    private lateinit var skeleton: Skeleton // Declare the skeleton variable
 
     private var _binding: SignUpFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: SignUpViewModel by viewModel()
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val networkConnectivityObserver by inject<NetworkConnectivityObserver>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,19 +61,34 @@ class SignUpFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(resources.getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
 
-        observeViewModels()
         setOnClickListeners()
-        getImageUrlsFromFirebaseStorage()
+        applySkeletonToViewPager2()
+
+        networkConnectivityObserver.observe().onEach {status->
+            when(status){
+                ConnectivityObserver.Status.Available -> getImageUrlsFromFirebaseStorage()
+                ConnectivityObserver.Status.Unavailable -> applySkeletonToViewPager2()
+                else -> {}
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        observeViewModels()
+
+
+    }
+    private fun applySkeletonToViewPager2() {
+        skeleton = binding.viewPager.applySkeleton(R.layout.item_welcome_image)
+        skeleton.showSkeleton()
     }
 
     private fun observeViewModels() {
+
         viewModel.isSignupSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
                 val intent = Intent(requireActivity(), HostActivityLoggedIn::class.java)

@@ -3,6 +3,7 @@ package com.ebenezer.gana.fcsibbul.ui.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.WelcomeScreenImage
 import com.ebenezer.gana.fcsibbul.data.repository.FcsRepository
@@ -10,6 +11,8 @@ import com.ebenezer.gana.fcsibbul.utils.UiText
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -71,10 +74,14 @@ class SignUpViewModel(private val repository: FcsRepository) : ViewModel() {
     }
 
     fun getWelcomeImagesFromFirebaseStorage() {
-        repository.getWelcomeImagesFromFirebase { welcomeScreenImages ->
-            _welcomeScreenImages.value = welcomeScreenImages
+        viewModelScope.launch {
+            delay(2000)
+            repository.getWelcomeImagesFromFirebase { welcomeScreenImages ->
+                _welcomeScreenImages.value = welcomeScreenImages
 
+            }
         }
+
     }
 
 

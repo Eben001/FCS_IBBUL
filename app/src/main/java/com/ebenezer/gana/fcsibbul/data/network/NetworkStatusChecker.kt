@@ -2,9 +2,7 @@ package com.ebenezer.gana.fcsibbul.data.network
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
-@RequiresApi(Build.VERSION_CODES.M)
+
 class NetworkStatusChecker(private val connectivityManager: ConnectivityManager?) {
 
     inline fun performIfConnectedToInternetOrNot(action: () -> Unit, onNoInternet: () -> Unit) {

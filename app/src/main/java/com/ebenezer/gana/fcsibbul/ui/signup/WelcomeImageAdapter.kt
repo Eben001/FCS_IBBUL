@@ -20,12 +20,14 @@ class WelcomeImageAdapter() :
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val imageUrl = imageUrls[position % imageUrls.size]
-        holder.bind(imageUrl.image_url)
+        if (imageUrls.isNotEmpty()) {
+            val imageUrl = imageUrls[position % imageUrls.size]
+            holder.bind(imageUrl.image_url)
+        }
     }
 
     override fun getItemCount(): Int {
-        return Int.MAX_VALUE
+        return imageUrls.size * 1000
     }
     fun updateImages(newImages: List<WelcomeScreenImage>) {
         val diffCallback = ImageDiffCallback(imageUrls, newImages)
