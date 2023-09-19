@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/exco_name"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
             android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/exco_post"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat_regular"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
 
         <TextView
             android:id="@+id/exco_department"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/exco_phone"
             android:layout_marginStart="8dp"
