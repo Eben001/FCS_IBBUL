@@ -69,6 +69,7 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupNotificationWork()
         setupFirebaseMessaging()
         binding = ActivityHostLoggedInBinding.inflate(layoutInflater)
+        setupNavHeaderView()
         setContentView(binding.root)
         observeViewModels()
         setSupportActionBar(binding.toolbarLogin)
@@ -76,12 +77,10 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupNavController()
         setupHeaderImages()
         setupHeaderTag()
-        setupNavHeaderView()
         initializeAds()
 
 
     }
-
     private fun observeViewModels() {
         viewModel.headerTag.observe(this){headerTag->
             if(headerTag.text.isEmpty()){
@@ -111,8 +110,22 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
     private fun setupHeaderImages() {
         viewModel.getHeaderImagesFromFirebaseStorage()
         viewModel.headerImages.observe(this) { headerImages ->
-            setupViewPager(headerImages)
-            startAutoScroll() // Start auto scroll
+            if(headerImages.isNotEmpty()){
+                navHeaderBinding.viewPagerNavHeader.visibility = View.VISIBLE
+                navHeaderBinding.headerPictureTag.visibility = View.VISIBLE
+                isAutoScrollPaused = false
+                navHeaderBinding.fcsLogo.visibility = View.GONE
+                setupViewPager(headerImages)
+                startAutoScroll() // Start auto scroll
+            }else{
+                navHeaderBinding.viewPagerNavHeader.visibility = View.GONE
+                navHeaderBinding.headerPictureTag.visibility = View.GONE
+                isAutoScrollPaused = true
+                navHeaderBinding.fcsLogo.visibility = View.VISIBLE
+                navHeaderBinding.fcsLogo.setImageResource(R.drawable.fcs_logo)
+
+            }
+
 
         }
 

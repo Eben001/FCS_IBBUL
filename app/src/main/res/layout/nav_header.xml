@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_height="350dp">
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:orientation="vertical">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager_nav_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".8"/>
+        android:layout_weight=".8"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/fcs_logo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".8"
+        android:contentDescription="@string/fcs_logo" />
 
     <TextView
-        android:textStyle="bold|italic"
         android:id="@+id/header_picture_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
         android:layout_marginStart="8dp"
-        android:gravity="center_horizontal"
         android:ellipsize="end"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center_horizontal"
         android:maxLines="1"
         android:textColor="@color/primaryTextColor"
         android:textSize="15sp"
+        android:textStyle="bold|italic"
         tools:text="Sunday Service 17, 2023" />
-    <com.google.android.gms.ads.AdView
-        android:layout_marginTop="10dp"
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight=".1"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
 </LinearLayout>
