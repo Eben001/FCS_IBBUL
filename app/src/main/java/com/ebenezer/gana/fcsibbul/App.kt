@@ -4,19 +4,16 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import com.ebenezer.gana.fcsibbul.di.*
 import com.ebenezer.gana.fcsibbul.ui.common.NotificationHelper
 import com.ebenezer.gana.fcsibbul.ui.common.Prefs
-import com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseService
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-@RequiresApi(Build.VERSION_CODES.M)
 class App : Application() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
@@ -44,29 +41,6 @@ class App : Application() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun startNotificationForegroundService() {
-        val intent = Intent(this, DailyBibleVerseService::class.java)
-        startService(intent)
-
-        /*val dailyBibleVerseIntent = Intent(this, DailyBibleVerseService::class.java)
-        val announcementIntent = Intent(this, AnnouncementService::class.java)
-
-        // Start the DailyBibleVerseService
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.startForegroundService(dailyBibleVerseIntent)
-        } else {
-            this.startService(dailyBibleVerseIntent)
-        }
-
-        // Start the AnnouncementService
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.startForegroundService(announcementIntent)
-        } else {
-            this.startService(announcementIntent)
-        }*/
-
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initNotificationHelper() {

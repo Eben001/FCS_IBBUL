@@ -46,6 +46,7 @@ import org.koin.androidx.scope.activityScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
 
+
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     AndroidScopeComponent {
     private lateinit var headerImageAdapter: HeaderImageAdapter
@@ -81,6 +82,17 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
 
     }
+  /*  fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent == null) {
+            return START_NOT_STICKY
+        }
+        val command = intent.getIntExtra(MAIN_SERVICE_COMMAND_KEY, -1)
+        if (command == MAIN_SERVICE_START_COMMAND) {
+            startCommand()
+            return START_STICKY
+        }
+        return START_NOT_STICKY
+    }*/
     private fun observeViewModels() {
         viewModel.headerTag.observe(this){headerTag->
             if(headerTag.text.isEmpty()){
@@ -198,7 +210,7 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     private fun setupNotificationWork() {
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
         val notificationWork = OneTimeWorkRequestBuilder<DailyBibleVerseWorker>()
