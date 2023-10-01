@@ -1,6 +1,5 @@
 package com.ebenezer.gana.fcsibbul.data.repository.song
 
-import android.util.Log
 import com.ebenezer.gana.fcsibbul.R
 import com.ebenezer.gana.fcsibbul.data.models.Song
 import com.ebenezer.gana.fcsibbul.utils.Constants
@@ -25,8 +24,10 @@ class SongRepository(
                     return@addSnapshotListener
                 }
                 if (value != null) {
-                    val document = value.toObject(Song::class.java)
-                    song(document!!)
+                   value.toObject(Song::class.java)
+                        ?.let {document->
+                            song(document)
+                        }
 
 
                 }
