@@ -8,7 +8,7 @@
     <fragment
 
         android:id="@+id/navigation_announcement"
-        android:name="com.ebenezer.gana.fcsibbul.ui.announcement.announcementList.AnnouncementListFragment"
+        android:name="com.fcsibbul.ui.announcement.announcementList.AnnouncementListFragment"
         android:label="@string/title_announcement"
         tools:layout="@layout/announcementlist_fragment">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_excos"
-        android:name="com.ebenezer.gana.fcsibbul.ui.excos.excosList.ExcosListFragment"
+        android:name="com.fcsibbul.ui.excos.excosList.ExcosListFragment"
         android:label="Excos"
         tools:layout="@layout/excoslist_fragment">
         <action
@@ -29,19 +29,19 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_announcement_details"
-        android:name="com.ebenezer.gana.fcsibbul.ui.announcement.announcementDetails.AnnouncementDetailsFragment"
+        android:name="com.fcsibbul.ui.announcement.announcementDetails.AnnouncementDetailsFragment"
         android:label="Details"
         tools:layout="@layout/announcement_details_fragment">
         <argument
             android:name="announcement"
-            app:argType="com.ebenezer.gana.fcsibbul.data.models.Announcement" />
+            app:argType="com.fcsibbul.data.models.Announcement" />
         <action
             android:id="@+id/action_navigation_announcement_details_to_navigation_announcement"
             app:destination="@id/navigation_announcement" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.settings.SettingsFragment"
+        android:name="com.fcsibbul.ui.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings">
         <action
@@ -50,32 +50,32 @@
     </fragment>
     <activity
         android:id="@+id/hostActivityLoggedOut"
-        android:name="com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedOut"
+        android:name="com.fcsibbul.ui.host.HostActivityLoggedOut"
         android:label="HostActivityLoggedOut"
         tools:layout="@layout/activity_host_logged_out" />
     <fragment
         android:id="@+id/navigation_excos_details"
-        android:name="com.ebenezer.gana.fcsibbul.ui.excos.excosDetails.ExcosDetailsFragment"
+        android:name="com.fcsibbul.ui.excos.excosDetails.ExcosDetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_excos_details">
         <argument
             android:name="exco"
-            app:argType="com.ebenezer.gana.fcsibbul.data.models.Exco" />
+            app:argType="com.fcsibbul.data.models.Exco" />
     </fragment>
     <include app:graph="@navigation/nav_graph_admin" />
     <fragment
         android:id="@+id/navigation_daily_guide"
-        android:name="com.ebenezer.gana.fcsibbul.ui.dailyGuide.DailyGuideFragment"
+        android:name="com.fcsibbul.ui.dailyGuide.DailyGuideFragment"
         android:label="@string/daily_guide"
         tools:layout="@layout/fragment_daily_guide" />
     <fragment
         android:id="@+id/navigation_songs"
-        android:name="com.ebenezer.gana.fcsibbul.ui.songs.SongsFragment"
+        android:name="com.fcsibbul.ui.songs.SongsFragment"
         android:label="Songs"
         tools:layout="@layout/fragment_songs" />
     <fragment
         android:id="@+id/navigation_daily_bible_verse"
-        android:name="com.ebenezer.gana.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"
+        android:name="com.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"
         android:label="Daily Bible Verse"
         tools:layout="@layout/fragment_daily_bible_verse" />
 </navigation>

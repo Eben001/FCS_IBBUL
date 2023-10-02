@@ -8,13 +8,13 @@
 
     <fragment
         android:id="@+id/navigation_signup"
-        android:name="com.ebenezer.gana.fcsibbul.ui.signup.SignUpFragment"
+        android:name="com.fcsibbul.ui.signup.SignUpFragment"
         android:label="sign_up_fragment"
         tools:layout="@layout/sign_up_fragment"/>
 
     <activity
         android:id="@+id/hostActivityLoggedIn"
-        android:name="com.ebenezer.gana.fcsibbul.ui.host.HostActivityLoggedIn"
+        android:name="com.fcsibbul.ui.host.HostActivityLoggedIn"
         android:label="HostActivityLoggedIn"
         tools:layout="@layout/activity_host_logged_in" />
 

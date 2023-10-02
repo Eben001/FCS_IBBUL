@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:490313481243:android:b8b272f45e7b88203e8cbe",
+        "mobilesdk_app_id": "1:490313481243:android:538a59f31fc12f923e8cbe",
         "android_client_info": {
-          "package_name": "com.ebenezer.gana.fcsibbul"
+          "package_name": "com.fcsibbul"
         }
       },
       "oauth_client": [
         {
-          "client_id": "490313481243-dej59ag693ue3kd4nvcutp4vloolgpkl.apps.googleusercontent.com",
+          "client_id": "490313481243-r0nemakka8fo0iknc7vei6sl8htnmmvb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ebenezer.gana.fcsibbul",
-            "certificate_hash": "efdf9c2ef842609a5cc3f766eb031b7179c5442b"
+            "package_name": "com.fcsibbul",
+            "certificate_hash": "1489bc0752e02d2edfbb193544dd76fed88067a3"
           }
         },
         {

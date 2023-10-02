@@ -1,0 +1,154 @@
+package com.fcsibbul.ui.announcement.announcementList
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.fcsibbul.R
+import com.fcsibbul.databinding.AnnouncementlistFragmentBinding
+import com.fcsibbul.ui.announcement.shared.SharedViewModel
+import com.fcsibbul.ui.baseFragment.BaseFragment
+import com.faltenreich.skeletonlayout.Skeleton
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+
+class AnnouncementListFragment : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.VISIBLE
+    private lateinit var skeleton: Skeleton
+
+    private var _binding: AnnouncementlistFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var hasShownSkeleton = false // Boolean flag to track if the skeleton has been shown
+
+    private lateinit var adapter: AnnouncementListAdapter
+
+    private val viewModel: AnnouncementListViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = AnnouncementlistFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupSettingsMenu()
+        Timber.d("${Firebase.auth.currentUser}")
+        skeleton = view.findViewById(R.id.skeletonLayout)
+
+        binding.rvAnnouncement.layoutManager = LinearLayoutManager(this.context)
+        adapter = AnnouncementListAdapter {
+            val action =
+                AnnouncementListFragmentDirections.actionNavigationAnnouncementToAnnouncementDetailsFragment(
+                    it
+                )
+
+            findNavController().navigate(action)
+        }
+        binding.rvAnnouncement.adapter = adapter
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.addLoadStateListener { loadState ->
+                    if (loadState.append is LoadState.Loading && !hasShownSkeleton) {
+                        // Show skeleton layout only once when appending data
+                        skeleton.showSkeleton()
+                        hasShownSkeleton = true // Set the flag to true
+                    } else {
+                        skeleton.showOriginal()
+                    }
+                    binding.appendProgress.isVisible = loadState.append is LoadState.Loading
+                    binding.prependProgress.isVisible = loadState.prepend is LoadState.Loading
+                    binding.swipeRefresh.isRefreshing = false
+
+
+                }
+
+            }
+        }
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.announcementPagingFlow.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+
+                }
+            }
+
+        }
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                sharedViewModel.announcementDeleted.observe(viewLifecycleOwner) { announcementDeleted ->
+                    if (announcementDeleted) {
+                        refreshList()
+                        sharedViewModel.setAnnouncementDeleted(false) // Reset the value
+                    }
+                }
+            }
+        }
+
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            adapter.refresh()
+        }
+    }
+
+
+    private fun setupSettingsMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.settings_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.action_settings -> {
+                        val action =
+                            AnnouncementListFragmentDirections.actionNavigationAnnouncementToSettingsFragment()
+                        findNavController().navigate(action)
+                        return true
+                    }
+
+                }
+
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun refreshList() {
+        adapter.refresh()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
+}
