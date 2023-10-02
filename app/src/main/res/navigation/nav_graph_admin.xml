@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/adminDashboardFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.dashboard.AdminDashboardFragment"
+        android:name="com.fcsibbul.ui.admin.dashboard.AdminDashboardFragment"
         tools:layout="@layout/fragment_admin_dashboard">
         <action
             android:id="@+id/action_adminDashboardFragment_to_postAnnouncementFragment"
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/addExcoFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.addExco.AddExcoFragment"
+        android:name="com.fcsibbul.ui.admin.addExco.AddExcoFragment"
         android:label="Add Exco"
         tools:layout="@layout/fragment_add_exco">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/postAnnouncementFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragment"
+        android:name="com.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementFragment"
         android:label="@string/post_announcement"
         tools:layout="@layout/fragment_post_announcement">
         <action
@@ -47,12 +47,12 @@
     </fragment>
     <fragment
         android:id="@+id/postSongFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postSong.PostSongFragment"
+        android:name="com.fcsibbul.ui.admin.postSong.PostSongFragment"
         android:label="Post a Song"
         tools:layout="@layout/fragment_post_song" />
     <fragment
         android:id="@+id/bibleVerseFragment"
-        android:name="com.ebenezer.gana.fcsibbul.ui.admin.postBibleVerse.PostBibleVerseFragment"
+        android:name="com.fcsibbul.ui.admin.postBibleVerse.PostBibleVerseFragment"
         android:label="Post a Bible Verse"
         tools:layout="@layout/fragment_post_bible_verse" />
 </navigation>
