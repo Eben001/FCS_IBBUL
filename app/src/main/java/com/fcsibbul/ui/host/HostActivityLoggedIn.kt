@@ -31,7 +31,6 @@ import com.fcsibbul.databinding.NavHeaderBinding
 import com.fcsibbul.ui.common.Accent.setAccentColour
 import com.fcsibbul.ui.common.Prefs
 import com.fcsibbul.ui.dialogs.DialogsNavigator
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
@@ -80,8 +79,6 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupNavController()
         setupHeaderImages()
         setupHeaderTag()
-        initializeAds()
-
 
     }
 
@@ -101,11 +98,6 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     }
 
-    private fun initializeAds() {
-        val adRequest = AdRequest.Builder().build()
-        navHeaderBinding.adView.loadAd(adRequest)
-
-    }
 
     private fun setupNavHeaderView() {
         val headerView: View = binding.navView.getHeaderView(0)
