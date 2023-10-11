@@ -34,9 +34,9 @@
                 android:id="@+id/til_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_first_name_req"
                 android:textColorHint="@color/colorSecondaryText">
 
@@ -55,9 +55,9 @@
                 android:id="@+id/til_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_last_name_req"
                 android:textColorHint="@color/colorSecondaryText">
 
@@ -75,9 +75,9 @@
                 android:id="@+id/til_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_not_email_req"
                 android:textColorHint="@color/colorSecondaryText">
 
@@ -95,9 +95,9 @@
                 android:id="@+id/til_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_phone_req"
                 android:textColorHint="@color/colorSecondaryText">
 
@@ -116,9 +116,9 @@
                 android:id="@+id/til_office"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_office_req"
                 android:textColorHint="@color/colorSecondaryText"
                 app:passwordToggleTint="@color/primaryColor">
@@ -138,9 +138,9 @@
                 android:id="@+id/til_department"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_department_req"
                 android:textColorHint="@color/colorSecondaryText"
                 app:passwordToggleTint="@color/primaryColor">
@@ -160,9 +160,9 @@
                 android:id="@+id/til_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:hint="@string/hint_level_req"
                 android:textColorHint="@color/colorSecondaryText"
                 app:passwordToggleTint="@color/primaryColor">
@@ -181,18 +181,18 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_exco"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/_60dp"
                 android:textColor="@color/onPrimaryTextColor"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 android:text="@string/add_exco" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="@dimen/_100dp"
                 app:adSize="BANNER"
                 app:adUnitId="ca-app-pub-3940256099942544/6300978111"
                 app:layout_constraintEnd_toEndOf="parent"

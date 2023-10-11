@@ -68,7 +68,7 @@
     <string name="posted_success">Posted Successfully!</string>
     <string name="err_msg_title">Please enter a title</string>
     <string name="err_msg_details">Please enter announcement details</string>
-    <string name="not_an_admin">You are not an admin. Please contact your administrator</string>
+    <string name="not_an_admin">Oops! You are not an admin.</string>
     <string name="success_registration">Registration Successful </string>
     <string name="admin_success">Login Success</string>
     <string name="error">Error</string>
@@ -77,11 +77,11 @@
 
 
     <string name="dialog_title">Contact us</string>
-    <string name="dialog_message">You can contact us on fcsibbul@gmail.com</string>
+    <string name="dialog_message">You can contact us at Fcsibbul1@gmail.com</string>
 
     <string name="dialog_donate_title">Donate</string>
     <string name="ok_dialog_message">Okay</string>
-    <string name="dialog_donate_message">Thank You for choosing to support this Project. \nYou can send your donations to :\n2122024186 UBA FCSIBBUL</string>
+    <string name="dialog_donate_message">Thank You for choosing to support this Project. \nYou can send your donations to :\n2294449358 UBA \nFellowship of Christian Students </string>
     <string name="msg_connect_to_the_internet">You need to be connected to the internet to make a post</string>
     <string name="text_unauthorized_action">You are not authorized to perform this action</string>
     <string name="msg_connect_to_the_internet_to_delete">You need to be connected to the internet to delete this announcement</string>
@@ -113,7 +113,7 @@
     <string name="channel_description">FCS IBBUL</string>
     <string name="announcement_notification_channel">announcements_channel</string>
     <string name="bible_verse_notification_channel">bible_verse_channel</string>
-    <string name="str_welcome">Welcome</string>
+    <string name="str_welcome">Welcome to FCS IBBUL</string>
     <string name="str_google_icon">Google icon</string>
     <string name="fcs_logo">FCS Logo</string>
 
@@ -186,6 +186,14 @@
     <string name="str_feedback">Feedback</string>
     <string name="delete_exco_dialog_message">Are you sure you want to delete this exco?</string>
     <string name="feedback_submit_success">Thank you for submitting your feedback</string>
+    <string name="please_upload_an_image">Please upload an Image</string>
+    <string name="_100">100</string>
+    <string name="_200">200</string>
+    <string name="_300">300</string>
+    <string name="_400">400</string>
+    <string name="_500">500</string>
+    <string name="str_not_admin">Not Admin</string>
+    <string name="not_authorized">Not Authorized</string>
 
 
 </resources>

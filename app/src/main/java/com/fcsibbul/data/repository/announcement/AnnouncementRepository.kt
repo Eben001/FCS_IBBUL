@@ -24,35 +24,6 @@ class AnnouncementRepository(private val firestore: FirebaseFirestore) {
 
 
     /**
-     * Gets announcement list from firestore
-     */
-    fun getAnnouncements(result: (MutableList<Announcement>) -> Unit) {
-        firestore.collection(Constants.ANNOUNCEMENTS)
-            .orderBy("timeStamp", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { document ->
-                val announcementsList = mutableListOf<Announcement>()
-                val documents = document.documents
-
-                documents.forEach {
-                    // we want to get the id of each document
-                    val announcement = it.toObject(Announcement::class.java)
-                    if (announcement != null) {
-                        announcement.announcementId = it.id
-                        announcementsList.add(announcement)
-                    }
-                }
-                result(announcementsList)
-            }
-            .addOnFailureListener {
-                Timber.e( "Error getting announcement: ${it.localizedMessage}")
-
-            }
-
-    }
-
-
-    /**
      * Posts new announcement
      */
     fun postAnnouncement(

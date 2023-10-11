@@ -180,7 +180,7 @@ class AddExcoFragment : BaseFragment() {
             binding.addExco.isEnabled = false
 
         } else {
-            showSnackBar("Please upload an Image", isError = true)
+            showSnackBar(resources.getString(R.string.please_upload_an_image), isError = true)
         }
     }
 
@@ -250,7 +250,9 @@ class AddExcoFragment : BaseFragment() {
 
     private fun isValidLevelField(): Boolean {
         return when (binding.etLevel.text.toString().trim()) {
-            "100", "200", "300", "400", "500" -> {
+            resources.getString(R.string._100),  resources.getString(R.string._200),  resources.getString(R.string._300),  resources.getString(
+                R.string._400
+            ),  resources.getString(R.string._500) -> {
                 true
             }
             else -> {

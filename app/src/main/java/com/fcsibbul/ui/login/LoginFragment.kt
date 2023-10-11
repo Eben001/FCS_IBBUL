@@ -16,7 +16,10 @@ import com.fcsibbul.ui.host.HostActivityLoggedIn
 import com.fcsibbul.ui.login.FieldValidators.isValidEmail
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+/*
+    Not being used at the moment. We are using google sign in functionality.
+    Check SignUpFragment
+ */
 class LoginFragment : BaseFragment() {
 
     private var _binding: LoginFragmentBinding? = null

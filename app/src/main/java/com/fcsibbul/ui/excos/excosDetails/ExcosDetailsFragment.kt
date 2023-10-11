@@ -81,7 +81,7 @@ class ExcosDetailsFragment : BaseFragment() {
         }
     }
 
-    fun bind(excos: Exco) {
+    private fun bind(excos: Exco) {
         binding.apply {
             excoName.text =
                 resources.getString(R.string.first_name_last_name, excos.firstName, excos.lastName)

@@ -129,27 +129,6 @@ class ExcosRepository(
 
 
 
-
-    fun getExcos(excos: (MutableList<Exco>) -> Unit) {
-        firestore.collection(Constants.EXCOS)
-            .orderBy("timeStamp", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { document ->
-                val excosList = mutableListOf<Exco>()
-
-                for (item in document) {
-                    val excoItem = item.toObject(Exco::class.java)
-                    excoItem.documentId = item.id
-                    excosList.add(excoItem)
-                }
-                excos(excosList)
-            }
-            .addOnFailureListener {
-                Timber.e("Error getting excos list ${it.printStackTrace()}")
-            }
-    }
-
-
     /**
      * Gets the current logged in user id. This is the user who uploaded the excos details
      */

@@ -24,7 +24,7 @@ class AdminDashboardViewModel (private val repository: FcsRepository) : ViewMode
                 }
 
                 0 -> {
-                    _appBarTitle.value = UiText.StringResource(R.string.error)
+                    _appBarTitle.value = UiText.StringResource(R.string.not_authorized)
                     _isAdmin.value = false
 
 

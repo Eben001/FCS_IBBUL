@@ -36,8 +36,6 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
 
                 0 -> {
                     _isAdmin.value = false
-
-
                 }
             }
 
@@ -51,13 +49,6 @@ class ExcosViewModel constructor(private val repository: ExcosRepository) : View
         ExcoPagingSource(repository)
     }.flow.cachedIn(viewModelScope)
 
-    fun getExcosList() {
-        /*        viewModelScope.launch {
-                    repository.getExcos {
-                        _excos.value = it
-                    }
-                }*/
-    }
 
     fun deleteExcoDetails(excoDocumentID: String, imageUrl: String) {
         repository.deleteExcoDetails(excoDocumentID, imageUrl,

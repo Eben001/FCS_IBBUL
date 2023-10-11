@@ -1,10 +1,12 @@
 package com.fcsibbul.ui.host
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -82,26 +84,17 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
 
     }
-  /*  fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent == null) {
-            return START_NOT_STICKY
-        }
-        val command = intent.getIntExtra(MAIN_SERVICE_COMMAND_KEY, -1)
-        if (command == MAIN_SERVICE_START_COMMAND) {
-            startCommand()
-            return START_STICKY
-        }
-        return START_NOT_STICKY
-    }*/
+
     private fun observeViewModels() {
-        viewModel.headerTag.observe(this){headerTag->
-            if(headerTag.text.isEmpty()){
+        viewModel.headerTag.observe(this) { headerTag ->
+            if (headerTag.text.isEmpty()) {
                 navHeaderBinding.headerPictureTag.visibility = View.GONE
-            }else{
+            } else {
                 navHeaderBinding.headerPictureTag.visibility = View.VISIBLE
                 navHeaderBinding.headerPictureTag.text = headerTag.text
             }
-        }    }
+        }
+    }
 
     private fun setupHeaderTag() {
         viewModel.getHeaderTag()
@@ -122,14 +115,14 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
     private fun setupHeaderImages() {
         viewModel.getHeaderImagesFromFirebaseStorage()
         viewModel.headerImages.observe(this) { headerImages ->
-            if(headerImages.isNotEmpty()){
+            if (headerImages.isNotEmpty()) {
                 navHeaderBinding.viewPagerNavHeader.visibility = View.VISIBLE
                 navHeaderBinding.headerPictureTag.visibility = View.VISIBLE
                 isAutoScrollPaused = false
                 navHeaderBinding.fcsLogo.visibility = View.GONE
                 setupViewPager(headerImages)
                 startAutoScroll() // Start auto scroll
-            }else{
+            } else {
                 navHeaderBinding.viewPagerNavHeader.visibility = View.GONE
                 navHeaderBinding.headerPictureTag.visibility = View.GONE
                 isAutoScrollPaused = true
@@ -228,9 +221,6 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             statusBarColor = Color.TRANSPARENT
             updateNavbarColour()
             setDarkStatusIcons()
-            /*navigationBarColor =
-                ContextCompat.getColor(context, R.color.abbBackgroundColor)*/
-            //WindowCompat.setDecorFitsSystemWindows(this, false)
         }
         setAccentColour(Prefs(this).Settings().accent)
     }
@@ -278,7 +268,24 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
             R.id.admin_login -> navController.navigate(R.id.nav_graph_admin)
             R.id.contact_us -> dialogsNavigator.showContactusDialog()
             R.id.donate -> dialogsNavigator.showDonateDialog()
-            R.id.rate_me -> Toast.makeText(this, "Rate me", Toast.LENGTH_SHORT).show()
+            R.id.rate_me -> {
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data =
+                            Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                        setPackage("com.android.vending")
+                    }
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                        )
+                    )
+                }
+
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true

@@ -7,7 +7,7 @@ import com.fcsibbul.data.repository.FcsRepository
 import com.fcsibbul.utils.UiText
 import com.google.firebase.auth.FirebaseUser
 
-
+//Not being used at the moment. We are using google sign in functionality
 class LoginViewModel (private val repository: FcsRepository) : ViewModel() {
 
     private var _isPostSuccess = MutableLiveData<Boolean>()

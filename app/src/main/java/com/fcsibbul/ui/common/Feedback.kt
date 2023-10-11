@@ -20,9 +20,6 @@ object Feedback {
         feedback(view, HapticFeedbackConstants.VIRTUAL_KEY)
     }
 
-    fun clockTick(view: View) {
-        feedback(view, HapticFeedbackConstants.CLOCK_TICK)
-    }
 
     private fun feedback(view: View, constant: Int) {
         view.performHapticFeedback(constant)

@@ -77,30 +77,6 @@ class AnnouncementDetailsViewModel constructor(private val repository: Announcem
             onFailure = { _isDeleteSuccess.value = false })
     }
 
-/*
-    fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
-        val alreadyLiked = likedBy.contains(getCurrentUserId())
-        val maxLikes = 2000
-
-        if (alreadyLiked) {
-            if(totalLikes > 0){
-                repository.removeLike(getCurrentUserId(), documentId)
-                _likesCount.value = totalLikes - 1
-            }
-        } else {
-            if (totalLikes < maxLikes) {
-                repository.addLike(getCurrentUserId(), documentId)
-                _likesCount.value = totalLikes + 1
-            }
-        }
-
-        _alreadyLiked.value = !alreadyLiked
-
-        val updateHashMap = hashMapOf("likeCount" to _likesCount.value!!)
-        repository.updateLikeMap(updateHashMap, documentId)
-    }
-*/
-
     fun likeOrUnlikeAnnouncement(totalLikes: Long, likedBy: ArrayList<String>, documentId: String) {
         val alreadyLiked = likedBy.contains(getCurrentUserId())
         val maxLikes = 2000

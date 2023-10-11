@@ -1,21 +1,19 @@
 package com.fcsibbul.ui.admin.postAnnouncement
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.fcsibbul.R
 import com.fcsibbul.data.network.NetworkStatusChecker
 import com.fcsibbul.databinding.FragmentPostAnnouncementBinding
 import com.fcsibbul.ui.baseFragment.BaseFragment
 import com.google.android.gms.ads.AdRequest
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

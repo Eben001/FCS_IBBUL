@@ -11,24 +11,12 @@ import com.fcsibbul.utils.Constants.PAGE_SIZE
 class AnnouncementListViewModel constructor(private val repository: AnnouncementRepository) :
     ViewModel() {
 
-//    private val _announcements = MutableLiveData<MutableList<Announcement>>()
-//    val announcement: LiveData<MutableList<Announcement>> = _announcements
-//
 
     val announcementPagingFlow = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE)
     ){
         AnnouncementPagingSource(repository)
     }.flow.cachedIn(viewModelScope)
-
-
-//    fun getAnnouncements() {
-//        viewModelScope.launch {
-//            repository.getAnnouncements {
-//                _announcements.value = it
-//            }
-//        }
-//    }
 
 
 }

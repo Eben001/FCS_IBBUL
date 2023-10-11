@@ -1,13 +1,11 @@
 package com.fcsibbul.ui.admin.postBibleVerse
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import com.fcsibbul.R
 import com.fcsibbul.data.network.NetworkStatusChecker
 import com.fcsibbul.databinding.FragmentPostBibleVerseBinding
