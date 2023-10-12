@@ -1,6 +1,5 @@
 package com.fcsibbul.data.repository.excos
 
-import android.app.Activity
 import android.net.Uri
 import com.fcsibbul.R
 import com.fcsibbul.data.models.Exco
@@ -69,7 +68,6 @@ class ExcosRepository(
     }
 
     fun uploadExcoImageToCloud(
-        activity: Activity,
         imageFileURI: Uri?,
         imageType: String,
         excoFullName: String,

@@ -15,7 +15,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.fcsibbul.R
 import com.fcsibbul.data.models.FeedbackData
-import com.fcsibbul.databinding.FragmentSettingsBinding
 import com.fcsibbul.ui.common.AccentColor
 import com.fcsibbul.ui.common.AccentSetting
 import com.fcsibbul.ui.common.Feedback
@@ -40,8 +39,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : PreferenceFragmentCompat() {
 
 
-    private var _binding: FragmentSettingsBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: SettingsViewModel by viewModel()
 
     private var userInput: String? = null

@@ -19,8 +19,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val TAG = "ExcosListFragment"
-
 
 class ExcosListFragment : BaseFragment() {
 

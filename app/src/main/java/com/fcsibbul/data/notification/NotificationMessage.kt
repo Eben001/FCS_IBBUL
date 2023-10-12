@@ -2,7 +2,7 @@ package com.fcsibbul.data.notification
 
 class NotificationMessage {
     companion object {
-        val message = """
+        const val message = """
             {
               "to": "/topics/%s",
               "data": {

@@ -64,7 +64,6 @@ class AnnouncementDetailsFragment : BaseFragment() {
             title.text = announcement.title
             announcementDetails.text = announcement.details
             announcementDateTime.text = announcement.date
-            //likes.text = announcement.likeCount.toString()
         }
     }
 

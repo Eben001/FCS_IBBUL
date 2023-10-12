@@ -9,7 +9,7 @@ import com.fcsibbul.R
 import com.fcsibbul.data.models.WelcomeScreenImage
 import com.fcsibbul.databinding.ItemWelcomeImageBinding
 
-class WelcomeImageAdapter() :
+class WelcomeImageAdapter :
     RecyclerView.Adapter<WelcomeImageAdapter.ImageViewHolder>() {
     private var imageUrls: List<WelcomeScreenImage> = emptyList()
 

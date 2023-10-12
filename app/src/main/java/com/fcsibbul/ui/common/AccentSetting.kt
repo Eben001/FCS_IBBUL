@@ -33,11 +33,6 @@ object AccentSetting {
         setPreference(context, KEY_CURRENT_ACCENT, accentColor.toString())
     }
 
-    @JvmStatic
-    fun setAccentColor(context: Context, accentColor: AccentColor) {
-        accentColorMap[accentColor]?.let { context.setTheme(it) }
-    }
-
     fun getAccentColor(context: Context): AccentColor? {
         return getPreference(context, KEY_CURRENT_ACCENT)?.let { enumValueOf<AccentColor>(it) }
     }

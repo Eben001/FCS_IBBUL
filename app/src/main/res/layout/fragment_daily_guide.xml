@@ -7,7 +7,7 @@
     tools:context=".ui.dailyGuide.DailyGuideFragment">
 
     <ImageView
-        tools:src="@drawable/gif_coming_soon"
+        tools:src="@drawable/coming_soon_gif"
         android:id="@+id/coming_soon_gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

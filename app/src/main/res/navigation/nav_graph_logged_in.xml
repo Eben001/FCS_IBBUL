@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/navigation_songs"
         android:name="com.fcsibbul.ui.songs.SongsFragment"
-        android:label="Songs"
+        android:label="Live Lyrics"
         tools:layout="@layout/fragment_songs" />
     <fragment
         android:id="@+id/navigation_daily_bible_verse"

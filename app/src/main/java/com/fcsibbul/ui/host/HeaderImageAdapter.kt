@@ -9,7 +9,7 @@ import com.fcsibbul.R
 import com.fcsibbul.data.models.HeaderImage
 import com.fcsibbul.databinding.ItemWelcomeImageBinding
 
-class HeaderImageAdapter() :
+class HeaderImageAdapter :
     RecyclerView.Adapter<HeaderImageAdapter.ImageViewHolder>() {
     private var imageUrls: List<HeaderImage> = emptyList()
 

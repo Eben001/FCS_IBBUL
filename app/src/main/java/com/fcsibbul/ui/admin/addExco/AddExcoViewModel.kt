@@ -70,7 +70,8 @@ class AddExcoViewModel(private val repository: ExcosRepository) : ViewModel() {
     }
 
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String, excoFullName:String) {
-        repository.uploadExcoImageToCloud(activity, imageFileURI, imageType, excoFullName,  onSuccess = {
+        repository.uploadExcoImageToCloud(
+            imageFileURI, imageType, excoFullName,  onSuccess = {
             _imageUrl.value = it
             _isImageUploadSuccess.value = true
 

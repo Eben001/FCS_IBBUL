@@ -7,7 +7,7 @@ import java.util.Locale
 
 object Constants {
 
-    val NAV_HEADER_IMAGE_TAG: String = "nav_header_image_tag"
+    const val NAV_HEADER_IMAGE_TAG: String = "nav_header_image_tag"
     const val NAV_HEADER_IMAGES: String = "nav_header_images"
     const val PAGE_SIZE = 10
     const val WELCOME_SCREEN_IMAGES: String = "welcome_screen_images"

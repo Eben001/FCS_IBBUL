@@ -81,7 +81,7 @@ class NotificationHelper {
             )
         }
 
-        fun showNotification(
+        private fun showNotification(
             context: Context,
             notificationTag: String,
             contentTitle: String,
@@ -129,7 +129,7 @@ class NotificationHelper {
             cancelNotificationById(context, targetId)
         }
 
-        fun cancelNotificationById(context: Context, notificationId: Int) {
+        private fun cancelNotificationById(context: Context, notificationId: Int) {
             NotificationManagerCompat.from(context).cancel(notificationId)
         }
 

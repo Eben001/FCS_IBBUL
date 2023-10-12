@@ -58,16 +58,16 @@ object Accent {
         }
     }
 
-    const val BLUE: Int = 1
-    const val CRIMSON: Int = 2
-    const val GREEN: Int = 3
-    const val LIGHT_BLUE: Int = 4
-    const val LIME: Int = 5
-    const val ORANGE: Int = 6
-    const val PINK: Int = 7
-    const val RED: Int = 8
-    const val TEAL: Int = 9
-    const val VIOLET: Int = 10
-    const val YELLOW: Int = 11
-    const val ORIGINAL: Int = 12
+    private const val BLUE: Int = 1
+    private const val CRIMSON: Int = 2
+    private const val GREEN: Int = 3
+    private const val LIGHT_BLUE: Int = 4
+    private const val LIME: Int = 5
+    private const val ORANGE: Int = 6
+    private const val PINK: Int = 7
+    private const val RED: Int = 8
+    private const val TEAL: Int = 9
+    private const val VIOLET: Int = 10
+    private const val YELLOW: Int = 11
+    private const val ORIGINAL: Int = 12
 }
