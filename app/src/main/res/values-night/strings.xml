@@ -137,6 +137,8 @@
     <string name="welcome_image">welcome image</string>
     <string name="details">Details</string>
     <string name="live_lyrics">Live Lyrics</string>
+    <string name="by_signing_up_you_agree_to_the_terms_outlined_in_our_privacy_policy">By signing up, you agree to the terms outlined in our privacy policy</string>
+    <string name="privacy_policy_link">https://doc-hosting.flycricket.io/fcs-ibbul-privacy-policy/65122478-9a15-4858-86fd-77d01858c92a/privacy</string>
 
 
 </resources>

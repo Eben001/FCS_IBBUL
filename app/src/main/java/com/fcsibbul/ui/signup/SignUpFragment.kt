@@ -2,7 +2,11 @@ package com.fcsibbul.ui.signup
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +65,23 @@ class SignUpFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val privacyPolicyFullText = resources.getString(R.string.by_signing_up_you_agree_to_the_terms_outlined_in_our_privacy_policy)
+        val spannableString = SpannableString(privacyPolicyFullText)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                // Handle the click event, open the privacy policy URL in a web browser
+                val privacyPolicyUrl = resources.getString(R.string.privacy_policy_link)
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl))
+                startActivity(intent)
+            }
+        }
+        val startIndex = privacyPolicyFullText.indexOf("privacy policy")
+        spannableString.setSpan(clickableSpan, startIndex, startIndex + "privacy policy".length, 0)
+        binding.txtPrivacyPolicy.text = spannableString
+        binding.txtPrivacyPolicy.movementMethod = LinkMovementMethod.getInstance()
+
+
+
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(resources.getString(R.string.default_web_client_id))
             .requestEmail()
