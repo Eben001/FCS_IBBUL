@@ -8,6 +8,7 @@ import com.fcsibbul.data.models.User
 import com.fcsibbul.data.models.WelcomeScreenImage
 import com.fcsibbul.utils.Constants
 import com.fcsibbul.utils.UiText
+import com.google.errorprone.annotations.Keep
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -17,6 +18,7 @@ import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 
+@Keep
 class FcsRepository(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore

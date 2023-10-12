@@ -5,6 +5,7 @@ import com.fcsibbul.data.models.Announcement
 import com.fcsibbul.data.models.User
 import com.fcsibbul.utils.Constants
 import com.fcsibbul.utils.UiText
+import com.google.errorprone.annotations.Keep
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +13,7 @@ import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 
+@Keep
 class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
 
      suspend fun isDocumentExists(documentId: String): Boolean {

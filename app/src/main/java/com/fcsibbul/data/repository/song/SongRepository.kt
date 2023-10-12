@@ -4,12 +4,14 @@ import com.fcsibbul.R
 import com.fcsibbul.data.models.Song
 import com.fcsibbul.utils.Constants
 import com.fcsibbul.utils.UiText
+import com.google.errorprone.annotations.Keep
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 
 
+@Keep
 class SongRepository(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore

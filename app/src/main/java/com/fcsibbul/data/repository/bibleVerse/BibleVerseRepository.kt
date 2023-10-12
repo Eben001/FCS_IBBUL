@@ -28,7 +28,9 @@ class BibleVerseRepository(
                 }
                 if (value != null) {
                     val document = value.toObject(DailyBibleVerse::class.java)
-                    bibleVerse(document!!)
+                    if (document != null) {
+                        bibleVerse(document)
+                    }
 
 
                 }
