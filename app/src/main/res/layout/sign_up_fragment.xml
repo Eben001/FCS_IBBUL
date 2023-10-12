@@ -69,7 +69,6 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_register"
-            app:layout_constraintBottom_toTopOf="@id/txt_privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -82,6 +81,7 @@
             app:cardBackgroundColor="@color/card_background_color"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_privacy_policy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -126,16 +126,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16dp"
             android:autoLink="web"
-            android:textStyle="italic"
             android:linksClickable="true"
             android:text="@string/by_signing_up_you_agree_to_the_terms_outlined_in_our_privacy_policy"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="15sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
