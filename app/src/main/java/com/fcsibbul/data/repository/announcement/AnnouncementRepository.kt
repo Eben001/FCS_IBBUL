@@ -6,14 +6,12 @@ import com.fcsibbul.data.models.User
 import com.fcsibbul.utils.Constants
 import com.fcsibbul.utils.Constants.PAGE_SIZE
 import com.fcsibbul.utils.UiText
-import com.google.errorprone.annotations.Keep
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import timber.log.Timber
 
-@Keep
 class AnnouncementRepository(private val firestore: FirebaseFirestore) {
 
     /**

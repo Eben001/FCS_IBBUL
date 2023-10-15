@@ -1,10 +1,9 @@
 package com.fcsibbul.data.models
 
 import android.os.Parcelable
-import com.google.errorprone.annotations.Keep
 import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
-@Keep
+
 @Parcelize
 data class Announcement(
     var userId: String? = "",
