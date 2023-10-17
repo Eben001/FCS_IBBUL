@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "490313481243-3r2davmv2jccq69snlslq58j5rdv5fta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fcsibbul",
+            "certificate_hash": "55d0244d91ba8a653834b9f04e2218e66d582032"
+          }
+        },
+        {
+          "client_id": "490313481243-ls0b63od7ibhd1e5ms2ll02o4tnlnmr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fcsibbul",
+            "certificate_hash": "faeec45cf0bbea8fd93d84ad4fb48e6afe1896c6"
+          }
+        },
+        {
           "client_id": "490313481243-r0nemakka8fo0iknc7vei6sl8htnmmvb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
