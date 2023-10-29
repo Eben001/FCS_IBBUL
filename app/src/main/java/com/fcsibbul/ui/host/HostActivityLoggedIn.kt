@@ -1,13 +1,20 @@
 package com.fcsibbul.ui.host
 
+import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -67,6 +74,9 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this) {}
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkNotificationPermission()
+        }
         setupWindowAndAccent()
         setupNotificationWork()
         setupFirebaseMessaging()
@@ -80,6 +90,39 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupHeaderImages()
         setupHeaderTag()
 
+    }
+
+    private val requestNotificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (!isGranted) {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun checkNotificationPermission() {
+        val permission = Manifest.permission.POST_NOTIFICATIONS
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // make your action here
+            }
+
+            shouldShowRequestPermissionRationale(permission) -> {
+                Toast.makeText(
+                    this,
+                    "You need to enable permission from your settings in order to receive notifications",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // permission denied permanently
+            }
+
+            else -> {
+                requestNotificationPermission.launch(permission)
+            }
+        }
     }
 
     private fun observeViewModels() {

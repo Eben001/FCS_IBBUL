@@ -87,15 +87,21 @@ class NotificationHelper {
             contentTitle: String,
             contentText: String,
             priority: Int = NotificationCompat.PRIORITY_MAX,
-            contentIntent:PendingIntent
+            contentIntent: PendingIntent
         ) {
             val notification =
-                INSTANCE.buildNotification(context, contentTitle, contentText, priority, contentIntent)
+                INSTANCE.buildNotification(
+                    context,
+                    contentTitle,
+                    contentText,
+                    priority,
+                    contentIntent
+                )
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            with(NotificationManagerCompat.from(context)) {
-                val currentId = INSTANCE.retrieveNotificationIdByTag(notificationTag)
-                notify(currentId, notification)
-            }
+            val currentId = INSTANCE.retrieveNotificationIdByTag(notificationTag)
+            notificationManager.notify(currentId, notification)
         }
 
         /**
@@ -134,6 +140,7 @@ class NotificationHelper {
         }
 
     }
+
     private fun buildNotification(
         context: Context,
         contentTitle: String,
@@ -152,7 +159,6 @@ class NotificationHelper {
         .setVibrate(longArrayOf(1000, 1000, 2000))
         .setAutoCancel(true)
         .build()
-
 
 
     private fun retrieveNotificationIdByTag(tag: String): Int {
