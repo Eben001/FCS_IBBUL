@@ -134,5 +134,9 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
     implementation 'org.bouncycastle:bcpkix-jdk15on:1.69'
 
+    //Konfetti
+    implementation 'nl.dionsegijn:konfetti-xml:2.0.3'
+
+
 
 }

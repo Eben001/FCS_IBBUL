@@ -288,6 +288,9 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.fyb ->{
+                navController.navigate(R.id.navigation_fyb)
+            }
             R.id.announcement -> {
                 if (navController.currentDestination?.id == R.id.navigation_announcement) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)

@@ -78,4 +78,9 @@
         android:name="com.fcsibbul.ui.dailyVerse.DailyBibleVerseFragment"
         android:label="Daily Bible Verse"
         tools:layout="@layout/fragment_daily_bible_verse" />
+    <fragment
+        android:id="@+id/navigation_fyb"
+        android:name="com.fcsibbul.ui.FYBFragment"
+        android:label="FYB"
+        tools:layout="@layout/fragment_f_y_b" />
 </navigation>
