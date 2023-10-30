@@ -1,6 +1,7 @@
 package com.fcsibbul.data.repository
 
 import com.fcsibbul.R
+import com.fcsibbul.data.models.FYBImage
 import com.fcsibbul.data.models.FeedbackData
 import com.fcsibbul.data.models.HeaderImage
 import com.fcsibbul.data.models.HeaderTag
@@ -223,6 +224,25 @@ class FcsRepository(
 
 
                 }
+            }
+    }
+
+    fun getFybImageUrlsFromFirestore(images: (MutableList<FYBImage>) -> Unit) {
+        firestore.collection(Constants.FYB_IMAGES)
+            .get()
+            .addOnSuccessListener { document ->
+                Timber.d("Document: $document")
+                val fybImages = mutableListOf<FYBImage>()
+
+                for(item in document){
+                    val fybImageItem = item.toObject(FYBImage::class.java)
+                    fybImages.add(fybImageItem)
+                }
+                images(fybImages)
+
+            }
+            .addOnFailureListener {
+                Timber.e("Error getting welcome images ${it.printStackTrace()}")
             }
     }
 

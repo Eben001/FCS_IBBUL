@@ -11,10 +11,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
+import com.fcsibbul.R
+import com.fcsibbul.data.network.ConnectivityObserver
+import com.fcsibbul.data.network.NetworkConnectivityObserver
 import com.fcsibbul.databinding.FragmentFYBBinding
 import com.fcsibbul.ui.baseFragment.BaseFragment
 import com.fcsibbul.utils.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import nl.dionsegijn.konfetti.core.Angle
 import nl.dionsegijn.konfetti.core.Party
@@ -23,7 +38,10 @@ import nl.dionsegijn.konfetti.core.Rotation
 import nl.dionsegijn.konfetti.core.Spread
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.Size
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 import kotlin.random.Random
 
 
@@ -31,8 +49,6 @@ class FYBFragment : BaseFragment(), SensorEventListener {
 
     override var bottomNavigationViewVisibility = View.GONE
     override var drawerState = Constants.DRAWER_STATE_LOCKED_CLOSED
-
-
     private val colors = arrayOf(
         Color.parseColor("#FFCDD2"), // Light Red
         Color.parseColor("#E1FFD5"), // Light Green
@@ -41,6 +57,16 @@ class FYBFragment : BaseFragment(), SensorEventListener {
         Color.parseColor("#F8BBD0"), // Light Magenta
         Color.parseColor("#FFF9C4")  // Light Yellow
     )
+    private val autoScrollCoroutineScope = CoroutineScope(Dispatchers.Main)
+    private var autoScrollJob: Job? = null
+    private var isAutoScrollPaused = false
+    private lateinit var fybImageAdapter: FybImageAdapter
+    private lateinit var skeleton: Skeleton // Declare the skeleton variable
+
+    private val viewModel: FYBViewModel by viewModel()
+    private val networkConnectivityObserver by inject<NetworkConnectivityObserver>()
+
+
     private lateinit var sensorManager: SensorManager
     private var accelSensor: Sensor? = null
     private var _binding: FragmentFYBBinding? = null
@@ -69,7 +95,6 @@ class FYBFragment : BaseFragment(), SensorEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sensorManager = requireContext().getSystemService<SensorManager>()!!
-
         accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         binding.konfettiView.start(festive())
@@ -90,6 +115,63 @@ class FYBFragment : BaseFragment(), SensorEventListener {
 
             }
         }
+        applySkeletonToViewPager2()
+        networkConnectivityObserver.observe().onEach { status ->
+            when (status) {
+                ConnectivityObserver.Status.Available -> getFybImageUrlsFromFirestore()
+                ConnectivityObserver.Status.Unavailable -> applySkeletonToViewPager2()
+                else -> {}
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+    }
+
+    private fun getFybImageUrlsFromFirestore() {
+        viewModel.getFybImageUrlsFromFirestore()
+        viewModel.fybImages.observe(viewLifecycleOwner) { welcomeScreenImages ->
+
+            fybImageAdapter = FybImageAdapter()
+            binding.viewPager.adapter = fybImageAdapter
+
+            val compositePageTransformer = CompositePageTransformer().apply {
+                addTransformer(MarginPageTransformer(40))
+                addTransformer { page, position ->
+                    val r = 1 - abs(position)
+                    page.scaleY = 0.85f + r * 0.15f
+                }
+            }
+            binding.viewPager.setPageTransformer(CubeInScalingTransformer())
+            binding.viewPager.clipToPadding = false
+            binding.viewPager.clipChildren = false
+            binding.viewPager.offscreenPageLimit = 3
+            binding.viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            fybImageAdapter.updateImages(welcomeScreenImages) // Update the adapter's image list
+
+            startAutoScroll() // Start auto scroll
+
+        }
+    }
+
+    private fun startAutoScroll() {
+        autoScrollJob?.cancel() // Cancel any existing auto scroll job
+        autoScrollJob = autoScrollCoroutineScope.launch {
+            while (isActive) {
+                if (!isAutoScrollPaused) {
+                    delay(9000)
+                    val currentItem = binding.viewPager.currentItem
+                    val nextItem = currentItem + 1
+                    binding.viewPager.setCurrentItem(nextItem, true)
+                } else {
+                    delay(1000)
+                }
+            }
+        }
+    }
+
+    private fun applySkeletonToViewPager2() {
+        skeleton = binding.viewPager.applySkeleton(R.layout.item_welcome_image)
+        skeleton.showSkeleton()
     }
 
     private fun generateRandomNumber(): Int {
@@ -192,12 +274,17 @@ class FYBFragment : BaseFragment(), SensorEventListener {
             this, accelSensor, 1000 * 1000
         )
     }
+
     override fun onPause() {
         sensorManager.unregisterListener(this)
         super.onPause()
     }
+
     override fun onDestroy() {
         super.onDestroy()
+        sensorManager.unregisterListener(this)
+        autoScrollJob?.cancel()
+        autoScrollCoroutineScope.cancel()
         _binding = null
     }
 

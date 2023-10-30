@@ -1,5 +1,6 @@
 package com.fcsibbul.di
 
+import com.fcsibbul.ui.FYBViewModel
 import com.fcsibbul.ui.admin.addExco.AddExcoViewModel
 import com.fcsibbul.ui.admin.dashboard.AdminDashboardViewModel
 import com.fcsibbul.ui.admin.postAnnouncement.PostAnnouncementViewModel
@@ -33,4 +34,5 @@ val appModule = module {
     viewModel {AdminDashboardViewModel(get()) }
     viewModel { AddExcoViewModel(get()) }
     viewModel { HostActivityLoggedInViewModel(get()) }
+    viewModel { FYBViewModel(get()) }
 }

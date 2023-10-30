@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import coil.load
 import com.fcsibbul.R
 import com.fcsibbul.data.models.Exco
@@ -14,14 +13,13 @@ import com.fcsibbul.ui.baseFragment.BaseFragment
 import com.fcsibbul.ui.excos.excosList.ExcosViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class ExcosDetailsFragment : BaseFragment() {
 
     private var _binding: FragmentExcosDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val navigationArgs: ExcosDetailsFragmentArgs by navArgs()
+    //private val navigationArgs: ExcosDetailsFragmentArgs by navArgs()
     private val viewModel: ExcosViewModel by viewModel()
 
     override fun onCreateView(
@@ -35,7 +33,7 @@ class ExcosDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind(navigationArgs.exco)
+        // bind(navigationArgs.exco)
         observeViewModels()
         setOnClickListeners()
 
@@ -43,11 +41,11 @@ class ExcosDetailsFragment : BaseFragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.parent.setOnLongClickListener {
+        /*binding.parent.setOnLongClickListener {
             showConfirmDeleteDialog(navigationArgs.exco)
             Timber.d(navigationArgs.exco.id)
             true
-        }
+        }*/
     }
 
     private fun showConfirmDeleteDialog(excos: Exco) {
@@ -74,9 +72,9 @@ class ExcosDetailsFragment : BaseFragment() {
         viewModel.isDeleteSuccess.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigateUp()
-                showSnackBar(requireView(),"Success", false)
+                showSnackBar(requireView(), "Success", false)
             } else {
-                showSnackBar(requireView(),"Success", false)
+                showSnackBar(requireView(), "Success", false)
             }
         }
     }

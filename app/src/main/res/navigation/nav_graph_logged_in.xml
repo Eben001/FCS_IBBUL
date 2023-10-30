@@ -81,6 +81,6 @@
     <fragment
         android:id="@+id/navigation_fyb"
         android:name="com.fcsibbul.ui.FYBFragment"
-        android:label="FYB"
+        android:label="Face of the FYB"
         tools:layout="@layout/fragment_f_y_b" />
 </navigation>
