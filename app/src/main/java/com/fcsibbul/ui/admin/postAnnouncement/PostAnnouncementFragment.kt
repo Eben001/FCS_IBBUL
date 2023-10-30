@@ -56,9 +56,9 @@ class PostAnnouncementFragment : BaseFragment() {
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isPostSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), isError = false)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = false)
             } else {
-                showSnackBar(it.asString(requireContext()), isError = true)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = true)
             }
         }
     }
@@ -87,7 +87,7 @@ class PostAnnouncementFragment : BaseFragment() {
                         }
                     },
                     onNoInternet = {
-                        showSnackBar(
+                        showSnackBar(requireView(),
                             resources.getString(R.string.msg_connect_to_the_internet),
                             isError = true
                         )
@@ -123,14 +123,14 @@ class PostAnnouncementFragment : BaseFragment() {
     private fun isValidDetails(): Boolean {
         return when {
             binding.etTitle.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_title),
                     isError = true
                 )
                 false
             }
             binding.etDetails.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_details),
                     isError = true
                 )

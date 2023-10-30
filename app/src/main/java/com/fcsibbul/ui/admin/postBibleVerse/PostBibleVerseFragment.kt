@@ -50,9 +50,9 @@ class PostBibleVerseFragment : BaseFragment() {
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isPostSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), isError = false)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = false)
             } else {
-                showSnackBar(it.asString(requireContext()), isError = true)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = true)
             }
         }
     }
@@ -68,7 +68,7 @@ class PostBibleVerseFragment : BaseFragment() {
                 },
                 onNoInternet = {
                     hideKeyboard()
-                    showSnackBar(
+                    showSnackBar(requireView(),
                         resources.getString(R.string.msg_connect_to_the_internet),
                         isError = true
                     )

@@ -120,9 +120,9 @@ class SignUpFragment : BaseFragment() {
 
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isSignupSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), false)
+                showSnackBar(requireView(),it.asString(requireContext()), false)
             } else {
-                showSnackBar(it.asString(requireContext()), true)
+                showSnackBar(requireView(),it.asString(requireContext()), true)
             }
 
         }

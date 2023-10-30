@@ -68,86 +68,85 @@ class AnnouncementDetailsFragment : BaseFragment() {
     }
 
     private fun setOnClickListeners(announcement: Announcement) {
+
         navigationArgs.announcement.announcementId?.let {
             viewModel.checkDocumentExists(it){ exists ->
-                if(exists){
-                    binding.deleteImage.setOnClickListener {
-                        /**
-                         * Performs a network check
-                         * @param action the action to perform when there is internet connection
-                         * @param onNoInternet shows a no internet dialog
-                         */
-                        networkStatusChecker.performIfConnectedToInternetOrNot(
-                            action = {
-                                // is the user is an admin
+                if(!exists){
+                    // when the announcement doesn't exist
+                    showSnackBar(requireView(),"This announcement Doesn't exist", true)
+                    sharedViewModel.setAnnouncementDeleted(true)
+                    findNavController().navigateUp()
+                }
+            }
+        }
+        binding.deleteImage.setOnClickListener {
+            /**
+             * Performs a network check
+             * @param action the action to perform when there is internet connection
+             * @param onNoInternet shows a no internet dialog
+             */
+            networkStatusChecker.performIfConnectedToInternetOrNot(
+                action = {
+                    // is the user is an admin
 
-                                if (viewModel.isAdmin.value == true) {
-                                    showConfirmDeleteDialog(announcement)
-                                    viewModel.result.observe(viewLifecycleOwner) {
-                                        if (viewModel.isDeleteSuccess.value == true) {
-                                            showSnackBar(it.asString(requireContext()), isError = false)
-                                            findNavController().navigateUp()
-                                        } else {
-                                            showSnackBar(it.asString(requireContext()), isError = true)
-                                            findNavController().navigateUp()
-                                        }
-                                    }
-
-                                } else {
-                                    showSnackBar(
-                                        resources.getString(R.string.text_unauthorized_action),
-                                        isError = true
-                                    )
-                                }
-                            },
-                            onNoInternet = {
-                                showSnackBar(
-                                    resources.getString(R.string.msg_connect_to_the_internet_to_delete),
-                                    isError = true
-                                )
-                            })
-
-                    }
-                    binding.likeImage.setOnClickListener {
-                        // Check if the like/unlike operation is in progress
-                        if (viewModel.isLikingOrUnliking.value != true) {
-                            // Disable the like button to prevent rapid clicking
-                            binding.likeImage.isEnabled = false
-
-                            viewModel.likeOrUnlikeAnnouncement(
-                                viewModel.updatedLikeCount.value!!,
-                                viewModel.updatedLikedUsers.value!!,
-                                announcement.announcementId!!
-                            )
-
-                            // Observe the isLikingOrUnliking LiveData to enable the button when the operation is completed
-                            viewModel.isLikingOrUnliking.observe(viewLifecycleOwner) { isLikingOrUnliking ->
-                                if (!isLikingOrUnliking) {
-                                    binding.likeImage.isEnabled = true
-                                }
+                    if (viewModel.isAdmin.value == true) {
+                        showConfirmDeleteDialog(announcement)
+                        viewModel.result.observe(viewLifecycleOwner) {
+                            if (viewModel.isDeleteSuccess.value == true) {
+                                showSnackBar(requireView(),it.asString(requireContext()), isError = false)
+                                findNavController().navigateUp()
+                            } else {
+                                showSnackBar(requireView(),it.asString(requireContext()), isError = true)
+                                findNavController().navigateUp()
                             }
                         }
 
-
+                    } else {
+                        showSnackBar(requireView(),
+                            resources.getString(R.string.text_unauthorized_action),
+                            isError = true
+                        )
                     }
-                    binding.share.setOnClickListener {
-                        Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(
-                                Intent.EXTRA_TEXT,
-                                "${announcement.title} \n\n ${announcement.details} \n${announcement.date}"
-                            )
-                            type = "text/plain"
-                        }.run { startActivity(Intent.createChooser(this, null)) }
-                    }
-                }else{
-                    // when the announcement doesn't exist
-                    showSnackBar("This announcement Doesn't exist", true)
-                    sharedViewModel.setAnnouncementDeleted(true)
-                    findNavController().navigateUp()
+                },
+                onNoInternet = {
+                    showSnackBar(requireView(),
+                        resources.getString(R.string.msg_connect_to_the_internet_to_delete),
+                        isError = true
+                    )
+                })
 
+        }
+        binding.likeImage.setOnClickListener {
+            // Check if the like/unlike operation is in progress
+            if (viewModel.isLikingOrUnliking.value != true) {
+                // Disable the like button to prevent rapid clicking
+                binding.likeImage.isEnabled = false
+
+                viewModel.likeOrUnlikeAnnouncement(
+                    viewModel.updatedLikeCount.value!!,
+                    viewModel.updatedLikedUsers.value!!,
+                    announcement.announcementId!!
+                )
+
+                // Observe the isLikingOrUnliking LiveData to enable the button when the operation is completed
+                viewModel.isLikingOrUnliking.observe(viewLifecycleOwner) { isLikingOrUnliking ->
+                    if (!isLikingOrUnliking) {
+                        binding.likeImage.isEnabled = true
+                    }
                 }
             }
+
+
+        }
+        binding.share.setOnClickListener {
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "${announcement.title} \n\n ${announcement.details} \n${announcement.date}"
+                )
+                type = "text/plain"
+            }.run { startActivity(Intent.createChooser(this, null)) }
         }
 
     }

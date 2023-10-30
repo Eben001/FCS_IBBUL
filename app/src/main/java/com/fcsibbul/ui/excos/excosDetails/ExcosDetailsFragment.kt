@@ -74,9 +74,9 @@ class ExcosDetailsFragment : BaseFragment() {
         viewModel.isDeleteSuccess.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigateUp()
-                showSnackBar("Success", false)
+                showSnackBar(requireView(),"Success", false)
             } else {
-                showSnackBar("Success", false)
+                showSnackBar(requireView(),"Success", false)
             }
         }
     }

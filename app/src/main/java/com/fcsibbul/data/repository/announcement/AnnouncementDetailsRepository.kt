@@ -116,8 +116,9 @@ class AnnouncementDetailsRepository(private val firestore: FirebaseFirestore) {
                 }
                 if (value != null) {
                     val document = value.toObject(User::class.java)
-                    user(document!!)
-
+                    document?.let {
+                        user(it)
+                    }
                 }
 
             }

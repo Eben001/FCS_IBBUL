@@ -81,11 +81,11 @@ class LoginFragment : BaseFragment() {
     private fun isFieldNotEmpty(): Boolean {
         return when {
             binding.etEmail.text.toString().trim().isEmpty() -> {
-                showSnackBar("Please enter your email", isError = true)
+                showSnackBar(requireView(),"Please enter your email", isError = true)
                 false
             }
             binding.etPassword.text.toString().trim().isEmpty() -> {
-                showSnackBar("Please enter your password", isError = true)
+                showSnackBar(requireView(),"Please enter your password", isError = true)
                 false
             }
 
@@ -127,9 +127,9 @@ class LoginFragment : BaseFragment() {
         }
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isPostSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), isError = false)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = false)
             } else {
-                showSnackBar(it.asString(requireContext()), isError = true)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = true)
             }
         }
     }

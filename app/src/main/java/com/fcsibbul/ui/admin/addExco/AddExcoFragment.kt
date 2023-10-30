@@ -59,12 +59,12 @@ class AddExcoFragment : BaseFragment() {
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isPostSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), isError = false)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = false)
                 clearInputFields()
                 binding.addExco.isEnabled = true
 
             } else {
-                showSnackBar(it.asString(requireContext()), isError = true)
+                showSnackBar(requireView(),it.asString(requireContext()), isError = true)
             }
         }
 
@@ -180,7 +180,7 @@ class AddExcoFragment : BaseFragment() {
             binding.addExco.isEnabled = false
 
         } else {
-            showSnackBar(resources.getString(R.string.please_upload_an_image), isError = true)
+            showSnackBar(requireView(),resources.getString(R.string.please_upload_an_image), isError = true)
         }
     }
 
@@ -198,14 +198,14 @@ class AddExcoFragment : BaseFragment() {
     private fun isValidDetails(): Boolean {
         return when {
             binding.etFirstName.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_first_name),
                     isError = true
                 )
                 false
             }
             binding.etLastName.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_last_name),
                     isError = true
                 )
@@ -213,7 +213,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
             binding.etPhone.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_phone),
                     isError = true
                 )
@@ -221,7 +221,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
             binding.etOffice.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_office),
                     isError = true
                 )
@@ -229,7 +229,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
             binding.etDepartment.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_department),
                     isError = true
                 )
@@ -237,7 +237,7 @@ class AddExcoFragment : BaseFragment() {
             }
 
             binding.etLevel.text.toString().trim().isEmpty() -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.err_msg_enter_level),
                     isError = true
                 )
@@ -256,7 +256,7 @@ class AddExcoFragment : BaseFragment() {
                 true
             }
             else -> {
-                showSnackBar(
+                showSnackBar(requireView(),
                     resources.getString(R.string.enter_valid_level),
                     isError = true
                 )

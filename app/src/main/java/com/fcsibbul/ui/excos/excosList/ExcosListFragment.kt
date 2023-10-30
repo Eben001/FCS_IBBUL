@@ -114,10 +114,10 @@ class ExcosListFragment : BaseFragment() {
     private fun observeViewModels() {
         viewModel.result.observe(viewLifecycleOwner) {
             if (viewModel.isDeleteSuccess.value == true) {
-                showSnackBar(it.asString(requireContext()), false)
+                showSnackBar(requireView(),it.asString(requireContext()), false)
                 refreshList()
             } else {
-                showSnackBar(it.asString(requireContext()), true)
+                showSnackBar(requireView(),it.asString(requireContext()), true)
             }
         }
 
