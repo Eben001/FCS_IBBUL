@@ -53,6 +53,7 @@ import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.activityScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
+import timber.log.Timber
 
 
 class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -89,7 +90,12 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
         setupNavController()
         setupHeaderImages()
         setupHeaderTag()
+        setFYBConfiguration()
 
+    }
+
+    private fun setFYBConfiguration() {
+        viewModel.getFybScreenSettings()
     }
 
     private val requestNotificationPermission =
@@ -133,6 +139,18 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
                 navHeaderBinding.headerPictureTag.visibility = View.VISIBLE
                 navHeaderBinding.headerPictureTag.text = headerTag.text
             }
+        }
+
+        viewModel.fybScreenSettings.observe(this) { fybSettings ->
+            Timber.d("Fyb Screen Settings: :$fybSettings")
+            when (fybSettings.drawerItemVisible) {
+                0 -> binding.navView.menu.findItem(R.id.fyb)?.isVisible = false
+                1 -> binding.navView.menu.findItem(R.id.fyb)?.isVisible = true
+                else -> binding.navView.menu.findItem(R.id.fyb)?.isVisible = false
+            }
+
+            binding.navView.menu.findItem(R.id.fyb)?.title = fybSettings.drawerItemTitle
+
         }
     }
 
@@ -288,9 +306,10 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.fyb ->{
+            R.id.fyb -> {
                 navController.navigate(R.id.navigation_fyb)
             }
+
             R.id.announcement -> {
                 if (navController.currentDestination?.id == R.id.navigation_announcement) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)

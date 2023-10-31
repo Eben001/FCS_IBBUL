@@ -2,6 +2,7 @@ package com.fcsibbul.data.repository
 
 import com.fcsibbul.R
 import com.fcsibbul.data.models.FYBImage
+import com.fcsibbul.data.models.FYBScreenSettings
 import com.fcsibbul.data.models.FeedbackData
 import com.fcsibbul.data.models.HeaderImage
 import com.fcsibbul.data.models.HeaderTag
@@ -23,10 +24,15 @@ class FcsRepository(
     private val firestore: FirebaseFirestore
 ) {
 
-    suspend fun sendFeedback(feedbackData: FeedbackData, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+    suspend fun sendFeedback(
+        feedbackData: FeedbackData,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
         try {
 
-            firestore.collection(Constants.FEEDBACKS).add(FeedbackData(userId =getCurrentUserId(), feedbackData.feedbackText)).await()
+            firestore.collection(Constants.FEEDBACKS)
+                .add(FeedbackData(userId = getCurrentUserId(), feedbackData.feedbackText)).await()
             onSuccess()
         } catch (e: Exception) {
             e.message?.let { onFailure(it) }
@@ -178,7 +184,7 @@ class FcsRepository(
             .addOnSuccessListener { document ->
                 val welcomeImages = mutableListOf<WelcomeScreenImage>()
 
-                for(item in document){
+                for (item in document) {
                     val welcomeImageItem = item.toObject(WelcomeScreenImage::class.java)
                     welcomeImages.add(welcomeImageItem)
                 }
@@ -196,7 +202,7 @@ class FcsRepository(
             .addOnSuccessListener { document ->
                 val headerImages = mutableListOf<HeaderImage>()
 
-                for(item in document){
+                for (item in document) {
                     val headerImageItem = item.toObject(HeaderImage::class.java)
                     headerImages.add(headerImageItem)
                 }
@@ -213,7 +219,7 @@ class FcsRepository(
             .document(Constants.NAV_HEADER_IMAGE_TAG)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Timber.d( "getHeaderTag: Listen Failed", error)
+                    Timber.d("getHeaderTag: Listen Failed", error)
                     return@addSnapshotListener
                 }
                 if (value != null) {
@@ -234,7 +240,7 @@ class FcsRepository(
                 Timber.d("Document: $document")
                 val fybImages = mutableListOf<FYBImage>()
 
-                for(item in document){
+                for (item in document) {
                     val fybImageItem = item.toObject(FYBImage::class.java)
                     fybImages.add(fybImageItem)
                 }
@@ -243,6 +249,26 @@ class FcsRepository(
             }
             .addOnFailureListener {
                 Timber.e("Error getting welcome images ${it.printStackTrace()}")
+            }
+    }
+
+    fun getFybScreenSettings(fybScreenSettings: (FYBScreenSettings) -> Unit) {
+        firestore.collection(Constants.FYB_SETTINGS)
+            .document(Constants.FYB_SETTINGS)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Timber.e("getDrawerTitle: Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val document = value.toObject(FYBScreenSettings::class.java)
+                    if (document != null) {
+                        Timber.d("Title: ${document}")
+                        fybScreenSettings(document)
+                    }
+
+                }
             }
     }
 

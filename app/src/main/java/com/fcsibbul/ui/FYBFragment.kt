@@ -9,11 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.fcsibbul.R
@@ -41,7 +40,6 @@ import nl.dionsegijn.konfetti.core.models.Size
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 import kotlin.random.Random
 
 
@@ -94,6 +92,13 @@ class FYBFragment : BaseFragment(), SensorEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getFybSettings()
+
+        viewModel.fybSettings.observe(viewLifecycleOwner) { fybSettings ->
+            (requireActivity() as AppCompatActivity).supportActionBar?.title =
+                fybSettings.screenTitle
+
+        }
         sensorManager = requireContext().getSystemService<SensorManager>()!!
         accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
@@ -133,13 +138,13 @@ class FYBFragment : BaseFragment(), SensorEventListener {
             fybImageAdapter = FybImageAdapter()
             binding.viewPager.adapter = fybImageAdapter
 
-            val compositePageTransformer = CompositePageTransformer().apply {
+           /* val compositePageTransformer = CompositePageTransformer().apply {
                 addTransformer(MarginPageTransformer(40))
                 addTransformer { page, position ->
                     val r = 1 - abs(position)
                     page.scaleY = 0.85f + r * 0.15f
                 }
-            }
+            }*/
             binding.viewPager.setPageTransformer(CubeInScalingTransformer())
             binding.viewPager.clipToPadding = false
             binding.viewPager.clipChildren = false
