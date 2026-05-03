@@ -29,8 +29,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.fcsibbul.R
+import com.fcsibbul.core.Bars.setStatusBarColor
 import com.fcsibbul.core.Bars.updateNavbarColour
-import com.fcsibbul.core.setDarkStatusIcons
+import com.fcsibbul.core.Bars.inDarkMode
 import com.fcsibbul.data.models.HeaderImage
 import com.fcsibbul.data.notification.DailyBibleVerseWorker
 import com.fcsibbul.databinding.ActivityHostLoggedInBinding
@@ -270,12 +271,13 @@ class HostActivityLoggedIn : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     private fun setupWindowAndAccent() {
-        window.apply {
-            statusBarColor = Color.TRANSPARENT
-            updateNavbarColour()
-            setDarkStatusIcons()
-        }
         setAccentColour(Prefs(this).Settings().accent)
+        val isDarkMode = inDarkMode(this)
+        window.apply {
+            val statusBarCol = if (isDarkMode) Color.BLACK else Color.WHITE
+            setStatusBarColor(statusBarCol, !isDarkMode)
+            updateNavbarColour()
+        }
     }
 
     private fun startAutoScroll() {

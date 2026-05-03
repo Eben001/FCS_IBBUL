@@ -22,8 +22,8 @@ import com.fcsibbul.ui.common.Prefs
 import com.fcsibbul.ui.host.HostActivityLoggedIn
 import com.fcsibbul.ui.host.HostActivityLoggedOut
 import com.fcsibbul.utils.Constants.DRAWER_STATE_LOCKED_CLOSED
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.maxkeppeler.sheets.color.ColorSheet
 import com.maxkeppeler.sheets.color.ColorView
 import com.maxkeppeler.sheets.core.SheetStyle

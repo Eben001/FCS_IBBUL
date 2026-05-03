@@ -37,6 +37,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import kotlin.math.abs
 
 class SignUpFragment : BaseFragment() {
@@ -187,10 +188,15 @@ class SignUpFragment : BaseFragment() {
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                viewModel.handleSigningTask(task)
+            Timber.d("Sign in result code: ${result.resultCode}")
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(com.google.android.gms.common.api.ApiException::class.java)
+                Timber.d("Sign in successful: ${account.email}")
+            } catch (e: com.google.android.gms.common.api.ApiException) {
+                Timber.e("Sign in failed. Code: ${e.statusCode}, Message: ${e.message}")
             }
+            viewModel.handleSigningTask(task)
         }
 
     override fun onResume() {

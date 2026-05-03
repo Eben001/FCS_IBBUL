@@ -1,38 +1,35 @@
 package com.fcsibbul.core
 
 import android.content.Context
-import android.content.res.Configuration
-import android.os.Build
-import android.view.View
+import android.graphics.Color
 import android.view.Window
-import android.view.WindowInsetsController
-import androidx.core.content.ContextCompat.getColor
-import com.fcsibbul.R
+import androidx.core.view.WindowInsetsControllerCompat
 
 object Bars {
 
+    /**
+     * Sets the status bar color and the icon mode.
+     * @param color The color to set the status bar to.
+     * @param darkIcons True if icons should be dark (for light backgrounds), false for light icons.
+     */
+    fun Window.setStatusBarColor(color: Int, darkIcons: Boolean) {
+        this.statusBarColor = color
+        WindowInsetsControllerCompat(this, this.decorView).isAppearanceLightStatusBars = darkIcons
+    }
+
     fun Window.updateNavbarColour(ctx: Context = this.context) {
-        if(!inDarkMode(ctx)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                this.decorView.windowInsetsController?.setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, // value
-                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS // mask
-                )
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                this.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            }
-            this.navigationBarColor = getColor(ctx, R.color.navbar)
+        val isDark = inDarkMode(ctx)
+        this.navigationBarColor = if (isDark) {
+            Color.BLACK
+        } else {
+            Color.parseColor("#F5F5F5")
         }
+        WindowInsetsControllerCompat(this, this.decorView).isAppearanceLightNavigationBars = !isDark
     }
 
-    private fun inDarkMode(context: Context): Boolean {
-        context.resources.configuration.also {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                it.isNightModeActive
-            } else {
-                it.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-            }
-        }
+    fun inDarkMode(context: Context): Boolean {
+        return (context.resources.configuration.uiMode and 
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
+                android.content.res.Configuration.UI_MODE_NIGHT_YES
     }
-
 }

@@ -38,6 +38,14 @@
           }
         },
         {
+          "client_id": "490313481243-tfa9nk4q679e35ltags8kut6s9a9q8ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fcsibbul",
+            "certificate_hash": "c30974f5dbb465206f5a2988497728933dca01b6"
+          }
+        },
+        {
           "client_id": "490313481243-mdlak0tr9jc44b782afrn4o1e5fgqtqk.apps.googleusercontent.com",
           "client_type": 3
         }

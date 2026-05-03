@@ -22,8 +22,8 @@ import com.fcsibbul.databinding.AnnouncementlistFragmentBinding
 import com.fcsibbul.ui.announcement.shared.SharedViewModel
 import com.fcsibbul.ui.baseFragment.BaseFragment
 import com.faltenreich.skeletonlayout.Skeleton
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

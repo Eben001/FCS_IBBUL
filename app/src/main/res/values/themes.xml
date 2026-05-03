@@ -3,18 +3,25 @@
     <style name="Theme.FCSIBBUL" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Status bar color. Default for Logged In -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
 
         <item name="textInputStyle">@style/Widget.FCSIBBUL.TextInputLayout.OutlinedBox</item>
+    </style>
 
+    <!-- Theme for Logged Out Activity (Green Status Bar) -->
+    <style name="Theme.FCSIBBUL.LoggedOut" parent="Theme.FCSIBBUL">
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="android:statusBarColor">@color/primaryDarkColor</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="AppTheme.Blue" parent="Theme.FCSIBBUL">
@@ -72,12 +79,4 @@
         <item name="colorAccent">@color/crimsonAccent</item>
         <item name="colorPrimary">@color/crimsonAccent</item>
     </style>
-
-
-
-
-
-
-
-
 </resources>
